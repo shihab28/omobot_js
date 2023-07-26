@@ -1,0 +1,1 @@
+sudo git clone https://github.com/leonhartyao/gazebo_models_worlds_collection.git /usr/share/gazebo-9/gazebo_models_worlds_collection
