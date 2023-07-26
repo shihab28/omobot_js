@@ -1,0 +1,28 @@
+wheel_radius: .0395
+wheel_thickness: .0373
+wheel_center_x: .0825
+wheel_center_y: .1185
+lidar_cordinates: [.108, 0, .140]
+imu_cordinates: [0, 0, .095]
+camera_cordinates: [.108, 0, .154]
+
+pulse_per_second_positive: [ 5100,  5125,  5325,  5185]
+pulse_per_second_negative: [-5065, -5230, -5175, -5270]
+motor_max_rpm: 36
+motor_max_rpm: 10
+rad_per_second_positive: [ 5100,  5125,  5325,  5185]
+rad_per_second_negative: [-5065, -5230, -5175, -5270]
+
+encoder_serial_port: /dev/arduinoEnc
+motor_serial_port: /dev/arduinoMot
+encoder_baud_rate: 115200
+motor_baud_rate: 115200
+
+robot_circular_body_radius: .274
+robot_collision_clearance: .066
+
+lidar_detection_range_min: .02
+lidar_detection_range_max: 12
+lidar_measuring_frequency_max: 4500
+lidar_scanning_frequency: 10
+lidar_baud_rate: 230400

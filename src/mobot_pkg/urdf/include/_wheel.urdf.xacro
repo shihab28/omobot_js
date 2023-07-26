@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot_name">
+
+    <!-- Wheel Configuration -->
+    <xacro:macro name="wheel" params="name_ parent_ rad_ len_ x_ y_ mat_ mesh">
+        <link name="wheel_${name_}_link">
+            <visual>
+                <origin xyz="-0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${mesh}"/>
+                    <!-- <cylinder radius="${rad}" length="${leng}"/> -->
+                </geometry>
+                <material name="${mat_}"/>
+            </visual>
+            <collision>
+                <origin xyz="-0 0 0" rpy="1.5708 0 0"/>
+                <geometry>
+                    <!-- <mesh filename="${mesh}"/> -->
+                    <cylinder radius="${rad_}" length="${len_}"/>
+                    <!-- <mesh filename="package://mobot_pkg/meshes/wheel.dae"/> -->
+                    <!-- <cylinder radius="${rad}" length="${leng}"/> -->
+                </geometry>
+            </collision>
+            <xacro:inertial_cylinder mass=".1" rad="${rad_}" hgt="${len_}">
+                <origin xyz="-0 0 0" rpy="0 0 0"/>
+            </xacro:inertial_cylinder>
+        </link>
+
+        <gazebo reference="wheel_${name_}_link">
+            <material>Gazebo/Green</material>
+        </gazebo>
+
+        <joint name="wheel_${name_}_joint" type="continuous">
+            <parent link="${parent_}"/>
+            <child link="wheel_${name_}_link"/>
+            <axis xyz="0 1.0 0"/>
+            <origin xyz="${x_} ${y_} 0" rpy="0 0 0"/>
+            <limit effort="100" velocity="10"/>
+            <joint_properties damping="0.0" friction="0.0"/>
+        </joint>
+
+
+        <!-- Wheel transmission -->
+
+        <transmission name="wheel_${name_}_joint_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <actuator name="wheel_${name_}_motor">
+                <mechanicalReduction>1.0</mechanicalReduction>
+            </actuator>
+            <joint name="wheel_${name_}_joint">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+                <hardwareInterface>hardware_interface/JointStateInterface</hardwareInterface>
+            </joint>
+        </transmission>
+
+
+        <!-- Contact model for the wheel surface -->
+        <!-- <gazebo reference="wheel_${name_}_link">
+            <kp>1000000.0</kp>
+            <kd>1000.0</kd>
+            <mu1>0.0</mu1>
+            <mu2>0.0</mu2>
+            <fdir1>1 0 0</fdir1>
+            <maxVel>1.0</maxVel>
+            <minDepth>0.00</minDepth>
+            <implicitSpringDamper>1</implicitSpringDamper>
+            <turnGravityOff>false</turnGravityOff>
+        </gazebo> -->
+
+        <gazebo reference="wheel_${name_}_link">
+            <kp>1000000.0</kp>
+            <kd>1000.0</kd>
+            <mu1>0.0</mu1>
+            <mu2>0.0</mu2>
+            <fdir1>1 0 0</fdir1>
+            <maxVel>1.0</maxVel>
+            <minDepth>0.00</minDepth>
+            <implicitSpringDamper>1</implicitSpringDamper>
+            <!-- <material>Gazebo/DarkGrey</material> -->
+        </gazebo>
+
+    </xacro:macro>
+
+
+
+</robot>
