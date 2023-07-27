@@ -14,7 +14,7 @@ L  = .1185
 W  = .0825
 SL = (L*L+W*W)**.5
 LS = 1/SL
-r  = .0395
+r  = .0398
 R  = 2*3.14159*r
 
 
@@ -27,6 +27,8 @@ encoder_node = "encoder_node"
 def publishOdomData(odom_pub, Vx, Vy, W0, cur_robot_position):
 
 	odom_quat = transformations.quaternion_from_euler(0, 0, cur_robot_position[2])
+	# odom_quat = [0, 0, cur_robot_position[2], 1.0]
+	# print(odom_quat)
 	odom_broadcaster = TransformBroadcaster()
 	cur_time = rospy.Time.now()
 	odom_broadcaster.sendTransform(
@@ -42,7 +44,7 @@ def publishOdomData(odom_pub, Vx, Vy, W0, cur_robot_position):
 	odom.header.frame_id = "odom"
 
 	# set the position
-	odom.pose.pose = Pose(Point(cur_robot_position[0], cur_robot_position[1], 0.), Quaternion(*odom_quat))
+	# odom.pose.pose = Pose(Point(cur_robot_position[0], cur_robot_position[1], 0.), Quaternion(*odom_quat))
 
 	# set the velocity
 	odom.child_frame_id = "base_footprint"
@@ -60,7 +62,7 @@ def signal_handler(sig, frame):
 def encoderFeedbackCB(datas, queue):
 	ppsp= [ 5100,  5125,  5185, 5325]
 	ppsn= [5065, 5230, 5270, 5175]
-	W_speed = [(int(vals)*3.7699/ppsp[ind]) if int(vals) > 0 else (int(vals)*3.7699/ppsn[ind]) for ind, vals in enumerate(datas.data.strip().split(","))]
+	W_speed = [round(int(vals)*3.7699/ppsp[ind], 5) if int(vals) > 0 else round(int(vals)*3.7699/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
 	queue.put(W_speed)
 	# if (W_speed != [0, 0, 0, 0]):
 	# 	print(W_speed)
@@ -72,9 +74,9 @@ def encoderFeedbackThread(queue):
 	rospy.spin()
 
 def angularToCmdVel(W):
-	Vx = (W[0] + W[1] + W[2] + W[3]) * r / 4
-	Vy = (-W[0] + W[1] + W[2] - W[3]) * r / 4
-	W0 = (-W[0]*LS + W[1]*LS - W[2]*LS + W[3]*LS) * r / 4
+	Vx = round((W[0] + W[1] + W[2] + W[3]) * r / 4, 4)
+	Vy = round((-W[0] + W[1] + W[2] - W[3]) * r / 4, 4)
+	W0 = round((-W[0]*LS + W[1]*LS - W[2]*LS + W[3]*LS) * r / 4, 4)
 
 	return Vx, Vy, W0
 
@@ -86,14 +88,13 @@ def get_cur_robot_pos(Vx, Vy, W0, cur_pos):
 	prevTimePos = curTime
 
 	dW = W0 * dT
-	W0 = cur_pos[2] + dW
 
 	dx = (Vx * cos(W0) - Vy * sin(W0)) * dT
 	dy = (Vx * sin(W0) + Vy * cos(W0)) * dT
 	
 	# if dx!= 0.0 or dy!=0.0 or dW!=0.0:
 	# 	print([dx, dy, dW], dT)
-	return [cur_pos[0]+dx, cur_pos[1]+dy, W0]
+	return [cur_pos[0]+dx, cur_pos[1]+dy, cur_pos[2] + dW]
 
 def get_cur_wheel_pos(W, cur_pos):
 	global prevTimeWhl
@@ -141,7 +142,8 @@ def robotOdomPublisher(queue):
 		cur_wheel_pos = get_cur_wheel_pos(curW, cur_wheel_pos)
 		publishJointData(joint_pub, cur_wheel_pos)
 		if (curW != [0, 0, 0, 0]):
-			print(rospy.Time.now().to_sec(), curW)
+			# print(rospy.Time.now().to_sec(), [Vx, Vy, W0])
+			print([Vx, Vy, W0], curW)
 		rate.sleep()
 
 

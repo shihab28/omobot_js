@@ -31,7 +31,7 @@ class OmobotMovementClass():
 		self.W  = .0825
 		self.SL = (self.L*self.L+self.W*self.W)**.5
 		self.LS = 1/self.SL
-		self.r  = .0395
+		self.r  = .0398
 		self.R  = 2*3.14159*self.r
 		self.Vx = 0
 		self.Vy = 0

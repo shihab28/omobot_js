@@ -6,18 +6,11 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /Grid1
         - /TF1
         - /TF1/Frames1
+        - /TF1/Frames1/base_footprint1
         - /RobotModel1/Links1
-        - /RobotModel1/Links1/base_link1
-        - /RobotModel1/Links1/battery_link1
-        - /RobotModel1/Links1/camera1_link1
-        - /RobotModel1/Links1/jetson_link1
-        - /RobotModel1/Links1/lidar1_link1
-        - /RobotModel1/Links1/wheel_lb_link1
-        - /RobotModel1/Links1/wheel_lf_link1
-        - /RobotModel1/Links1/wheel_rb_link1
-        - /RobotModel1/Links1/wheel_rf_link1
         - /Image1
       Splitter Ratio: 0.5470588207244873
     Tree Height: 802
@@ -49,8 +42,8 @@ Toolbars:
 Visualization Manager:
   Class: ""
   Displays:
-    - Alpha: 0.4000000059604645
-      Cell Size: 0.10000000149011612
+    - Alpha: 0.800000011920929
+      Cell Size: 0.009999999776482582
       Class: rviz/Grid
       Color: 160; 160; 164
       Enabled: true
@@ -77,27 +70,27 @@ Visualization Manager:
         base_footprint:
           Value: true
         base_link:
-          Value: true
+          Value: false
         battery_link:
           Value: false
         camera1_link:
           Value: false
         imu1_link:
-          Value: true
+          Value: false
         jetson_link:
           Value: false
         lidar1_link:
-          Value: true
+          Value: false
         odom:
           Value: true
         wheel_lb_link:
-          Value: true
+          Value: false
         wheel_lf_link:
-          Value: true
+          Value: false
         wheel_rb_link:
-          Value: true
+          Value: false
         wheel_rf_link:
-          Value: true
+          Value: false
       Marker Scale: 0.20000000298023224
       Name: TF
       Show Arrows: true
@@ -130,72 +123,18 @@ Visualization Manager:
     - Alpha: 0.699999988079071
       Class: rviz/RobotModel
       Collision Enabled: true
-      Enabled: true
+      Enabled: false
       Links:
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: true
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_footprint:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        battery_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera1_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        imu1_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        jetson_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        lidar1_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_lb_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_lf_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_rb_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wheel_rf_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
       Update Interval: 0
-      Value: true
+      Value: false
       Visual Enabled: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
@@ -250,12 +189,12 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz_plugin_tutorials/Imu
       Color: 204; 51; 204
-      Enabled: true
+      Enabled: false
       History Length: 1
       Name: Imu
       Topic: /imu/raw
       Unreliable: false
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 238; 238; 236
@@ -283,26 +222,26 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz/Orbit
-      Distance: 2.4843311309814453
+      Class: rviz/XYOrbit
+      Distance: 0.4638822376728058
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.7788920998573303
-        Y: 0.6947439908981323
-        Z: 1.172055721282959
+        X: 0.0697922557592392
+        Y: 0.0678328201174736
+        Z: 2.164528041248559e-7
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.3047976791858673
+      Pitch: 1.3197965621948242
       Target Frame: <Fixed Frame>
-      Value: Orbit (rviz)
-      Yaw: 1.0549957752227783
+      Value: XYOrbit (rviz)
+      Yaw: 0.7953981757164001
     Saved:
       - Angle: -1.569999098777771
         Class: rviz/TopDownOrtho

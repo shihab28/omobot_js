@@ -15,7 +15,7 @@ L  = .1185
 W  = .0825
 SL = (L*L+W*W)**.5
 LS = 1/SL
-r  = .0395
+r  = .0398
 R  = 2*3.14159*r
 
 
@@ -66,7 +66,8 @@ max_wheel_speed_neg = [vals*2*3.1416/60 for vals in max_wheel_rpm_neg]
 def encoderFeedbackCB(datas, queue):
 	ppsp= [ 5100,  5125,  5185, 5325]
 	ppsn= [5065, 5230, 5270, 5175]
-	W_speed = [(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind]) if int(vals) > 0 else (int(vals)*max_wheel_speed_neg[ind]/ppsn[ind]) for ind, vals in enumerate(datas.data.strip().split(","))]
+	# W_speed = [(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind]) if int(vals) > 0 else (int(vals)*max_wheel_speed_neg[ind]/ppsn[ind]) for ind, vals in enumerate(datas.data.strip().split(","))]
+	W_speed = [round(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind], 5) if int(vals) > 0 else round(int(vals)*max_wheel_speed_neg[ind]/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
 	# W_speed = [int(vals) if vals > 100 else 0 for vals in datas.data.strip().split(",")]
 	queue.put(W_speed)
 	# if (W_speed != [0, 0, 0, 0]):
@@ -152,7 +153,7 @@ def wheelSpeedPublisher(queue):
 			dataNpArray = np.array(currentSpeedArray[50:])
 			dataAvg = np.average(dataNpArray, axis=0)
 			daAvgList = dataAvg.tolist()
-			prdatStr = "["+str(currentPwm)+" ,"+str(daAvgList[0])+", "+str(daAvgList[1])+","+str(daAvgList[2])+", "+str(daAvgList[3])+"],"
+			prdatStr = str(currentPwm)+" ,"+str(daAvgList[0])+", "+str(daAvgList[1])+","+str(daAvgList[2])+", "+str(daAvgList[3])
 			print(prdatStr)
 			currentSpeedArray = []
 			currentPwm += 5

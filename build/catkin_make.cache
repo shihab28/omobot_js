@@ -1,0 +1,2 @@
+lidar_ld19:mobot_pkg:mpu6050
+-DCATKIN_DEVEL_PREFIX=/home/shihab/omobot_js/devel -DCMAKE_INSTALL_PREFIX=/home/shihab/omobot_js/install -G Unix Makefiles

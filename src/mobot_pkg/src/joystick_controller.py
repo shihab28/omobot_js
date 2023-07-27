@@ -24,13 +24,16 @@ max_wheel_speed_pos = [vals*2*3.1416/60 for vals in max_wheel_rpm_pos]
 max_wheel_speed_neg = [vals*2*3.1416/60 for vals in max_wheel_rpm_neg]
 
 
-
+ap = [-156.24596, -165.97551, -155.69695, -139.97149]
+bp = [4.23815, 4.36329, 4.59189, 4.13725]
+an = [-157.00181, -174.04037, -141.91634, -150.46193]
+bn = [-4.27643, -4.4339, -4.2611, -4.49149]
 
 L  = .1185
 W  = .0825
 SL = (L*L+W*W)**.5
 LS = 1/SL
-r  = .0395
+r  = .0398
 R  = 2*3.14159*r
 
 try:
@@ -113,10 +116,7 @@ def joystickProcess(joy_queue):
 def getPwmFromAngSpeed(x, mode = 0):
 	yp = [0, 0, 0, 0]
 	yn = [0, 0, 0, 0]
-	ap = [-143.92841, -154.91457, -154.10579, -154.60975]
-	bp = [4.24317, 4.34635, 4.41528, 4.26154]
-	an = [-144.49779, -160.34701, -151.05045, -158.41455]
-	bn = [-4.24786, -4.41028, -4.33355, -4.43898]
+	
 
 	W = [0, 0, 0, 0]
 	# x = [vals+.00000000000]
@@ -140,7 +140,14 @@ def getPwmFromAngSpeed(x, mode = 0):
 		yn[3] = an[3] / (x[3] - bn[3])
 
 	W = [yp[ind] if vals > 0 else yn[ind] for ind, vals in enumerate(x)]
-	return W
+
+	W = [int(vals) if abs(vals) > 45 else 0 for vals in  W]
+	W_ = []
+	for vals in W:
+		if vals > 255: vals = 255
+		elif vals < -255: vals = -255
+		W_.append(vals)
+	return W_
 
 def Vxy2Angular(Vx, Vy, W0):
 	W1 = (Vx - Vy - SL*W0) / r
@@ -150,15 +157,10 @@ def Vxy2Angular(Vx, Vy, W0):
 	# print([Vx, Vy, W0], [W1, W2, W3, W4])
 	# [W1, W2, W3, W4] = [int(0.0) if abs(vals) < .001 else vals*255 for vals in [W1, W2, W3, W4]]
 	# [W1, W2, W3, W4] = [int(vals/max_wheel_speed_neg[ind]) if vals < 0 else int(vals/max_wheel_speed_pos[ind]) for ind, vals in enumerate([W1, W2, W3, W4])]
-	print([Vx, Vy, W0], [W1, W2, W3, W4])
-	W_ = getPwmFromAngSpeed([W1, W2, W3, W4])
-	W_ = [int(vals) if abs(vals) > 45 else 0 for vals in  W_]
-	W = []
-	for vals in W_:
-		if vals > 255: vals = 255
-		elif vals < -255: vals = -255
-		W.append(vals)
-	return W
+	# print([Vx, Vy, W0])#, [W1, W2, W3, W4])
+	
+	
+	return [W1, W2, W3, W4]
 		
 
 publishing_frequency = 200
@@ -182,12 +184,13 @@ def joystickPublisher(joy_queue):
 			pass
 		
 		if updated:
-			W = Vxy2Angular(joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z)
+			W_ = Vxy2Angular(joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z)
+			W = getPwmFromAngSpeed(W_)
 			wheel_msg.data = W
 			joy_pub.publish(joy_msg)
 			pwm_pub.publish(wheel_msg)
 			# print(rospy.Time.now().to_sec(), W)
-			print(W)
+			print([joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z], W_)
 
 		if [joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z] == [0.0, 0.0, 0.0]:
 			# print("False : ", [joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z], [curLinSpeed, curAngSpeed])

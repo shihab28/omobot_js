@@ -31,7 +31,7 @@ pt brakeMot;
 int W1, W2, W3, W4;
 int i;
 float Ln  = .1185, Wd  = .0825;
-float SL = sqrt(Ln*Ln + Wd*Wd), r  = .0395, R  = 2*3.14159*r;
+float SL = sqrt(Ln*Ln + Wd*Wd), r  = .0398, R  = 2*3.14159*r;
 float LS = 1/SL;
 
 

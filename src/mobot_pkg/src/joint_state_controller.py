@@ -25,7 +25,7 @@ L  = .1185
 W  = .0825
 SL = (L*L+W*W)**.5
 LS = 1/SL
-r  = .0395
+r  = .0398
 R  = 2*3.14159*r
 
 # os.system("rosrun rosserial_python serial_node.py /dev/ArduinoMot")
