@@ -204,12 +204,12 @@ def joystickPublisher(joy_queue):
 		
 		if updated:
 			W_ = Vxy2Angular(joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z)
-			W = getPwmFromAngSpeed(W_)
-			wheel_msg.data = W
+			W_PWM = getPwmFromAngSpeed(W_)
+			wheel_msg.data = W_PWM
 			joy_pub.publish(joy_msg)
 			pwm_pub.publish(wheel_msg)
 			# print(rospy.Time.now().to_sec(), W)
-			print([joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z], W_)
+			print([joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z], W_, W_PWM)
 
 		if [joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z] == [0.0, 0.0, 0.0]:
 			# print("False : ", [joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z], [curLinSpeed, curAngSpeed])
