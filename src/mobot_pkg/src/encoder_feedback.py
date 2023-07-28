@@ -43,6 +43,7 @@ def fittingFunc(x, a, b):
 def ReverseFitFunc(x, a, b):
 	return a / (x - b)
 
+
 def processData(csvFilePath):
 	xp = []
 	xn = []
@@ -98,6 +99,65 @@ def getFittingParameters(plot_=True):
 	pwmSpeed_p, encSpeed_p, pwmSpeed_n, encSpeed_n = processData(csvFilePath)
 	# fitFunc = ReverseFitFunc
 	ab_p, var_p, ab_n, var_n = getParameters(fittingFunc, pwmSpeed_p, encSpeed_p, pwmSpeed_n, encSpeed_n)
+	plots = []
+
+	equation = 'Forward : '
+	if plot_:
+		for i in range(4):
+			
+			plot_ = plt.plot(encSpeed_p[i], pwmSpeed_p, 'b', label="Speed"+str(i))
+			plots.append(plot_)
+			fitY = ReverseFitFunc(encSpeed_p[i], *ab_p[i])
+			plt.plot(encSpeed_p[i], fitY, 'r', label="fittedSpeed"+str(i))
+			equation += '\nyp_{s1} = {s2}/x + ({s3})\n'.format(s1=i+1, s2=ab_p[i][0], s3=ab_p[i][1])
+
+
+			plt.plot(encSpeed_n[i], pwmSpeed_n, 'b', label="Speed"+str(i))
+			fitY =  ReverseFitFunc(encSpeed_n[i], *ab_n[i])
+
+			plt.plot(encSpeed_n[i], fitY, 'r', label="fittedSpeed"+str(i))
+			equation += 'yn_{s1} = {s2}/x + ({s3})\n"'.format(s1=i+1, s2=ab_n[i][0], s3=ab_n[i][1])
+
+
+			plt.xticks( np.arange(-4, 4, .5))
+			plt.yticks( np.arange(-260, 260, 50))
+			plt.grid(True, which='both')
+
+			plt.ylabel('PWM_w{s1}'.format(s1=i+1), size = 16)
+			plt.xlabel('encSpeed (mm/sec)', size = 16)
+			plt.legend(['True Data', 'Fitted Data'], fontsize="12")
+			plt.title('Model Fitting for motor {s1}'.format(s1=i+1), size = 20)
+
+			plt.show()
+
+	equation += '\n\nReverse : '
+	for i in range(4):
+		equation += '\nyp_{s1} = {s2} / (x - ({s3}))\n'.format(s1=i+1, s2=ab_p[i][0], s3=ab_p[i][1])
+		equation += 'yn_{s1} = {s2} / (x - ({s3}))\n'.format(s1=i+1, s2=ab_n[i][0], s3=ab_n[i][1])
+
+	
+	ap = [{ab_p[0][0]}, {ab_p[1][0]}, {ab_p[2][0]}, {ab_p[3][0]}]
+	bp = [{ab_p[0][1]}, {ab_p[1][1]}, {ab_p[2][1]}, {ab_p[3][1]}]
+	an = [{ab_n[0][0]}, {ab_n[1][0]}, {ab_n[2][0]}, {ab_n[3][0]}]
+	bn = [{ab_n[0][1]}, {ab_n[1][1]}, {ab_n[2][1]}, {ab_n[3][1]}]
+	
+	equation += '\n{s1}\n{s2}\n{s3}\n{s4}\n'.format(s1=ap, s2=bp, s3=an, s4=bn)
+	equation += '\nap1 = {ab_p[0][0]}, bp1 = {ab_p[0][1]}, an1 = {ab_n[0][0]}, bn1 = {ab_n[0][1]}, ap2 = {ab_p[1][0]}, bp2 = {ab_p[1][1]}, an2 = {ab_n[1][0]}, bn2 = {ab_n[1][1]}, ap3 = {ab_p[2][0]}, bp3 = {ab_p[2][1]}, an3 = {ab_n[2][0]}, bn3 = {ab_n[2][1]}, ap4 = {ab_p[3][0]}, bp4 = {ab_p[3][1]}, an4 = {ab_n[3][0]}, bn4 = {ab_n[3][1]};'.format(ab_p=ab_p, ab_n=ab_n)
+
+	equation = equation.strip()
+
+
+
+
+	equation += '\n****Variance****\n\nvar_ap1 = {var_p[0][0]}, var_bp1 = {var_p[0][1]},\n \nvar_an1 = {var_n[0][0]}, var_bn1 = {var_n[0][1]}, \nvar_ap2 = {var_p[1][0]}, var_bp2 = {var_p[1][1]}, \nvar_an2 = {var_n[1][0]}, var_bn2 = {var_n[1][1]}, \nvar_ap3 = {var_p[2][0]}, var_bp3 = {var_p[2][1]}, \nvar_an3 = {var_n[2][0]}, var_bn3 = {var_n[2][1]}, \nvar_ap4 = {var_p[3][0]}, var_bp4 = {var_p[3][1]}, \nvar_an4 = {var_n[3][0]}, var_bn4 = {var_n[3][1]};'.format(var_p=var_p, var_n=var_n)
+
+	print(equation)
+
+	with open('src/mobot_pkg/extra/equations.txt', 'w') as wf:
+		wf.write(equation)
+
+
+	return ab_p, var_p, ab_n, var_n
 
 
 max_wheel_rpm = [36, 36, 36, 36]
@@ -226,7 +286,7 @@ def wheelSpeedPublisher(queue):
 		if forwards and currentPwm > 255:
 			with open(csvFilePath, 'w') as wf:
 				wf.write(csvData)
-			getFittingParameters()
+			ab_p, var_p, ab_n, var_n = getFittingParameters()
 			break
 
 
