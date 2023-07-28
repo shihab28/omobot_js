@@ -171,8 +171,7 @@ def encoderFeedbackCB(datas, queue):
 	ppsp = [5100,  5125,  5185, 5325]
 	ppsn = [5065, 5230, 5270, 5175]
 	# W_speed = [(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind]) if int(vals) > 0 else (int(vals)*max_wheel_speed_neg[ind]/ppsn[ind]) for ind, vals in enumerate(datas.data.strip().split(","))]
-	W_speed = [round(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind], 5) if int(vals) > 0 else round(int(vals)
-																								  * max_wheel_speed_neg[ind]/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
+	W_speed = [round(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind], 5) if int(vals) > 0 else round(int(vals) * max_wheel_speed_neg[ind]/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
 	# W_speed = [int(vals) if vals > 100 else 0 for vals in datas.data.strip().split(",")]
 	queue.put(W_speed)
 	# if (W_speed != [0, 0, 0, 0]):
@@ -286,7 +285,7 @@ def wheelSpeedPublisher(queue):
 		if forwards and currentPwm > 255:
 			with open(csvFilePath, 'w') as wf:
 				wf.write(csvData)
-			ab_p, var_p, ab_n, var_n = getFittingParameters()
+			# ab_p, var_p, ab_n, var_n = getFittingParameters()
 			break
 
 

@@ -57,13 +57,18 @@ def signal_handler(sig, frame):
 	os.system('echo y | rosnode cleanup')
 	sys.exit(0)
 
-
+max_wheel_rpm = [36, 36, 36, 36]
+max_wheel_rpm_pos = [35.6, 35.9, 37.25, 36.15]
+max_wheel_rpm_neg = [35.3, 36.7, 36.18, 36.65]
+max_wheel_speed_pos = [vals*2*3.1416/60 for vals in max_wheel_rpm_pos]
+max_wheel_speed_neg = [vals*2*3.1416/60 for vals in max_wheel_rpm_neg]
 
 def encoderFeedbackCB(datas, queue):
 	ppsp= [ 5100,  5125,  5185, 5325]
 	ppsn= [5065, 5230, 5270, 5175]
-	W_speed_ = [round(int(vals)*3.7699/ppsp[ind], 5) if int(vals) > 0 else round(int(vals)*3.7699/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
-	W_speed = [0.0 if abs(vals) < 0.5 else vals for vals in W_speed_]
+	# W_speed_ = [round(int(vals)*3.7699/ppsp[ind], 5) if int(vals) > 0 else round(int(vals)*3.7699/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
+	W_speed_ = [round(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind], 5) if int(vals) > 0 else round(int(vals) * max_wheel_speed_neg[ind]/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
+	W_speed = [0.0 if abs(vals) < 0.001 else vals for vals in W_speed_]
 	queue.put(W_speed)
 	# if (W_speed != [0, 0, 0, 0]):
 	# 	print(W_speed)

@@ -29,6 +29,17 @@ bp = [4.23815, 4.36329, 4.59189, 4.13725]
 an = [-157.00181, -174.04037, -141.91634, -150.46193]
 bn = [-4.27643, -4.4339, -4.2611, -4.49149]
 
+# ap = [-150.61793, -158.4042, -165.29882, -153.1074]
+# bp = [4.27373, 4.3164, 4.56555, 4.14697]
+# an = [-148.47458, -166.4961, -151.14043, -160.6376]
+# bn = [-4.24042, -4.42413, -4.24936, -4.47939]
+
+ap = [-156.24596, -165.97551, -155.69695, -153.1074]
+bp = [4.23815, 4.36329, 4.59189, 4.14697]
+an = [-157.00181, -174.04037, -141.91634, -160.6376]
+bn = [-4.27643, -4.4339, -4.2611, -4.47939]
+
+
 L  = .1185
 W  = .0825
 SL = (L+W)
@@ -80,6 +91,10 @@ def joysticCB(joys, joy_queue):
 	Lin_DN = joys.buttons[3] 
 	Rot_UP = joys.buttons[1]  
 	Rot_DN = joys.buttons[2]
+
+	mov_front_back = joys.axes[7]
+	mov_left_right = joys.axes[6]
+	mov_back_only = joys.buttons[8]
 	CheckSpeed(Lin_UP, Lin_DN, Rot_UP, Rot_DN)
 	if joys.buttons[6]:
 		curLinSpeed = .80000000
@@ -89,6 +104,12 @@ def joysticCB(joys, joy_queue):
 		curX = 0.0
 		curY = 0.0
 		curT = 0.0
+	elif mov_back_only > .8:
+		[curX, curY, curT] = clearOffset(-mov_back_only*max_speed_x*curLinSpeed, 0, 0)
+	elif abs(mov_front_back) > .8:
+		[curX, curY, curT] = clearOffset(mov_front_back*max_speed_x*curLinSpeed, 0, 0)
+	elif abs(mov_left_right) > .8:
+		[curX, curY, curT] = clearOffset(0, mov_left_right*max_speed_x*curLinSpeed,0)
 	else:
 		[curX, curY, curT] = clearOffset(LS_X*max_speed_x*curLinSpeed, LS_Y*max_speed_y*curLinSpeed,RS_X*max_speed_w*curAngSpeed)
 
