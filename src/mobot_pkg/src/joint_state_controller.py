@@ -23,7 +23,7 @@ arduinoMot = serial.Serial(
 
 L  = .1185
 W  = .0825
-SL = (L*L+W*W)**.5
+SL = (L+W)
 LS = 1/SL
 r  = .0398
 R  = 2*3.14159*r

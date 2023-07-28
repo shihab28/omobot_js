@@ -14,7 +14,7 @@ joy_msg = Twist()
 refresh_rate = 20
 max_speed_x = .14
 max_speed_y = .14
-max_speed_w = .985
+max_speed_w = .7
 minLinVel = .02
 minANgVel = .01
 max_wheel_rpm = [36, 36, 36, 36]
@@ -31,7 +31,7 @@ bn = [-4.27643, -4.4339, -4.2611, -4.49149]
 
 L  = .1185
 W  = .0825
-SL = (L*L+W*W)**.5
+SL = (L+W)
 LS = 1/SL
 r  = .0398
 R  = 2*3.14159*r
@@ -154,13 +154,11 @@ def Vxy2Angular(Vx, Vy, W0):
 	W2 = (Vx + Vy + SL*W0) / r
 	W3 = (Vx + Vy - SL*W0) / r
 	W4 = (Vx - Vy + SL*W0) / r
-	# print([Vx, Vy, W0], [W1, W2, W3, W4])
-	# [W1, W2, W3, W4] = [int(0.0) if abs(vals) < .001 else vals*255 for vals in [W1, W2, W3, W4]]
-	# [W1, W2, W3, W4] = [int(vals/max_wheel_speed_neg[ind]) if vals < 0 else int(vals/max_wheel_speed_pos[ind]) for ind, vals in enumerate([W1, W2, W3, W4])]
-	# print([Vx, Vy, W0])#, [W1, W2, W3, W4])
 	
+	W_ = [max_wheel_speed_pos[ind] if vals > max_wheel_speed_pos[ind] else vals for ind, vals in enumerate([W1, W2, W3, W4])]
+	W = [max_wheel_speed_neg[ind] if vals < max_wheel_speed_neg[ind] else vals for ind, vals in enumerate(W_)]
 	
-	return [W1, W2, W3, W4]
+	return W
 		
 
 publishing_frequency = 200

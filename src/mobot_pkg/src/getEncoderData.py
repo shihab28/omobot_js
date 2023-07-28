@@ -12,7 +12,7 @@ from std_msgs.msg import Header
 
 L  = .1185
 W  = .0825
-SL = (L*L+W*W)**.5
+SL = (L+W)
 LS = 1/SL
 r  = .0398
 R  = 2*3.14159*r
@@ -44,11 +44,11 @@ def publishOdomData(odom_pub, Vx, Vy, W0, cur_robot_position):
 	odom.header.frame_id = "odom"
 
 	# set the position
-	# odom.pose.pose = Pose(Point(cur_robot_position[0], cur_robot_position[1], 0.), Quaternion(*odom_quat))
+	odom.pose.pose = Pose(Point(cur_robot_position[0], cur_robot_position[1], 0.), Quaternion(*odom_quat.tolist()))
 
 	# set the velocity
 	odom.child_frame_id = "base_footprint"
-	odom.twist.twist = Twist(Vector3(Vx, Vy, 0), Vector3(0, 0, W0))
+	# odom.twist.twist = Twist(Vector3(Vx, Vy, 0), Vector3(0, 0, W0))
 	# publish the message
 	odom_pub.publish(odom)
 
@@ -62,7 +62,8 @@ def signal_handler(sig, frame):
 def encoderFeedbackCB(datas, queue):
 	ppsp= [ 5100,  5125,  5185, 5325]
 	ppsn= [5065, 5230, 5270, 5175]
-	W_speed = [round(int(vals)*3.7699/ppsp[ind], 5) if int(vals) > 0 else round(int(vals)*3.7699/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
+	W_speed_ = [round(int(vals)*3.7699/ppsp[ind], 5) if int(vals) > 0 else round(int(vals)*3.7699/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
+	W_speed = [0.0 if abs(vals) < 0.5 else vals for vals in W_speed_]
 	queue.put(W_speed)
 	# if (W_speed != [0, 0, 0, 0]):
 	# 	print(W_speed)
@@ -139,11 +140,13 @@ def robotOdomPublisher(queue):
 		Vx, Vy, W0 = angularToCmdVel(curW)
 		cur_robot_position = get_cur_robot_pos(Vx, Vy, W0, cur_robot_position)
 		publishOdomData(odom_pub, Vx, Vy, W0, cur_robot_position)
-		cur_wheel_pos = get_cur_wheel_pos(curW, cur_wheel_pos)
-		publishJointData(joint_pub, cur_wheel_pos)
+		
 		if (curW != [0, 0, 0, 0]):
 			# print(rospy.Time.now().to_sec(), [Vx, Vy, W0])
-			print([Vx, Vy, W0], curW)
+			cur_wheel_pos = get_cur_wheel_pos(curW, cur_wheel_pos)
+			print([Vx, Vy, W0], curW, cur_robot_position)
+			
+		publishJointData(joint_pub, cur_wheel_pos)
 		rate.sleep()
 
 

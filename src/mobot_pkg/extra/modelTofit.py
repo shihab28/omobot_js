@@ -85,16 +85,16 @@ def getParameters(fittingFunc, pwmSpeed_p, encSpeed_p, pwmSpeed_n, encSpeed_n):
     
     return ab_p, var_p, ab_n, var_n
 
-pwmSpeed_p, encSpeed_p, pwmSpeed_n, encSpeed_n = processData(csvFilePath)
-# fitFunc = ReverseFitFunc
 
-ab_p, var_p, ab_n, var_n = getParameters(fittingFunc, pwmSpeed_p, encSpeed_p, pwmSpeed_n, encSpeed_n)
 # print("ab_p  : ",  ab_p)
 # print("ab_n  : ",  ab_n)
 # print("var_p : ", var_p)
 # print("var_n : ", var_n)
 
 plots = []
+pwmSpeed_p, encSpeed_p, pwmSpeed_n, encSpeed_n = processData(csvFilePath)
+    # fitFunc = ReverseFitFunc
+ab_p, var_p, ab_n, var_n = getParameters(fittingFunc, pwmSpeed_p, encSpeed_p, pwmSpeed_n, encSpeed_n)
 
 equation = 'Forward : '
 for i in range(4):
