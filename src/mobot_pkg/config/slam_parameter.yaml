@@ -16,9 +16,9 @@ mode: mapping #localization
 # if you'd like to immediately start continuing a map at a given pose
 # or at the dock, but they are mutually exclusive, if pose is given
 # will use pose
-#map_file_name: test_steve
-# map_start_pose: [0.0, 0.0, 0.0]
-# map_start_at_dock: true
+map_file_name: src/mobot_pkg/config/map.yaml
+map_start_pose: [0.0, 0.0, 0.0]
+map_start_at_dock: true
 
 # odom_frame: odom
 # base_frame: base_footprint

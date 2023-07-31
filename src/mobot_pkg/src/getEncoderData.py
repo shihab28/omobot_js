@@ -27,8 +27,6 @@ encoder_node = "encoder_node"
 def publishOdomData(odom_pub, Vx, Vy, W0, cur_robot_position):
 
 	odom_quat = transformations.quaternion_from_euler(0, 0, cur_robot_position[2])
-	# odom_quat = [0, 0, cur_robot_position[2], 1.0]
-	# print(odom_quat)
 	odom_broadcaster = TransformBroadcaster()
 	cur_time = rospy.Time.now()
 	odom_broadcaster.sendTransform(
@@ -44,11 +42,11 @@ def publishOdomData(odom_pub, Vx, Vy, W0, cur_robot_position):
 	odom.header.frame_id = "odom"
 
 	# set the position
-	odom.pose.pose = Pose(Point(cur_robot_position[0], cur_robot_position[1], 0.), Quaternion(*odom_quat.tolist()))
+	# odom.pose.pose = Pose(Point(cur_robot_position[0], cur_robot_position[1], 0.), Quaternion(*odom_quat))
 
 	# set the velocity
 	odom.child_frame_id = "base_footprint"
-	# odom.twist.twist = Twist(Vector3(Vx, Vy, 0), Vector3(0, 0, W0))
+	odom.twist.twist = Twist(Vector3(Vx, Vy, 0), Vector3(0, 0, W0))
 	# publish the message
 	odom_pub.publish(odom)
 
@@ -92,14 +90,15 @@ def get_cur_robot_pos(Vx, Vy, W0, cur_pos):
 	curTime = rospy.Time.now().to_sec()
 	dT = (curTime-prevTimePos)
 	prevTimePos = curTime
-
+	W_ang =  cur_pos[2]
 	dW = W0 * dT
 
-	dx = (Vx * cos(W0) - Vy * sin(W0)) * dT
-	dy = (Vx * sin(W0) + Vy * cos(W0)) * dT
+	dx = (Vx * cos(W_ang) - Vy * sin(W_ang)) * dT
+	dy = (Vx * sin(W_ang) + Vy * cos(W_ang)) * dT
 	
-	# if dx!= 0.0 or dy!=0.0 or dW!=0.0:
-	# 	print([dx, dy, dW], dT)
+	# if abs(dx) >= 0.0003 or abs(dy)>=0.0003 or abs(dW) >=0.0001:
+	# 	print([Vx, Vy, W0], "     ", [dx, dy, dW], "     ", dT)
+
 	return [cur_pos[0]+dx, cur_pos[1]+dy, cur_pos[2] + dW]
 
 def get_cur_wheel_pos(W, cur_pos):
@@ -149,7 +148,7 @@ def robotOdomPublisher(queue):
 		if (curW != [0, 0, 0, 0]):
 			# print(rospy.Time.now().to_sec(), [Vx, Vy, W0])
 			cur_wheel_pos = get_cur_wheel_pos(curW, cur_wheel_pos)
-			print([Vx, Vy, W0], curW, cur_robot_position)
+			print([Vx, Vy, W0], cur_robot_position, curW)
 			
 		publishJointData(joint_pub, cur_wheel_pos)
 		rate.sleep()
