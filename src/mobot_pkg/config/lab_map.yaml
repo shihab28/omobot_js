@@ -1,7 +1,6 @@
-image: /home/shihab/omobot_js/src/mobot_pkg/config/lab_map.pgm
+image: /home/shihab/omobot_js/src/mobot_pkg/config/lab_map.png
 resolution: 0.050000
 origin: [-2.772283, -2.128707, 0.000000]
 negate: 0
 occupied_thresh: 0.65
 free_thresh: 0.196
-
