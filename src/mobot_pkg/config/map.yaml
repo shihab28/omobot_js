@@ -1,4 +1,4 @@
-image: src/mobot_pkg/config/map.pgm
+image: /home/shihab/omobot_js/src/mobot_pkg/config/map.pgm
 resolution: 0.050000
 origin: [-3.604354, -2.015967, 0.000000]
 negate: 0
