@@ -66,6 +66,7 @@
 
     <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
         <rosparam command="load" file="$(find mobot_pkg)/config/slam_parameter.yaml"/>
+        <rosparam command="set" name="use_sim_time" value="true">
     </node>
 
 </launch>

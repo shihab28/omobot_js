@@ -2,4 +2,4 @@
 source_root_dir = '/home/shihab/omobot_js/src'
 whitelisted_packages = ''.split(';') if '' != '' else []
 blacklisted_packages = ''.split(';') if '' != '' else []
-underlay_workspaces = '/opt/ros/melodic'.split(';') if '/opt/ros/melodic' != '' else []
+underlay_workspaces = '/home/shihab/omobot_js/devel;/opt/ros/melodic'.split(';') if '/home/shihab/omobot_js/devel;/opt/ros/melodic' != '' else []

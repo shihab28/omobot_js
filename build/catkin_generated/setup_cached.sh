@@ -7,9 +7,6 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/shihab/omobot_js/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/home/shihab/omobot_js/devel/lib:$LD_LIBRARY_PATH"
+export PATH='/opt/ros/melodic/bin:/usr/local/cuda-10.2/bin:/home/shihab/.local/bin:/usr/local/cuda-10.2/bin:/home/shihab/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'
+export PKG_CONFIG_PATH='/opt/ros/melodic/lib/pkgconfig'
 export PWD='/home/shihab/omobot_js/build'
-export PYTHONPATH="/home/shihab/omobot_js/devel/lib/python2.7/dist-packages:$PYTHONPATH"
-export ROSLISP_PACKAGE_DIRECTORIES='/home/shihab/omobot_js/devel/share/common-lisp'
-export ROS_PACKAGE_PATH="/home/shihab/omobot_js/src:$ROS_PACKAGE_PATH"
