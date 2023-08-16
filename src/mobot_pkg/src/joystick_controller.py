@@ -6,6 +6,8 @@ from geometry_msgs.msg import Twist
 import rosparam, os, time, sys, signal
 from std_msgs.msg import Int16MultiArray
 from multiprocessing import Process, Queue
+import wheel_pwm_controller
+
 
 curLinSpeed = .80000000
 curAngSpeed = .80000000
@@ -13,21 +15,21 @@ increments = .05000000
 joy_msg = Twist()
 refresh_rate = 20
 max_speed_x = .14
-max_speed_y = .14
-max_speed_w = .7
+max_speed_y = .1
+max_speed_w = .9
 minLinVel = .02
 minANgVel = .01
 max_wheel_rpm = [36, 36, 36, 36]
-max_wheel_rpm_pos = [35.6, 35.9, 37.25, 36.15]
-max_wheel_rpm_neg = [-35.3, -36.7, -36.18, -36.65]
+max_wheel_rpm_pos = [ 35.2,  34.90,  36.1,  35.2] #[35.6, 35.9, 37.25, 36.15]
+max_wheel_rpm_neg = [-34.9, -36.15, -35.5, -36.1] #[35.3, 36.7, 36.18, 36.65]
 max_wheel_speed_pos = [vals*2*3.1416/60 for vals in max_wheel_rpm_pos]
 max_wheel_speed_neg = [vals*2*3.1416/60 for vals in max_wheel_rpm_neg]
 
 
-ap = [-156.24596, -165.97551, -155.69695, -139.97149]
-bp = [4.23815, 4.36329, 4.59189, 4.13725]
-an = [-157.00181, -174.04037, -141.91634, -150.46193]
-bn = [-4.27643, -4.4339, -4.2611, -4.49149]
+# ap = [-156.24596, -165.97551, -155.69695, -139.97149]
+# bp = [4.23815, 4.36329, 4.59189, 4.13725]
+# an = [-157.00181, -174.04037, -141.91634, -150.46193]
+# bn = [-4.27643, -4.4339, -4.2611, -4.49149]
 
 # ap = [-150.61793, -158.4042, -165.29882, -153.1074]
 # bp = [4.27373, 4.3164, 4.56555, 4.14697]
@@ -36,8 +38,8 @@ bn = [-4.27643, -4.4339, -4.2611, -4.49149]
 
 ap = [-156.24596, -165.97551, -155.69695, -153.1074]
 bp = [4.23815, 4.36329, 4.59189, 4.14697]
-an = [-157.00181, -174.04037, -141.91634, -160.6376]
-bn = [-4.27643, -4.4339, -4.2611, -4.47939]
+an = [-157.00181, -166.04037, -141.91634, -160.6376]
+bn = [-4.27643, -4.42413, -4.2651, -4.47939]
 
 
 L  = .1185
@@ -81,12 +83,17 @@ def clearOffset(vx, vy, wo):
 	
 	return [vx, vy, wo]
 
+curX = 0.0
+curY = 0.0
+curT = 0.0
 def joysticCB(joys, joy_queue):
 	global curLinSpeed, curAngSpeed, joy_msg, cmd_vels, updated
+	# print(joys)
 	RS_X = joys.axes[3]
 	RS_Y = joys.axes[4]
 	LS_Y = joys.axes[0]
 	LS_X = joys.axes[1]
+	ANG_XY = joys.axes[2]
 	Lin_UP = joys.buttons[5]  
 	Lin_DN = joys.buttons[3] 
 	Rot_UP = joys.buttons[1]  
@@ -96,14 +103,23 @@ def joysticCB(joys, joy_queue):
 	mov_left_right = joys.axes[6]
 	mov_back_only = joys.buttons[8]
 	CheckSpeed(Lin_UP, Lin_DN, Rot_UP, Rot_DN)
+	
 	if joys.buttons[6]:
 		curLinSpeed = .80000000
 		curAngSpeed = .80000000
-
 	if joys.buttons[8]:
 		curX = 0.0
 		curY = 0.0
 		curT = 0.0
+
+	if ANG_XY < -.8:
+		
+		if   LS_X > .01 and LS_Y > .01:  [curX, curY, curT] = clearOffset(max_speed_x*curLinSpeed, max_speed_y*curLinSpeed, 0.0)
+		elif LS_X < -.01 and LS_Y > .01:  [curX, curY, curT] = clearOffset(-max_speed_x*curLinSpeed, max_speed_y*curLinSpeed, 0.0)
+		elif LS_X > .01 and LS_Y < -.01:  [curX, curY, curT] = clearOffset(max_speed_x*curLinSpeed, -max_speed_y*curLinSpeed, 0.0)
+		elif LS_X < -.01 and LS_Y < -.01:  [curX, curY, curT] = clearOffset(-max_speed_x*curLinSpeed, -max_speed_y*curLinSpeed, 0.0)
+		else: [curX, curY, curT] = [0, 0, 0.0]
+		# print(LS_X, LS_Y, [curX, curY, curT])
 	elif mov_back_only > .8:
 		[curX, curY, curT] = clearOffset(-mov_back_only*max_speed_x*curLinSpeed, 0, 0)
 	elif abs(mov_front_back) > .8:
@@ -182,17 +198,17 @@ def Vxy2Angular(Vx, Vy, W0):
 	return W
 		
 
-publishing_frequency = 200
+publishing_frequency = 100
 def joystickPublisher(joy_queue):
 	global joy_msg, cmd_vels, updated, curLinSpeed, curAngSpeed
 
 	rospy.init_node('joystick_node', anonymous=True)
-	joy_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
-	pwm_pub = rospy.Publisher("/wheel_pwm", Int16MultiArray, queue_size=10)
+	joy_pub = rospy.Publisher('/cmd_vel_set', Twist, queue_size=10)
+	# pwm_pub = rospy.Publisher("/wheel_pwm", Int16MultiArray, queue_size=10)
 	rate = rospy.Rate(publishing_frequency)
 
-	wheel_msg = Int16MultiArray(); wheel_msg.data = [0, 0, 0, 0]; 
-	pwm_pub.publish(wheel_msg)
+	# wheel_msg = Int16MultiArray(); wheel_msg.data = [0, 0, 0, 0]; 
+	# pwm_pub.publish(wheel_msg)
 	[joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z] = [0, 0, 0]; joy_pub.publish(joy_msg)
 	while not rospy.is_shutdown():
 		# print("joy_msg")
@@ -203,18 +219,18 @@ def joystickPublisher(joy_queue):
 			pass
 		
 		if updated:
-			W_ = Vxy2Angular(joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z)
-			W_PWM = getPwmFromAngSpeed(W_)
-			wheel_msg.data = W_PWM
+			# W_ = Vxy2Angular(joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z)
+			# W_PWM = getPwmFromAngSpeed(W_)
+			# wheel_msg.data = W_PWM
 			joy_pub.publish(joy_msg)
-			pwm_pub.publish(wheel_msg)
-			# print(rospy.Time.now().to_sec(), W)
-			print([joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z], W_, W_PWM)
+			# pwm_pub.publish(wheel_msg)
+			# print([joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z])
+			# print([joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z])
 
 		if [joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z] == [0.0, 0.0, 0.0]:
 			# print("False : ", [joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z], [curLinSpeed, curAngSpeed])
-			joy_pub.publish(joy_msg)
-			pwm_pub.publish(wheel_msg)
+			# joy_pub.publish(joy_msg)
+			# pwm_pub.publish(wheel_msg)
 			# print(W)
 			updated = False
 		else:
@@ -224,17 +240,41 @@ def joystickPublisher(joy_queue):
 
 		rate.sleep()
 
-		
-cmd_vels = [0.0, 0.0, 0.0]
-updated = False
+def pwmProcess():
+	wheel_pwm_controller.startPwmProcess()
 
-rosparam.set_param("joy_node/dev", "/dev/input/js0")
-os.system('rosrun joy joy_node &')
-time.sleep(.1)
+def startJoystickControllerScript():
+	cmd_vels = [0.0, 0.0, 0.0]
+	updated = False
 
-joy_queue = Queue()
-joy_queue.put([0.0, 0.0, 0.0])
-p = Process(target=joystickProcess, name="joystick_process", args=[joy_queue])
-p.start()
+	rosparam.set_param("joy_node/dev", "/dev/input/js0")
+	os.system('rosrun joy joy_node &')
+	time.sleep(.1)
 
-joystickPublisher(joy_queue)
+	joy_queue = Queue()
+	joy_queue.put([0.0, 0.0, 0.0])
+	p = Process(target=joystickProcess, name="joystick_process", args=[joy_queue])
+	p.start()
+
+	w = Process(target=pwmProcess, name="pwmProcess", args=[])
+	w.start()
+
+	joystickPublisher(joy_queue)	
+
+if __name__ == "__main__":
+	cmd_vels = [0.0, 0.0, 0.0]
+	updated = False
+
+	rosparam.set_param("joy_node/dev", "/dev/input/js0")
+	os.system('rosrun joy joy_node &')
+	time.sleep(.1)
+
+	joy_queue = Queue()
+	joy_queue.put([0.0, 0.0, 0.0])
+	p = Process(target=joystickProcess, name="joystick_process", args=[joy_queue])
+	p.start()
+
+	w = Process(target=pwmProcess, name="pwmProcess", args=[])
+	w.start()
+
+	joystickPublisher(joy_queue)

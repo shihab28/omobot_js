@@ -1,0 +1,7 @@
+image: /home/shihab/omobot_js/src/mobot_pkg/maps/home_map.pgm
+resolution: 0.050000
+origin: [-9.640237, -6.904154, 0.000000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+

@@ -453,3 +453,56 @@ make[1]: Leaving directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
 
 
 
+Performing C++ SOURCE FILE Test COMPILER_HAS_HIDDEN_VISIBILITY succeeded with the following output:
+Change Dir: /home/shihab/omobot_js/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_3655b/fast && /usr/bin/make  -f CMakeFiles/cmTC_3655b.dir/build.make CMakeFiles/cmTC_3655b.dir/build
+make[1]: Entering directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_3655b.dir/src.cxx.o
+/usr/bin/c++ -DCOMPILER_HAS_HIDDEN_VISIBILITY  -fvisibility=hidden -o CMakeFiles/cmTC_3655b.dir/src.cxx.o -c /home/shihab/omobot_js/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_3655b
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3655b.dir/link.txt --verbose=1
+/usr/bin/c++ -rdynamic CMakeFiles/cmTC_3655b.dir/src.cxx.o -o cmTC_3655b 
+make[1]: Leaving directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY succeeded with the following output:
+Change Dir: /home/shihab/omobot_js/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_e7a13/fast && /usr/bin/make  -f CMakeFiles/cmTC_e7a13.dir/build.make CMakeFiles/cmTC_e7a13.dir/build
+make[1]: Entering directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_e7a13.dir/src.cxx.o
+/usr/bin/c++ -DCOMPILER_HAS_HIDDEN_INLINE_VISIBILITY  -fvisibility-inlines-hidden -o CMakeFiles/cmTC_e7a13.dir/src.cxx.o -c /home/shihab/omobot_js/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_e7a13
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e7a13.dir/link.txt --verbose=1
+/usr/bin/c++ -rdynamic CMakeFiles/cmTC_e7a13.dir/src.cxx.o -o cmTC_e7a13 
+make[1]: Leaving directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test COMPILER_HAS_DEPRECATED_ATTR succeeded with the following output:
+Change Dir: /home/shihab/omobot_js/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_f75ed/fast && /usr/bin/make  -f CMakeFiles/cmTC_f75ed.dir/build.make CMakeFiles/cmTC_f75ed.dir/build
+make[1]: Entering directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_f75ed.dir/src.cxx.o
+/usr/bin/c++ -DCOMPILER_HAS_DEPRECATED_ATTR   -o CMakeFiles/cmTC_f75ed.dir/src.cxx.o -c /home/shihab/omobot_js/build/CMakeFiles/CMakeTmp/src.cxx
+/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp/src.cxx: In function ‘int main()’:
+/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp/src.cxx:2:34: warning: ‘int somefunc()’ is deprecated [-Wdeprecated-declarations]
+     int main() { return somefunc();}
+                                  ^
+/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp/src.cxx:1:37: note: declared here
+ __attribute__((__deprecated__)) int somefunc() { return 0; }
+                                     ^~~~~~~~
+Linking CXX executable cmTC_f75ed
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f75ed.dir/link.txt --verbose=1
+/usr/bin/c++ -rdynamic CMakeFiles/cmTC_f75ed.dir/src.cxx.o -o cmTC_f75ed 
+make[1]: Leaving directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+__attribute__((__deprecated__)) int somefunc() { return 0; }
+    int main() { return somefunc();}

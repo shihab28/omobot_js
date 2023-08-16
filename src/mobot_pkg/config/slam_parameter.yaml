@@ -16,8 +16,8 @@ mode: mapping # mapping # localization
 # if you'd like to immediately start continuing a map at a given pose
 # or at the dock, but they are mutually exclusive, if pose is given
 # will use pose
-# map_file_name: /home/shihab/omobot_js/src/mobot_pkg/config/map_GZ.yaml
-# map_start_pose: [0.0, 0.0, 0.0]
+map_file_name: /home/shihab/omobot_js/src/mobot_pkg/map/lab_map_serial
+map_start_pose: [0.0, 0.0, 0.0]
 # map_start_at_dock: true
 
 # odom_frame: odom

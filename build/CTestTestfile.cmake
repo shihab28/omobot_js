@@ -7,4 +7,5 @@
 subdirs("gtest")
 subdirs("mpu6050")
 subdirs("lidar_ld19")
+subdirs("localization_data_pub")
 subdirs("mobot_pkg")

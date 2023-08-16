@@ -1,9 +1,5 @@
 <?xml version="1.0"?>
 <launch>
-
-   
-
-
     <param name="robot_description" command="xacro --inorder '$(find mobot_pkg)/robot/omobot.xacro'"/>
 
 
@@ -12,26 +8,12 @@
 
     <!-- <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -z .000 -x 0 -y 0 -param robot_description -model omobot"/> -->
 
-    <arg name="rviz_config_file" value="$(find mobot_pkg)/config/mobot.rviz"/>
-    <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)"/>
-
-    <!-- <node pkg="mobot_pkg" type="joystick_controller.py" name="joystick_controller"/> -->
-    <!-- <node pkg="mobot_pkg" type="getEncoderData.py" name="getEncoderData"/> -->
-    <!-- <node pkg="mobot_pkg" type="startSerialNodees.py" name="startSerialNodees"/> -->
-    
-
-    <!-- <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
-        <rosparam command="load" file="$(find mobot_pkg)/config/slam_parameter.yaml"/>
-    </node> -->
-
 
     <arg name="topic_name" default="scan"/>
-
     <arg name="frame_id" default="lidar1_link"/>
     <arg name="port_name" default="/dev/ttyUSB0"/>
     <arg name="port_baudrate" default="230400"/>
     <arg name="fix_to_base_link" default="true"/>
-
     <!-- ldldiar message publisher node -->
     <node name="LD19" pkg="ldlidar_stl_ros" type="ldlidar_stl_ros_node" output="screen">
         <param name="product_name" value="LDLiDAR_LD19"/>
@@ -39,34 +21,54 @@
         <param name="frame_id" value="$(arg frame_id)"/>
         <param name="port_name" value ="$(arg port_name)"/>
         <param name="port_baudrate" value ="$(arg port_baudrate)"/>
-        <!-- Set laser scan directon: -->
-        <!--    1. Set counterclockwise, example: <param name="laser_scan_dir" type="bool" value="true"/> -->
-        <!--    2. Set clockwise,        example: <param name="laser_scan_dir" type="bool" value="false"/> -->
         <param name="laser_scan_dir" type="bool" value="true"/>
-        <!-- Angle crop setting, Mask data within the set angle range -->
-        <!--    1. Enable angle crop fuction: -->
-        <!--       1.1. enable angle crop,  example: <param name="enable_angle_crop_func" type="bool" value="true"/> -->
-        <!--       1.2. disable angle crop, example: <param name="enable_angle_crop_func" type="bool" value="false"/> -->
         <param name="enable_angle_crop_func" type="bool" value="false"/>
-        <!--    2. Angle cropping interval setting, The distance and intensity data within the set angle range will be set to 0 -->
-        <!--       angle >= "angle_crop_min" and angle <= "angle_crop_max", unit is degress -->
         <param name="angle_crop_min" type="double" value="-120.0"/>
         <param name="angle_crop_max" type="double" value="120.0"/>
     </node>
-    <!-- ldlidar message subscriber node -->
-    <!-- node name="ListenLD19" pkg="ldlidar_stl_ros" type="ldlidar_stl_ros_listen_node" output="screen">
-    <param name="topic_name" value="scan"/>
-    </node -->
-    <!-- publisher tf transform, parents frame is base_link, child frame is base_laser -->
-    <!-- args="x y z yaw pitch roll parents_frame_id child_frame_id period_in_ms"-->
+    
     <node name="base_to_laser" pkg="tf" type="static_transform_publisher" args=".108, 0, .154 0 0.0 0.0 base_link lidar1_link 50" if="$(arg fix_to_base_link)"/>
+    
 
-    <node pkg="mpu_6050_driver" type="imu_node.py" name="imu_node"/>
-    <!-- <node pkg="mpu_6050_driver" type="imu_tf.py" name="imu_node_tf"/> -->
+
+    <arg name="rviz_config_file" value="$(find mobot_pkg)/config/mobot.rviz"/>
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)"/>
+    <!-- <node pkg="localization_data_pub" type="rviz_click_to_2d" name="rviz_click_to_2d">
+    </node> -->
+    <!-- <node pkg="mobot_pkg" type="wheel_pwm_controller.py" name="wheel_pwm_controller"/> -->
+    <!-- <node pkg="mobot_pkg" type="getEncoderData.py" name="getEncoderData"/> -->
+    <!-- <node pkg="mobot_pkg" type="startSerialNodees.py" name="startSerialNodees"/> -->
+
 
     <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
         <rosparam command="load" file="$(find mobot_pkg)/config/slam_parameter.yaml"/>
-        <rosparam command="set" name="use_sim_time" value="true">
     </node>
+
+
+    <!-- <arg name="map_file" default="$(find mobot_pkg)/maps/lab_map.yaml"/>
+    <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)" />
+    <include file="$(find mobot_pkg)/launch/amcl.launch"/> -->
+
+
+
+    <!-- <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam file="$(find mobot_pkg)/nav_param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find mobot_pkg)/nav_param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find mobot_pkg)/nav_param/local_costmap_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find mobot_pkg)/nav_param/global_costmap_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find mobot_pkg)/nav_param/base_local_planner_params.yaml" command="load" />
+    </node> -->
+
+
+
+    
+
+    
+    <node pkg="mpu_6050_driver" type="imu_node.py" name="imu_node"/>
+    
+
+
+    <!-- <remap from="topic1" to="topic2" />
+    <node name="publisher_node" pkg="my_robot_tutorials" type="publisher.py" /> -->
 
 </launch>
