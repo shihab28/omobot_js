@@ -25,4 +25,5 @@ lidar_detection_range_min: .02
 lidar_detection_range_max: 12
 lidar_measuring_frequency_max: 4500
 lidar_scanning_frequency: 10
+lidar_measuring_resolution: .015
 lidar_baud_rate: 230400
