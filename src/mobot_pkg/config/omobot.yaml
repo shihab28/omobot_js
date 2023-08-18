@@ -21,7 +21,7 @@ motor_baud_rate: 115200
 robot_circular_body_radius: .274
 robot_collision_clearance: .066
 
-lidar_detection_range_min: .02
+lidar_detection_range_min: .015
 lidar_detection_range_max: 12
 lidar_measuring_frequency_max: 4500
 lidar_scanning_frequency: 10
