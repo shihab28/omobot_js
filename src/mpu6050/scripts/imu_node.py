@@ -92,6 +92,6 @@ if __name__ == '__main__':
 
     temp_pub = rospy.Publisher('temperature', Temperature, queue_size=20)
     imu_pub = rospy.Publisher('imu/raw', Imu, queue_size=20)
-    imu_timer = rospy.Timer(rospy.Duration(0.02), publish_imu)
+    imu_timer = rospy.Timer(rospy.Duration(0.01), publish_imu)
     temp_timer = rospy.Timer(rospy.Duration(10), publish_temp)
     rospy.spin()

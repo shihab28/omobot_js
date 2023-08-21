@@ -45,7 +45,7 @@
     </node> -->
 
 
-    <arg name="map_file" default="$(find mobot_pkg)/maps/lab2_map.yaml"/>
+    <arg name="map_file" default="$(find mobot_pkg)/maps/home_map.yaml"/>
     <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)" />
     
     
@@ -56,8 +56,8 @@
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
         <rosparam file="$(find mobot_pkg)/nav_param/costmap_common_params.yaml" command="load" ns="global_costmap" />
         <rosparam file="$(find mobot_pkg)/nav_param/costmap_common_params.yaml" command="load" ns="local_costmap" />
-        <rosparam file="$(find mobot_pkg)/nav_param/local_costmap_params.yaml" command="load" ns="local_costmap" />
-        <rosparam file="$(find mobot_pkg)/nav_param/global_costmap_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find mobot_pkg)/nav_param/local_costmap_params.yaml" command="load"  />
+        <rosparam file="$(find mobot_pkg)/nav_param/global_costmap_params.yaml" command="load"  />
         <rosparam file="$(find mobot_pkg)/nav_param/base_local_planner_params.yaml" command="load" />
     </node>
 
@@ -67,8 +67,8 @@
 
     
     <node pkg="mpu_6050_driver" type="imu_node.py" name="imu_node"/>
-    
-
+    <!-- <node pkg="mpu_6050_driver" type="imu_tf.py" name="imu_tf"/> -->
+    <!-- <include file="$(find mobot_pkg)/launch/robot_pose_ekf.launch"/> -->
 
     <!-- <remap from="topic1" to="topic2" />
     <node name="publisher_node" pkg="my_robot_tutorials" type="publisher.py" /> -->
