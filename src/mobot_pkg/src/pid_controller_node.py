@@ -156,9 +156,9 @@ def pidController(queue_cur, queue_set):
 			output_ = [Vx_, Vy_, W0_]
 			output_ = [vals if abs(vals)>.001 else 0.0 for vals in output_]
 			[cmd_vel_msg.linear.x, cmd_vel_msg.linear.y, cmd_vel_msg.angular.z] = [output_[ind]+W_SET[ind] for ind in range(3)]
-			print(rospy.Time.now().to_sec(), W_SET, W_PWM, output_)
+			# print(rospy.Time.now().to_sec(), W_SET, W_PWM, output_)
 		
-			
+		
 		if prev_cmd_vel != output_:
 			# print(rospy.Time.now().to_sec(), W_SET, W_PWM, output_)
 			pwm_pub.publish(cmd_vel_msg)

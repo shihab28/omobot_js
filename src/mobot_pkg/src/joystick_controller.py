@@ -89,30 +89,30 @@ curT = 0.0
 def joysticCB(joys, joy_queue):
 	global curLinSpeed, curAngSpeed, joy_msg, cmd_vels, updated
 	# print(joys)
-	RS_X = joys.axes[3]
-	RS_Y = joys.axes[4]
-	LS_Y = joys.axes[0]
-	LS_X = joys.axes[1]
-	ANG_XY = joys.axes[2]
-	Lin_UP = joys.buttons[5]  
-	Lin_DN = joys.buttons[3] 
-	Rot_UP = joys.buttons[1]  
-	Rot_DN = joys.buttons[2]
+	RS_X = joys.axes[2]  	    #joys.axes[3]
+	RS_Y = joys.axes[5]  	    #joys.axes[4]
+	LS_Y = joys.axes[0]  	    #joys.axes[0]
+	LS_X = joys.axes[1]  	    #joys.axes[1]
+	ANG_XY = joys.buttons[6]	    #joys.axes[2]
+	Lin_UP = joys.buttons[3] #joys.buttons[5]  
+	Lin_DN = joys.buttons[1] #joys.buttons[3] 
+	Rot_UP = joys.buttons[2] #joys.buttons[1]  
+	Rot_DN = joys.buttons[0] #joys.buttons[2]
 
 	mov_front_back = joys.axes[7]
 	mov_left_right = joys.axes[6]
 	mov_back_only = joys.buttons[8]
 	CheckSpeed(Lin_UP, Lin_DN, Rot_UP, Rot_DN)
 	
-	if joys.buttons[6]:
+	if joys.buttons[9]:
 		curLinSpeed = .80000000
 		curAngSpeed = .80000000
-	if joys.buttons[8]:
-		curX = 0.0
-		curY = 0.0
-		curT = 0.0
+	# if joys.buttons[8]:
+	# 	curX = 0.0
+	# 	curY = 0.0
+	# 	curT = 0.0
 
-	if ANG_XY < -.8:
+	if ANG_XY:
 		
 		if   LS_X > .01 and LS_Y > .01:  [curX, curY, curT] = clearOffset(max_speed_x*curLinSpeed, max_speed_y*curLinSpeed, 0.0)
 		elif LS_X < -.01 and LS_Y > .01:  [curX, curY, curT] = clearOffset(-max_speed_x*curLinSpeed, max_speed_y*curLinSpeed, 0.0)
@@ -198,12 +198,12 @@ def Vxy2Angular(Vx, Vy, W0):
 	return W
 		
 
-publishing_frequency = 100
+publishing_frequency = 20
 def joystickPublisher(joy_queue):
 	global joy_msg, cmd_vels, updated, curLinSpeed, curAngSpeed
 
 	rospy.init_node('joystick_node', anonymous=True)
-	joy_pub = rospy.Publisher('/cmd_vel_set', Twist, queue_size=10)
+	joy_pub = rospy.Publisher('/cmd_vel_set', Twist, queue_size=2)
 	# pwm_pub = rospy.Publisher("/wheel_pwm", Int16MultiArray, queue_size=10)
 	rate = rospy.Rate(publishing_frequency)
 

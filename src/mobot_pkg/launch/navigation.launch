@@ -45,7 +45,7 @@
     </node> -->
 
 
-    <arg name="map_file" default="$(find mobot_pkg)/maps/home_map.yaml"/>
+    <arg name="map_file" default="$(find mobot_pkg)/maps/lab_map.yaml"/>
     <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)" />
     
     
@@ -59,6 +59,7 @@
         <rosparam file="$(find mobot_pkg)/nav_param/local_costmap_params.yaml" command="load"  />
         <rosparam file="$(find mobot_pkg)/nav_param/global_costmap_params.yaml" command="load"  />
         <rosparam file="$(find mobot_pkg)/nav_param/base_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find mobot_pkg)/nav_param/dwa_local_planner_params.yaml" command="load" />
     </node>
 
 

@@ -11,6 +11,7 @@ import time
 import sys
 from multiprocessing import Process, Queue
 from std_msgs.msg import String
+from std_msgs.msg import Float32
 
 def startMotorNode():
 	rospy.init_node("motor_node")
@@ -105,13 +106,18 @@ def startEncoderSerialNode():
 	
 	rospy.init_node("arduino_serial", anonymous=True)
 	enc_publisher = rospy.Publisher('/encoder_feedback', String, queue_size=5)
+	voltage_publisher = rospy.Publisher('/battery_voltage', Float32, queue_size=5)
 	rate = rospy.Rate(refresh_rate)
 	strData = String()
+	voltageData = Float32()
 	strData.data = '0,0,0,0'
+	print("Started Encoder Feedback Serial.....")
 	while not rospy.is_shutdown():
 		value = serial_read()
-		strData.data = value
+		strData.data = value[:3]
+		voltageData.data = float(value[-1])
 		enc_publisher.publish(strData) # printing the value
+		voltage_publisher.publish(voltageData) # printing the value
 		print(value)
 		rate.sleep()
 

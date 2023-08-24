@@ -153,13 +153,16 @@ def robotOdomPublisher(queue):
 			pass
 
 		Vx, Vy, W0 = angularToCmdVel(curW)
+		output_ = [Vx, Vy, W0]
 		cur_robot_position = get_cur_robot_pos(Vx, Vy, W0, cur_robot_position)
+		# odom_from_feedback = 
 		publishOdomData(odom_pub, Vx, Vy, W0, cur_robot_position)
 		
 		if (curW != [0, 0, 0, 0]):
 			# print(rospy.Time.now().to_sec(), [Vx, Vy, W0])
 			cur_wheel_pos = get_cur_wheel_pos(curW, cur_wheel_pos)
-			print(cur_robot_position, curW)
+			print(output_, cur_robot_position, curW)
+			# print(rospy.Time.now().to_sec(), output_)
 			
 		publishJointData(joint_pub, cur_wheel_pos)
 		rate.sleep()
@@ -177,6 +180,7 @@ if __name__ == "__main__":
 	
 	queue = Queue()
 	queue.put([0, 0, 0, 0])
+	# queue_odom = Queue()
 	# rospy.init_node(encoder_node, anonymous=True)
 	encoder_process = Process(target=encoderFeedbackThread, name="omobotmovement", args=[queue])
 	encoder_process.start()
