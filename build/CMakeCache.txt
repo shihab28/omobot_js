@@ -23,12 +23,6 @@ BUILD_GTEST:BOOL=OFF
 //Build shared libraries (DLLs).
 BUILD_SHARED_LIBS:BOOL=ON
 
-//The directory containing a CMake configuration file for Boost.
-Boost_DIR:PATH=Boost_DIR-NOTFOUND
-
-//Path to a file.
-Boost_INCLUDE_DIR:PATH=/usr/include
-
 //List of ';' separated packages to exclude
 CATKIN_BLACKLIST_PACKAGES:STRING=
 
@@ -307,9 +301,6 @@ UBUNTU:BOOL=TRUE
 UBUNTU_BIONIC:BOOL=TRUE
 
 //Path to a file.
-_file_name:FILEPATH=/home/shihab/omobot_js/src/slam_gmapping/gmapping/test/basic_localization_laser_different_beamcount.test
-
-//Path to a file.
 _gmock_INCLUDES:FILEPATH=/usr/include/gmock/gmock.h
 
 //Path to a file.
@@ -327,17 +318,8 @@ actionlib_DIR:PATH=/opt/ros/melodic/share/actionlib/cmake
 //The directory containing a CMake configuration file for actionlib_msgs.
 actionlib_msgs_DIR:PATH=/opt/ros/melodic/share/actionlib_msgs/cmake
 
-//The directory containing a CMake configuration file for bond.
-bond_DIR:PATH=/opt/ros/melodic/share/bond/cmake
-
-//The directory containing a CMake configuration file for bondcpp.
-bondcpp_DIR:PATH=/opt/ros/melodic/share/bondcpp/cmake
-
 //The directory containing a CMake configuration file for catkin.
 catkin_DIR:PATH=/opt/ros/melodic/share/catkin/cmake
-
-//The directory containing a CMake configuration file for class_loader.
-class_loader_DIR:PATH=/opt/ros/melodic/share/class_loader/cmake
 
 //The directory containing a CMake configuration file for cpp_common.
 cpp_common_DIR:PATH=/opt/ros/melodic/share/cpp_common/cmake
@@ -364,12 +346,6 @@ genpy_DIR:PATH=/opt/ros/melodic/share/genpy/cmake
 geometry_msgs_DIR:PATH=/opt/ros/melodic/share/geometry_msgs/cmake
 
 //Value Computed by CMake
-gmapping_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/slam_gmapping/gmapping
-
-//Value Computed by CMake
-gmapping_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/slam_gmapping/gmapping
-
-//Value Computed by CMake
 gmock_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/gtest/googlemock
 
 //Dependencies for the target
@@ -389,9 +365,6 @@ googletest-distribution_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/gtest
 
 //Value Computed by CMake
 googletest-distribution_SOURCE_DIR:STATIC=/usr/src/googletest
-
-//Dependencies for the target
-gridfastslam_LIB_DEPENDS:STATIC=general;scanmatcher;general;log;general;sensor_range;general;sensor_odometry;general;sensor_base;general;utils;
 
 //Value Computed by CMake
 gtest_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/gtest/googlemock/gtest
@@ -436,9 +409,6 @@ localization_data_pub_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/localizatio
 //Value Computed by CMake
 localization_data_pub_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/localization_data_pub
 
-//Dependencies for the target
-log_LIB_DEPENDS:STATIC=general;sensor_range;general;sensor_odometry;general;sensor_base;
-
 //The directory containing a CMake configuration file for message_filters.
 message_filters_DIR:PATH=/opt/ros/melodic/share/message_filters/cmake
 
@@ -463,24 +433,6 @@ mpu_6050_driver_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/mpu6050
 //The directory containing a CMake configuration file for nav_msgs.
 nav_msgs_DIR:PATH=/opt/ros/melodic/share/nav_msgs/cmake
 
-//The directory containing a CMake configuration file for nodelet.
-nodelet_DIR:PATH=/opt/ros/melodic/share/nodelet/cmake
-
-//Value Computed by CMake
-openslam_gmapping_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/openslam_gmapping
-
-//The directory containing a CMake configuration file for openslam_gmapping.
-openslam_gmapping_DIR:PATH=/home/shihab/omobot_js/devel/share/openslam_gmapping/cmake
-
-//Value Computed by CMake
-openslam_gmapping_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/openslam_gmapping
-
-//The directory containing a CMake configuration file for pluginlib.
-pluginlib_DIR:PATH=/opt/ros/melodic/share/pluginlib/cmake
-
-//The directory containing a CMake configuration file for rosbag_storage.
-rosbag_storage_DIR:PATH=/opt/ros/melodic/share/rosbag_storage/cmake
-
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/melodic/share/rosconsole/cmake
 
@@ -499,47 +451,20 @@ rosgraph_DIR:PATH=/opt/ros/melodic/share/rosgraph/cmake
 //The directory containing a CMake configuration file for rosgraph_msgs.
 rosgraph_msgs_DIR:PATH=/opt/ros/melodic/share/rosgraph_msgs/cmake
 
-//The directory containing a CMake configuration file for roslib.
-roslib_DIR:PATH=/opt/ros/melodic/share/roslib/cmake
-
-//The directory containing a CMake configuration file for roslz4.
-roslz4_DIR:PATH=/opt/ros/melodic/share/roslz4/cmake
-
-//The directory containing a CMake configuration file for rospack.
-rospack_DIR:PATH=/opt/ros/melodic/share/rospack/cmake
-
 //The directory containing a CMake configuration file for rospy.
 rospy_DIR:PATH=/opt/ros/melodic/share/rospy/cmake
-
-//The directory containing a CMake configuration file for rostest.
-rostest_DIR:PATH=/opt/ros/melodic/share/rostest/cmake
 
 //The directory containing a CMake configuration file for rostime.
 rostime_DIR:PATH=/opt/ros/melodic/share/rostime/cmake
 
-//Dependencies for the target
-scanmatcher_LIB_DEPENDS:STATIC=general;log;general;sensor_range;general;sensor_odometry;general;sensor_base;general;utils;
-
 //The directory containing a CMake configuration file for sensor_msgs.
 sensor_msgs_DIR:PATH=/opt/ros/melodic/share/sensor_msgs/cmake
 
-//Dependencies for the target
-sensor_odometry_LIB_DEPENDS:STATIC=general;sensor_base;
-
-//Dependencies for the target
-sensor_range_LIB_DEPENDS:STATIC=general;sensor_base;
+//Value Computed by CMake
+sensor_msgs_ext_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/sensor_msgs_ext
 
 //Value Computed by CMake
-slam_gmapping_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/slam_gmapping/slam_gmapping
-
-//Value Computed by CMake
-slam_gmapping_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/slam_gmapping/slam_gmapping
-
-//Dependencies for the target
-slam_gmapping_nodelet_LIB_DEPENDS:STATIC=general;/opt/ros/melodic/lib/libnodeletlib.so;general;/opt/ros/melodic/lib/libbondcpp.so;general;/usr/lib/aarch64-linux-gnu/libuuid.so;general;utils;general;sensor_base;general;sensor_odometry;general;sensor_range;general;log;general;configfile;general;scanmatcher;general;gridfastslam;general;/opt/ros/melodic/lib/libtf.so;general;/opt/ros/melodic/lib/libtf2_ros.so;general;/opt/ros/melodic/lib/libactionlib.so;general;/opt/ros/melodic/lib/libmessage_filters.so;general;/opt/ros/melodic/lib/libroscpp.so;general;/opt/ros/melodic/lib/libxmlrpcpp.so;general;/opt/ros/melodic/lib/libtf2.so;general;/opt/ros/melodic/lib/libroscpp_serialization.so;general;/opt/ros/melodic/lib/librosbag_storage.so;general;/opt/ros/melodic/lib/libclass_loader.so;general;/usr/lib/libPocoFoundation.so;general;/usr/lib/aarch64-linux-gnu/libdl.so;general;/opt/ros/melodic/lib/librosconsole.so;general;/opt/ros/melodic/lib/librosconsole_log4cxx.so;general;/opt/ros/melodic/lib/librosconsole_backend_interface.so;general;/usr/lib/aarch64-linux-gnu/liblog4cxx.so;general;/usr/lib/aarch64-linux-gnu/libboost_regex.so;general;/opt/ros/melodic/lib/librostime.so;general;/opt/ros/melodic/lib/libcpp_common.so;general;/usr/lib/aarch64-linux-gnu/libboost_thread.so;general;/usr/lib/aarch64-linux-gnu/libboost_chrono.so;general;/usr/lib/aarch64-linux-gnu/libboost_date_time.so;general;/usr/lib/aarch64-linux-gnu/libboost_atomic.so;general;/usr/lib/aarch64-linux-gnu/libpthread.so;general;/usr/lib/aarch64-linux-gnu/libconsole_bridge.so.0.4;general;/opt/ros/melodic/lib/libroslib.so;general;/opt/ros/melodic/lib/librospack.so;general;/usr/lib/aarch64-linux-gnu/libpython2.7.so;general;/usr/lib/aarch64-linux-gnu/libboost_filesystem.so;general;/usr/lib/aarch64-linux-gnu/libboost_program_options.so;general;/usr/lib/aarch64-linux-gnu/libboost_system.so;general;/usr/lib/aarch64-linux-gnu/libtinyxml2.so;general;/opt/ros/melodic/lib/libroslz4.so;general;/usr/lib/aarch64-linux-gnu/liblz4.so;
-
-//The directory containing a CMake configuration file for smclib.
-smclib_DIR:PATH=/opt/ros/melodic/share/smclib/cmake
+sensor_msgs_ext_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/sensor_msgs_ext
 
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/melodic/share/std_msgs/cmake
@@ -567,10 +492,6 @@ xmlrpcpp_DIR:PATH=/opt/ros/melodic/share/xmlrpcpp/cmake
 # INTERNAL cache entries
 ########################
 
-//ADVANCED property for variable: Boost_DIR
-Boost_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: Boost_INCLUDE_DIR
-Boost_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //catkin environment
 CATKIN_ENV:INTERNAL=/home/shihab/omobot_js/build/catkin_generated/env_cached.sh
 CATKIN_TEST_RESULTS_DIR:INTERNAL=/home/shihab/omobot_js/build/test_results
@@ -684,7 +605,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -727,16 +648,6 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
-//Compiler support for a deprecated attribute
-COMPILER_HAS_DEPRECATED:INTERNAL=1
-//Test COMPILER_HAS_DEPRECATED_ATTR
-COMPILER_HAS_DEPRECATED_ATTR:INTERNAL=1
-//Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY
-COMPILER_HAS_HIDDEN_INLINE_VISIBILITY:INTERNAL=1
-//Test COMPILER_HAS_HIDDEN_VISIBILITY
-COMPILER_HAS_HIDDEN_VISIBILITY:INTERNAL=1
-//Details about finding Boost
-FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/include][c ][v1.65.1()]
 //Details about finding PythonInterp
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/usr/bin/python2][v2.7.17()]
 //Details about finding Threads
@@ -767,12 +678,4 @@ PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
 //  And it needs to match.  But setuptools won't tell us where
 // it will install things.
 PYTHON_INSTALL_DIR:INTERNAL=lib/python2.7/dist-packages
-//Components requested for this build tree.
-_Boost_COMPONENTS_SEARCHED:INTERNAL=
-//Last used Boost_INCLUDE_DIR value.
-_Boost_INCLUDE_DIR_LAST:INTERNAL=/usr/include
-//Last used Boost_NAMESPACE value.
-_Boost_NAMESPACE_LAST:INTERNAL=boost
-//Last used Boost_USE_MULTITHREADED value.
-_Boost_USE_MULTITHREADED_LAST:INTERNAL=TRUE
 

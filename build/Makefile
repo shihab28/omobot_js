@@ -499,6 +499,357 @@ geometry_msgs_generate_messages_lisp/fast:
 .PHONY : geometry_msgs_generate_messages_lisp/fast
 
 #=============================================================================
+# Target rules for targets named sensor_msgs_ext_genpy
+
+# Build rule for target.
+sensor_msgs_ext_genpy: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_ext_genpy
+.PHONY : sensor_msgs_ext_genpy
+
+# fast build rule for target.
+sensor_msgs_ext_genpy/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_genpy.dir/build.make sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_genpy.dir/build
+.PHONY : sensor_msgs_ext_genpy/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_ext_gennodejs
+
+# Build rule for target.
+sensor_msgs_ext_gennodejs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_ext_gennodejs
+.PHONY : sensor_msgs_ext_gennodejs
+
+# fast build rule for target.
+sensor_msgs_ext_gennodejs/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_gennodejs.dir/build.make sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_gennodejs.dir/build
+.PHONY : sensor_msgs_ext_gennodejs/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_ext_generate_messages_nodejs
+
+# Build rule for target.
+sensor_msgs_ext_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_ext_generate_messages_nodejs
+.PHONY : sensor_msgs_ext_generate_messages_nodejs
+
+# fast build rule for target.
+sensor_msgs_ext_generate_messages_nodejs/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_generate_messages_nodejs.dir/build.make sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_generate_messages_nodejs.dir/build
+.PHONY : sensor_msgs_ext_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_ext_genlisp
+
+# Build rule for target.
+sensor_msgs_ext_genlisp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_ext_genlisp
+.PHONY : sensor_msgs_ext_genlisp
+
+# fast build rule for target.
+sensor_msgs_ext_genlisp/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_genlisp.dir/build.make sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_genlisp.dir/build
+.PHONY : sensor_msgs_ext_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_ext_generate_messages_eus
+
+# Build rule for target.
+sensor_msgs_ext_generate_messages_eus: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_ext_generate_messages_eus
+.PHONY : sensor_msgs_ext_generate_messages_eus
+
+# fast build rule for target.
+sensor_msgs_ext_generate_messages_eus/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_generate_messages_eus.dir/build.make sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_generate_messages_eus.dir/build
+.PHONY : sensor_msgs_ext_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_ext_generate_messages_py
+
+# Build rule for target.
+sensor_msgs_ext_generate_messages_py: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_ext_generate_messages_py
+.PHONY : sensor_msgs_ext_generate_messages_py
+
+# fast build rule for target.
+sensor_msgs_ext_generate_messages_py/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_generate_messages_py.dir/build.make sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_generate_messages_py.dir/build
+.PHONY : sensor_msgs_ext_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_ext_generate_messages_cpp
+
+# Build rule for target.
+sensor_msgs_ext_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_ext_generate_messages_cpp
+.PHONY : sensor_msgs_ext_generate_messages_cpp
+
+# fast build rule for target.
+sensor_msgs_ext_generate_messages_cpp/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_generate_messages_cpp.dir/build.make sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_generate_messages_cpp.dir/build
+.PHONY : sensor_msgs_ext_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_get_proximity_configuration
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_get_proximity_configuration: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_get_proximity_configuration
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_get_proximity_configuration
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_get_proximity_configuration/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_get_proximity_configuration.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_get_proximity_configuration.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_get_proximity_configuration/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_gnss_fix
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_gnss_fix: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_gnss_fix
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_gnss_fix
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_gnss_fix/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_gnss_fix.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_gnss_fix.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_gnss_fix/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_gnss_position
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_gnss_position: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_gnss_position
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_gnss_position
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_gnss_position/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_gnss_position.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_gnss_position.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_gnss_position/fast
+
+#=============================================================================
+# Target rules for targets named _catkin_empty_exported_target
+
+# Build rule for target.
+_catkin_empty_exported_target: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _catkin_empty_exported_target
+.PHONY : _catkin_empty_exported_target
+
+# fast build rule for target.
+_catkin_empty_exported_target/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_catkin_empty_exported_target.dir/build.make sensor_msgs_ext/CMakeFiles/_catkin_empty_exported_target.dir/build
+.PHONY : _catkin_empty_exported_target/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_proximity
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_proximity: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_proximity
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_proximity
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_proximity/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_proximity.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_proximity.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_proximity/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_ext_generate_messages_lisp
+
+# Build rule for target.
+sensor_msgs_ext_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_ext_generate_messages_lisp
+.PHONY : sensor_msgs_ext_generate_messages_lisp
+
+# fast build rule for target.
+sensor_msgs_ext_generate_messages_lisp/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_generate_messages_lisp.dir/build.make sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_generate_messages_lisp.dir/build
+.PHONY : sensor_msgs_ext_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_axis_state
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_axis_state: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_axis_state
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_axis_state
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_axis_state/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_axis_state.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_axis_state.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_axis_state/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_analog_voltage
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_analog_voltage: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_analog_voltage
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_analog_voltage
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_analog_voltage/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_analog_voltage.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_analog_voltage.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_analog_voltage/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_gnss_track
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_gnss_track: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_gnss_track
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_gnss_track
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_gnss_track/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_gnss_track.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_gnss_track.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_gnss_track/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_ext_generate_messages
+
+# Build rule for target.
+sensor_msgs_ext_generate_messages: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_ext_generate_messages
+.PHONY : sensor_msgs_ext_generate_messages
+
+# fast build rule for target.
+sensor_msgs_ext_generate_messages/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_generate_messages.dir/build.make sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_generate_messages.dir/build
+.PHONY : sensor_msgs_ext_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_ext_geneus
+
+# Build rule for target.
+sensor_msgs_ext_geneus: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_ext_geneus
+.PHONY : sensor_msgs_ext_geneus
+
+# fast build rule for target.
+sensor_msgs_ext_geneus/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_geneus.dir/build.make sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_geneus.dir/build
+.PHONY : sensor_msgs_ext_geneus/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_covariance
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_covariance: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_covariance
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_covariance
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_covariance/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_covariance.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_covariance.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_covariance/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_magnetometer
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_magnetometer: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_magnetometer
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_magnetometer
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_magnetometer/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_magnetometer.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_magnetometer.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_magnetometer/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_set_axis_home
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_set_axis_home: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_set_axis_home
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_set_axis_home
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_set_axis_home/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_set_axis_home.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_set_axis_home.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_set_axis_home/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_calibrate_gyroscope
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_calibrate_gyroscope: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_calibrate_gyroscope
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_calibrate_gyroscope
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_calibrate_gyroscope/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_calibrate_gyroscope.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_calibrate_gyroscope.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_calibrate_gyroscope/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_accelerometer
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_accelerometer: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_accelerometer
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_accelerometer
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_accelerometer/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_accelerometer.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_accelerometer.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_accelerometer/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_time_reference
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_time_reference: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_time_reference
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_time_reference
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_time_reference/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_time_reference.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_time_reference.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_time_reference/fast
+
+#=============================================================================
+# Target rules for targets named sensor_msgs_ext_gencpp
+
+# Build rule for target.
+sensor_msgs_ext_gencpp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sensor_msgs_ext_gencpp
+.PHONY : sensor_msgs_ext_gencpp
+
+# fast build rule for target.
+sensor_msgs_ext_gencpp/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_gencpp.dir/build.make sensor_msgs_ext/CMakeFiles/sensor_msgs_ext_gencpp.dir/build
+.PHONY : sensor_msgs_ext_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_temperature
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_temperature: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_temperature
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_temperature
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_temperature/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_temperature.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_temperature.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_temperature/fast
+
+#=============================================================================
+# Target rules for targets named _sensor_msgs_ext_generate_messages_check_deps_gyroscope
+
+# Build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_gyroscope: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _sensor_msgs_ext_generate_messages_check_deps_gyroscope
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_gyroscope
+
+# fast build rule for target.
+_sensor_msgs_ext_generate_messages_check_deps_gyroscope/fast:
+	$(MAKE) $(MAKESILENT) -f sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_gyroscope.dir/build.make sensor_msgs_ext/CMakeFiles/_sensor_msgs_ext_generate_messages_check_deps_gyroscope.dir/build
+.PHONY : _sensor_msgs_ext_generate_messages_check_deps_gyroscope/fast
+
+#=============================================================================
 # Target rules for targets named roscpp_generate_messages_nodejs
 
 # Build rule for target.
@@ -1005,6 +1356,22 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... _catkin_empty_exported_target"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_accelerometer"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_analog_voltage"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_axis_state"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_calibrate_gyroscope"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_covariance"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_get_proximity_configuration"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_gnss_fix"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_gnss_position"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_gnss_track"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_gyroscope"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_magnetometer"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_proximity"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_set_axis_home"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_temperature"
+	@echo "... _sensor_msgs_ext_generate_messages_check_deps_time_reference"
 	@echo "... actionlib_generate_messages_cpp"
 	@echo "... actionlib_generate_messages_eus"
 	@echo "... actionlib_generate_messages_lisp"
@@ -1039,6 +1406,17 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... run_tests"
+	@echo "... sensor_msgs_ext_gencpp"
+	@echo "... sensor_msgs_ext_generate_messages"
+	@echo "... sensor_msgs_ext_generate_messages_cpp"
+	@echo "... sensor_msgs_ext_generate_messages_eus"
+	@echo "... sensor_msgs_ext_generate_messages_lisp"
+	@echo "... sensor_msgs_ext_generate_messages_nodejs"
+	@echo "... sensor_msgs_ext_generate_messages_py"
+	@echo "... sensor_msgs_ext_geneus"
+	@echo "... sensor_msgs_ext_genlisp"
+	@echo "... sensor_msgs_ext_gennodejs"
+	@echo "... sensor_msgs_ext_genpy"
 	@echo "... sensor_msgs_generate_messages_cpp"
 	@echo "... sensor_msgs_generate_messages_eus"
 	@echo "... sensor_msgs_generate_messages_lisp"

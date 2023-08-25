@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: mpu9x50
+Version: 0.0.1
+Summary: MPU9X50 IMUs
+Home-page: UNKNOWN
+Author: Peter Somers
+License: MIT
+Description: # mobot_ws
+        
+Platform: UNKNOWN
+Description-Content-Type: text/markdown

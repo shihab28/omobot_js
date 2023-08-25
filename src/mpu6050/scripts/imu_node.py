@@ -86,12 +86,12 @@ if __name__ == '__main__':
     if type(ADDR) == str:
         ADDR = int(ADDR, 16)
 
-    IMU_FRAME = rospy.get_param('~base_link', 'imu1_link')
+    IMU_FRAME = rospy.get_param('~odom', 'imu1_link')
 
     bus.write_byte_data(ADDR, PWR_MGMT_1, 0)
 
     temp_pub = rospy.Publisher('temperature', Temperature, queue_size=20)
-    imu_pub = rospy.Publisher('imu/raw', Imu, queue_size=20)
+    imu_pub = rospy.Publisher('/imu', Imu, queue_size=20)
     imu_timer = rospy.Timer(rospy.Duration(0.01), publish_imu)
     temp_timer = rospy.Timer(rospy.Duration(10), publish_temp)
     rospy.spin()

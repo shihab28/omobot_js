@@ -112,7 +112,8 @@ def getPwmFromAngSpeed(x, mode = 0):
 	  
 
 
-publishing_frequency = 100
+publishing_frequency = 20
+wait_time = 1 / publishing_frequency # .005
 max_speed_x = .5
 max_speed_y = .5
 max_speed_w = .4
@@ -133,11 +134,11 @@ def pidController(queue_cur, queue_set):
 	W0_Controller = PID(Kp=.1, Kd=.05, Ki=.00, setpoint=prev_cmd_vel[1], output_limits=(-max_speed_w, max_speed_w))
 	while not rospy.is_shutdown():
 		try:
-			W_PWM = queue_cur.get(timeout=1/publishing_frequency)
+			W_PWM = queue_cur.get(timeout=wait_time)
 		except:
 			pass
 		try:
-			W_SET = queue_set.get(timeout=1/publishing_frequency)
+			W_SET = queue_set.get(timeout=wait_time)
 			[cmd_vel_msg.linear.x, cmd_vel_msg.linear.y, cmd_vel_msg.angular.z] = W_SET
 			VX_Controller.setpoint = W_SET[0]
 			VY_Controller.setpoint = W_SET[1]

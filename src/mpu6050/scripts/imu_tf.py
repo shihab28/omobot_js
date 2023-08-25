@@ -11,7 +11,7 @@ def handle_imu_pose(msg):
     t = geometry_msgs.msg.TransformStamped()
 
     t.header.stamp = rospy.Time.now()
-    t.header.frame_id = "base_link"
+    t.header.frame_id = "odom"
     t.child_frame_id = "imu1_link"
     t.transform.translation.x = 0
     t.transform.translation.y = 0
@@ -25,5 +25,5 @@ def handle_imu_pose(msg):
 
 if __name__ == '__main__':
       rospy.init_node('tf_broadcaster_imu')
-      rospy.Subscriber('/imu/raw', Imu, handle_imu_pose)
+      rospy.Subscriber('/imu', Imu, handle_imu_pose)
       rospy.spin()
