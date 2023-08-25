@@ -1,7 +1,7 @@
 map_type: costmap
 
-obstacle_range: .3
-raytrace_range: .3
+obstacle_range: 1
+raytrace_range: 1.5
 footprint: [[-0.14, -0.14], [-0.14, 0.14], [0.14, 0.14], [0.14, -0.14]]
 map_topic: /map
 subscribe_to_updates: true
@@ -25,7 +25,7 @@ obstacle_layer:
     laser_scan_sensor: {sensor_frame: lidar1_link, data_type: LaserScan, topic: /scan, marking: true, clearing: true}
 inflation_layer:
   enabled: true
-  inflation_radius: 0.05
+  inflation_radius: 0.1
   cost_scaling_factor: 1
 
 

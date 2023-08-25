@@ -102,7 +102,7 @@ def startEncoderSerialNode():
 	arduino_enc_port = serial.Serial(port='/dev/ttyTHS1', baudrate=57600, timeout=.1)
 	def serial_read():
 		data = arduino_enc_port.read_until('\n')
-		return str(data).strip()
+		return str(data).strip().split(",")
 	
 	rospy.init_node("arduino_serial", anonymous=True)
 	enc_publisher = rospy.Publisher('/encoder_feedback', String, queue_size=5)
@@ -114,11 +114,12 @@ def startEncoderSerialNode():
 	print("Started Encoder Feedback Serial.....")
 	while not rospy.is_shutdown():
 		value = serial_read()
-		strData.data = value[:3]
-		voltageData.data = float(value[-1])
-		enc_publisher.publish(strData) # printing the value
-		voltage_publisher.publish(voltageData) # printing the value
-		print(value)
+		if len(value) >= 5:
+			strData.data = ','.join(value[:-1])
+			voltageData.data = float(value[-1])
+			enc_publisher.publish(strData) # printing the value
+			voltage_publisher.publish(voltageData) # printing the value
+			print(value)
 		rate.sleep()
 
 def main():

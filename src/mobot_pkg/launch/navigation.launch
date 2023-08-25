@@ -67,7 +67,7 @@
     
 
     
-    <node pkg="mpu_6050_driver" type="imu_node.py" name="imu_node"/>
+    <!-- <node pkg="mpu_6050_driver" type="imu_node.py" name="imu_node"/> -->
     <!-- <node pkg="mpu_6050_driver" type="imu_tf.py" name="imu_tf"/> -->
     <!-- <include file="$(find mobot_pkg)/launch/robot_pose_ekf.launch"/> -->
 

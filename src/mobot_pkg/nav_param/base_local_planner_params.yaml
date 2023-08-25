@@ -7,7 +7,8 @@ TrajectoryPlannerROS:
   max_vel_theta: .80
   #min_vel_theta: -0.05
   min_in_place_vel_theta: 0.5
-
+  vx_samples: 10
+ 
   acc_lim_theta: 0.7
   acc_lim_x: 0.7
   acc_lim_Y: 0.7
@@ -18,14 +19,16 @@ TrajectoryPlannerROS:
   vy_samples: 10
   y_vels: [-.14, -0.12, -0.1, -0.095, -0.09, -0.085, -0.08, -0.075, .075, .080, .085, .09, .095, .1, .12, .14]
 
+
   meter_scoring: true
 
-  xy_goal_tolerance: 0.05
-  yaw_goal_tolerance: 0.1
+  xy_goal_tolerance: 0.01
+  yaw_goal_tolerance: 0.05
 
-  controller_frequency: 5
+  controller_frequency: 10
 
-
+ 
+  dwa: true
   # acc_lim_x: 0.5
   # acc_lim_theta:  0.5
   # max_vel_x: 0.17
@@ -44,8 +47,7 @@ TrajectoryPlannerROS:
   # sim_time: 2
   # sim_granularity: 0.02
   # angular_sim_granularity: 0.02
-  vx_samples: 10
-  dwa: true
+  
   # vtheta_samples: 25
   # controller_frequency: 20.0
   # # Trajectory scoring parameters
