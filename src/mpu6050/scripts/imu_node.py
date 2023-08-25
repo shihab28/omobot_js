@@ -6,13 +6,52 @@ import struct
 import rospy
 import numpy as np
 from sensor_msgs.msg import Temperature, Imu
-from tf.transformations import quaternion_about_axis
+from tf.transformations import quaternion_about_axis, euler_from_quaternion, quaternion_from_euler
 from mpu_6050_driver.registers import PWR_MGMT_1, ACCEL_XOUT_H, ACCEL_YOUT_H, ACCEL_ZOUT_H, TEMP_H,\
     GYRO_XOUT_H, GYRO_YOUT_H, GYRO_ZOUT_H
 
 ADDR = None
 bus = None
 IMU_FRAME = None
+
+
+
+
+
+
+# Define Kalman filter parameters
+Q = 0.5  # Process noise covariance
+R = 0.2   # Measurement noise covariance
+# Initial state (orientation) estimation
+initial_orientation = np.array([0.0, 0.0, 0.0])  # Roll, Pitch, Yaw
+initial_estimate_error = np.eye(3)
+
+# Initialize Kalman filter variables
+x_hat = initial_orientation
+P = initial_estimate_error
+
+# IMU measurement function
+def h(x):
+    return x
+
+# Kalman filter prediction step
+def predict(x, P):
+    x_predicted = x
+    P_predicted = P + Q
+    return x_predicted, P_predicted
+
+# Kalman filter update step
+def update(x_predicted, P_predicted, z):
+    K = P_predicted / (P_predicted + R)
+    x_updated = x_predicted + K * (z - x_predicted)
+    P_updated = (1 - K) * P_predicted
+    return x_updated, P_updated
+
+# Simulate IMU measurements (replace this with actual IMU data)
+
+
+
+
 
 # read_word and read_word_2c from http://blog.bitify.co.uk/2013/11/reading-data-from-mpu-6050-on-raspberry.html
 def read_word(adr):
@@ -35,11 +74,13 @@ def publish_temp(timer_event):
     temp_msg.header.stamp = rospy.Time.now()
     temp_pub.publish(temp_msg)
 
-
+cnt = 0
+orientation_list = []
 def publish_imu(timer_event):
+    global x_hat, P, Q, R, cnt, orientation_list
     imu_msg = Imu()
     imu_msg.header.frame_id = IMU_FRAME
-
+    sample_numer = 1
     # Read the acceleration vals
     accel_x = read_word_2c(ACCEL_XOUT_H) / 16384.0
     accel_y = read_word_2c(ACCEL_YOUT_H) / 16384.0
@@ -60,7 +101,8 @@ def publish_imu(timer_event):
     
     # Load up the IMU message
     o = imu_msg.orientation
-    o.x, o.y, o.z, o.w = orientation
+
+    
 
     imu_msg.linear_acceleration.x = -accel_x
     imu_msg.linear_acceleration.y = -accel_y
@@ -71,13 +113,29 @@ def publish_imu(timer_event):
     imu_msg.angular_velocity.z = gyro_z
 
     imu_msg.header.stamp = rospy.Time.now()
+    measured_orientation = euler_from_quaternion(orientation)
 
-    imu_pub.publish(imu_msg)
+    orientation_list.append(measured_orientation)
+    cnt += 1
+    if cnt >= sample_numer:
+        for orient in orientation_list:
+            x_hat_predicted, P_predicted = predict(x_hat, P)
+            x_hat, P = update(x_hat_predicted, P_predicted, orient)
+        
+        [o.x, o.y, o.z, o.w] = orientation
+        orientation = quaternion_from_euler(*x_hat[1].tolist())
+        imu_pub.publish(imu_msg)
+        print(orientation)
+        cnt = 0
+        orientation_list = []
+    
+
+    
+
 
 
 temp_pub = None
 imu_pub = None
-
 if __name__ == '__main__':
     rospy.init_node('imu_node')
 
@@ -92,6 +150,6 @@ if __name__ == '__main__':
 
     temp_pub = rospy.Publisher('temperature', Temperature, queue_size=20)
     imu_pub = rospy.Publisher('/imu', Imu, queue_size=20)
-    imu_timer = rospy.Timer(rospy.Duration(0.01), publish_imu)
+    imu_timer = rospy.Timer(rospy.Duration(0.002), publish_imu)
     temp_timer = rospy.Timer(rospy.Duration(10), publish_temp)
     rospy.spin()
