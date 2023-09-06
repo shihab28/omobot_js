@@ -126,7 +126,7 @@ def pidController(queue_cur, queue_set):
 	W_SET = [0, 0, 0]
 	W_PWM = [0, 0, 0]
 	cmd_vel_msg = Twist()
-
+	set_pid_controller = False
 	prev_cmd_vel = [0.0, 0.0, 0.0]
 	output_ = [0.0, 0.0, 0.0]
 	VX_Controller = PID(Kp=.1, Kd=.05, Ki=.00, setpoint=prev_cmd_vel[0], output_limits=(-max_speed_x, max_speed_x))

@@ -68,6 +68,7 @@ def encoderFeedbackCB(datas, queue):
 	# W_speed_ = [round(int(vals)*3.7699/ppsp[ind], 5) if int(vals) > 0 else round(int(vals)*3.7699/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
 	W_speed_ = [round(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind], 5) if int(vals) > 0 else round(int(vals) * max_wheel_speed_neg[ind]/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
 	W_speed = [0.0 if abs(vals) < 0.0001 else vals for vals in W_speed_]
+	# print(W_speed)
 	queue.put(W_speed)
 	##############
 
