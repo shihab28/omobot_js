@@ -65,10 +65,15 @@ def encoderFeedbackCB(datas, queue):
 	# global prevTimeWhl, prevTimePos, curW, curW, cur_robot_position, cur_wheel_pos, odom_pub, joint_pub
 	ppsp = [ 5045,  5023,  5193,  5055]
 	ppsn = [-5037, -5197, -5099, -5211]
-	# W_speed_ = [round(int(vals)*3.7699/ppsp[ind], 5) if int(vals) > 0 else round(int(vals)*3.7699/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
-	W_speed_ = [round(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind], 5) if int(vals) > 0 else round(int(vals) * max_wheel_speed_neg[ind]/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
-	W_speed = [0.0 if abs(vals) < 0.0001 else vals for vals in W_speed_]
-	# print(W_speed)
+	# W_speed_ = [round(int(vals)*3.7699/ppsp[ind], 5) if int(vals) > 0 else round(int(vals)*3.7699/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))
+	try:
+		W_speed_ = [round(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind], 5) if int(vals) > 0 else round(int(vals) * max_wheel_speed_neg[ind]/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
+		W_speed = [0.0 if abs(vals) < 0.0001 else vals for vals in W_speed_]
+	except:
+		print("Couldn't get Feedback, making feedback array [0, 0, 0, 0]")
+		W_speed = [0, 0, 0, 0]
+		print(W_speed)
+		
 	queue.put(W_speed)
 	##############
 
@@ -149,11 +154,18 @@ def robotOdomPublisher(queue):
 		# prevTimeWhl = rospy.Time.now().to_sec()
 		try:
 			curW = queue.get(timeout=1/refresh_rate)
+			if  len(curW) != 4:
+				curW = [0, 0, 0, 0]
+
 		except Exception as e:
 			# print(e, "e")
 			pass
-
-		Vx, Vy, W0 = angularToCmdVel(curW)
+		
+		try:
+			Vx, Vy, W0 = angularToCmdVel(curW)
+		except:
+			Vx, Vy, W0 = 0, 0, 0
+			
 		output_ = [Vx, Vy, W0]
 		cur_robot_position = get_cur_robot_pos(Vx, Vy, W0, cur_robot_position)
 		# odom_from_feedback = 

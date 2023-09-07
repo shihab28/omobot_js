@@ -52,7 +52,7 @@ def signal_handler(sig, frame):
 	sys.exit(0)
 
 
-def is_rosnode_running(node_name):
+def is_rosnode_running(node_names):
 	try:
 		# Use the `rosnode` command to list all running nodes
 		try:
@@ -63,27 +63,29 @@ def is_rosnode_running(node_name):
 			running_nodes = [""]
 			
 		# Check if the specified node name is in the list of running nodes
-		if '/' + node_name in running_nodes:
-			return True
-		else:
-			return False
+		for node_name in node_names:
+			if '/' + node_name in running_nodes:
+				pass
+			else:
+				return False
+		return True
 	except subprocess.CalledProcessError:
 		# If the `rosnode` command fails, the ROS Master may not be running
 		return False
 
 
 if __name__ == '__main__':
-	node_name_to_check = 'motor_node'
+	node_name_to_check = ['motor_node', 'arduino_serial']
 	# print("Mode : ", GPIO.getmode())
 	while True:
 		runningVal = 1
 		stoppedVal = 1 - runningVal
 		if is_rosnode_running(node_name_to_check):
 			print("The ROS node '{}' is     running {}".format(node_name_to_check, runningVal))
-			digitalWrite(gpio_pin, 1)
+			digitalWrite(gpio_pin, runningVal)
 		else:
 			print("The ROS node '{}' is not running {}".format(node_name_to_check, stoppedVal))
-			digitalWrite(gpio_pin, 0)
+			digitalWrite(gpio_pin, stoppedVal)
 		time.sleep(1)
 
 		signal.signal(signal.SIGINT, signal_handler)

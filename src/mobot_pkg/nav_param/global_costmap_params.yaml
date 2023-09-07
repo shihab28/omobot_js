@@ -1,12 +1,13 @@
 global_costmap:
   global_frame: odom
   robot_base_frame: base_footprint
-  update_frequency: 20.0
-  publish_frequency: 10
+  update_frequency: 2.0
+  publish_frequency: 1.0
   transform_tolerance: 0.3
   resolution: .1
-  width:  10.0
-  height: 10.0
+  width:  5.0 #Fornt/Rear
+  height: 5.0 #Left/Right
+
   static_map: true
   # track_unknown_space: false
   # rolling_window: false

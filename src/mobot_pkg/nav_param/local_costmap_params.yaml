@@ -1,13 +1,13 @@
 local_costmap:
-  update_frequency: 20.0
-  publish_frequency: 10.0
+  update_frequency: 5.0
+  publish_frequency: 4.0
   transform_tolerance: 0.3
   static_map: false
   rolling_window: true
   resolution: .01
   inflation_radius: 0.1
-  width: 1
-  height: 1
+  width: 2
+  height: 2
 
   plugins:
     - {name: obstacle_layer, type: "costmap_2d::ObstacleLayer"}

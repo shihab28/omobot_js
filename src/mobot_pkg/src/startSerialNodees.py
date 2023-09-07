@@ -14,6 +14,19 @@ from std_msgs.msg import String
 from std_msgs.msg import Float32
 
 
+try:
+	system("echo y | rosnode cleanup\n")
+	time.sleep(1)
+except:
+	try:
+		system("echo y | rosnode cleanup\n")
+		time.sleep(1)
+	except:
+		pass
+
+
+
+
 def signal_handler(sig, frame):
 	print('You pressed Ctrl+C!')
 	try:
@@ -83,7 +96,9 @@ def startEncoderSerialNode():
 		# print("data", data)
 		return str(data).strip().strip().split(",")
 	
-	rospy.init_node("arduino_serial", anonymous=True)
+	
+
+	rospy.init_node("arduino_serial", anonymous=False)
 	enc_publisher = rospy.Publisher('/encoder_feedback', String, queue_size=5)
 	voltage_publisher = rospy.Publisher('/battery_voltage', Float32, queue_size=5)
 	rate = rospy.Rate(refresh_rate)
