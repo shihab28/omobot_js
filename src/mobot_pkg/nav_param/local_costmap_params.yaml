@@ -1,7 +1,7 @@
 local_costmap:
-  update_frequency: 5.0
-  publish_frequency: 4.0
-  transform_tolerance: 0.3
+  update_frequency: 20.0
+  publish_frequency: 10.0
+  transform_tolerance: 0.4
   static_map: false
   rolling_window: true
   resolution: .01
@@ -19,7 +19,7 @@ local_costmap:
 
   inflation_layer:
     enabled: true
-    inflation_radius: 0.1
+    inflation_radius: 0.05
     cost_scaling_factor: 1
 
 # local_costmap:
