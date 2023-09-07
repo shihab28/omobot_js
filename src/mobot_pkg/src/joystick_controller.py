@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import rospy 
+import rospy , roslaunch
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist
 import rosparam, os, time, sys, signal
@@ -35,6 +35,13 @@ max_wheel_speed_neg = [vals*2*3.1416/60 for vals in max_wheel_rpm_neg]
 # bp = [4.27373, 4.3164, 4.56555, 4.14697]
 # an = [-148.47458, -166.4961, -151.14043, -160.6376]
 # bn = [-4.24042, -4.42413, -4.24936, -4.47939]
+uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
+roslaunch.configure_logging(uuid)
+twstMuxCli = ['./src/mobot_pkg/launch/twist_mux.launch','vel:=2.19']
+twistMux_launch_args = twstMuxCli[1:]
+twistMux_launch_file =  [(roslaunch.rlutil.resolve_launch_arguments(twstMuxCli)[0], twistMux_launch_args)]
+parent = roslaunch.parent.ROSLaunchParent(uuid, twistMux_launch_file)
+parent.start()
 
 ap = [-156.24596, -165.97551, -155.69695, -153.1074]
 bp = [4.23815, 4.36329, 4.59189, 4.14697]

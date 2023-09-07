@@ -3,9 +3,9 @@ global_costmap:
   robot_base_frame: base_footprint
   update_frequency: 20.0
   publish_frequency: 10.0
-  transform_tolerance: 0.4
+  transform_tolerance: 1.0
   resolution: .1
-  width:  5.0 #Fornt/Rear
+  width:  10.0 #Fornt/Rear
   height: 5.0 #Left/Right
 
   static_map: true

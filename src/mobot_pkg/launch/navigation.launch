@@ -50,7 +50,7 @@
     
     
     <include file="$(find mobot_pkg)/launch/amcl.launch"/>
-    <include file="$(find mobot_pkg)/launch/twist_mux.launch"/>
+    <!-- <include file="$(find mobot_pkg)/launch/twist_mux.launch"/> -->
 
 
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
@@ -58,8 +58,9 @@
         <rosparam file="$(find mobot_pkg)/nav_param/costmap_common_params.yaml" command="load" ns="local_costmap" />
         <rosparam file="$(find mobot_pkg)/nav_param/local_costmap_params.yaml" command="load"  />
         <rosparam file="$(find mobot_pkg)/nav_param/global_costmap_params.yaml" command="load"  />
-        <rosparam file="$(find mobot_pkg)/nav_param/base_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find mobot_pkg)/nav_param/move_base_params.yaml" command="load"  />
         <rosparam file="$(find mobot_pkg)/nav_param/dwa_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find mobot_pkg)/nav_param/base_local_planner_params.yaml" command="load" />
     </node>
 
 

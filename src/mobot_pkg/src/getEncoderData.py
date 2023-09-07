@@ -161,10 +161,9 @@ def robotOdomPublisher(queue):
 			# print(e, "e")
 			pass
 		
-		try:
-			Vx, Vy, W0 = angularToCmdVel(curW)
-		except:
-			Vx, Vy, W0 = 0, 0, 0
+
+		Vx, Vy, W0 = angularToCmdVel(curW)
+		
 			
 		output_ = [Vx, Vy, W0]
 		cur_robot_position = get_cur_robot_pos(Vx, Vy, W0, cur_robot_position)
@@ -174,7 +173,7 @@ def robotOdomPublisher(queue):
 		if (curW != [0, 0, 0, 0]):
 			# print(rospy.Time.now().to_sec(), [Vx, Vy, W0])
 			cur_wheel_pos = get_cur_wheel_pos(curW, cur_wheel_pos)
-			print(output_, cur_robot_position, curW)
+			print(curW, output_, cur_robot_position)
 			# print(rospy.Time.now().to_sec(), output_)
 			
 		publishJointData(joint_pub, cur_wheel_pos)

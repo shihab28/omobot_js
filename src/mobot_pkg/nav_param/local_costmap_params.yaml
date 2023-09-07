@@ -1,11 +1,11 @@
 local_costmap:
   update_frequency: 20.0
   publish_frequency: 10.0
-  transform_tolerance: 0.4
+  transform_tolerance: 1.0
   static_map: false
   rolling_window: true
   resolution: .01
-  inflation_radius: 0.1
+  inflation_radius: 0.05
   width: 2
   height: 2
 
