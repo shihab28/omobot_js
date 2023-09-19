@@ -4,7 +4,7 @@ import rospy
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist
 import rosparam, os, time, sys, signal
-from std_msgs.msg import Int16MultiArray
+from std_msgs.msg import Int16MultiArray, String
 from multiprocessing import Process, Queue
 
 curLinSpeed = .80000000
@@ -128,7 +128,7 @@ def clearOffset(vx, vy, wo):
 
 publishing_frequency = 10
 def pwmCB(cmdVelMsg):
-	global pwm_pub
+	global pwm_pub, pwm_pub_str
 	wheel_msg = Int16MultiArray(); wheel_msg.data = [0, 0, 0, 0]
 	Vx, Vy, W0 = cmdVelMsg.linear.x, cmdVelMsg.linear.y, cmdVelMsg.angular.z
 	W_ = Vxy2Angular(Vx, Vy, W0)
@@ -136,7 +136,16 @@ def pwmCB(cmdVelMsg):
 	wheel_msg.data = W_PWM
 	if W_PWM != [0, 0, 0, 0]:
 		print(W_PWM)
+	
 	pwm_pub.publish(wheel_msg)
+
+	wheel_msg_str = String()
+	temp_msg = ''
+	for vals in W_PWM:
+		temp_msg += str(vals) + ','
+	temp_msg += '\n'
+	wheel_msg_str.data = temp_msg
+	pwm_pub_str.publish(wheel_msg_str)
 
 def pwmCB_test(cmdVelMsg, pwm_pub):
 	global max_pwm
@@ -155,10 +164,12 @@ def pwmCB_test(cmdVelMsg, pwm_pub):
 
 test_on = False
 def pwmProcess(pwm_queue=None):
-	global pwm_pub, wheel_msg
+	global pwm_pub, wheel_msg, pwm_pub_str, wheel_msg_str
 	rospy.init_node('pwm_node', anonymous=True)
 	pwm_pub = rospy.Publisher("/wheel_pwm", Int16MultiArray, queue_size=2)
+	pwm_pub_str = rospy.Publisher("/wheel_pwm_str", String, queue_size=2)
 	wheel_msg = Int16MultiArray()
+	wheel_msg_str = String()
 	rate = rospy.Rate(publishing_frequency)
 	if not test_on:
 		rospy.Subscriber('/cmd_vel_out', Twist, pwmCB, queue_size=5)

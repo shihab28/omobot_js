@@ -15,7 +15,7 @@ DWAPlannerROS:
   min_rot_vel: 0.5  # could set this lower
   rot_stopped_vel: 0.3
   
-  controller_frequency: 10.0
+  controller_frequency: 5.0
   acc_lim_x: .7
   acc_lim_theta: .7 # 1.0 
   acc_lim_y: .7      # diff drive robot

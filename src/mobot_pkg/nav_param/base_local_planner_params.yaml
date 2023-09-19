@@ -25,7 +25,7 @@ TrajectoryPlannerROS:
   xy_goal_tolerance: 0.05
   yaw_goal_tolerance: 0.1
 
-  controller_frequency: 10.0
+  controller_frequency: 5.0
 
  
   dwa: true
