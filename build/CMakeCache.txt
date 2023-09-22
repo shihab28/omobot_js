@@ -23,6 +23,72 @@ BUILD_GTEST:BOOL=OFF
 //Build shared libraries (DLLs).
 BUILD_SHARED_LIBS:BOOL=ON
 
+//Boost atomic library (debug)
+Boost_ATOMIC_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_atomic.so
+
+//Boost atomic library (release)
+Boost_ATOMIC_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_atomic.so
+
+//Boost chrono library (debug)
+Boost_CHRONO_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_chrono.so
+
+//Boost chrono library (release)
+Boost_CHRONO_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_chrono.so
+
+//Boost date_time library (debug)
+Boost_DATE_TIME_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_date_time.so
+
+//Boost date_time library (release)
+Boost_DATE_TIME_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_date_time.so
+
+//The directory containing a CMake configuration file for Boost.
+Boost_DIR:PATH=Boost_DIR-NOTFOUND
+
+//Boost filesystem library (debug)
+Boost_FILESYSTEM_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_filesystem.so
+
+//Boost filesystem library (release)
+Boost_FILESYSTEM_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_filesystem.so
+
+//Path to a file.
+Boost_INCLUDE_DIR:PATH=/usr/include
+
+//Boost iostreams library (debug)
+Boost_IOSTREAMS_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_iostreams.so
+
+//Boost iostreams library (release)
+Boost_IOSTREAMS_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_iostreams.so
+
+//Boost library directory DEBUG
+Boost_LIBRARY_DIR_DEBUG:PATH=/usr/lib/aarch64-linux-gnu
+
+//Boost library directory RELEASE
+Boost_LIBRARY_DIR_RELEASE:PATH=/usr/lib/aarch64-linux-gnu
+
+//Boost regex library (debug)
+Boost_REGEX_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_regex.so
+
+//Boost regex library (release)
+Boost_REGEX_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_regex.so
+
+//Boost serialization library (debug)
+Boost_SERIALIZATION_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_serialization.so
+
+//Boost serialization library (release)
+Boost_SERIALIZATION_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_serialization.so
+
+//Boost system library (debug)
+Boost_SYSTEM_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_system.so
+
+//Boost system library (release)
+Boost_SYSTEM_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_system.so
+
+//Boost thread library (debug)
+Boost_THREAD_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_thread.so
+
+//Boost thread library (release)
+Boost_THREAD_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libboost_thread.so
+
 //List of ';' separated packages to exclude
 CATKIN_BLACKLIST_PACKAGES:STRING=
 
@@ -240,6 +306,9 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 //Path to a program.
 DOXYGEN_EXECUTABLE:FILEPATH=DOXYGEN_EXECUTABLE-NOTFOUND
 
+//Path to a file.
+EIGEN_INCLUDE_DIRS:PATH=/usr/include/eigen3
+
 //Path to a program.
 EMPY_EXECUTABLE:FILEPATH=/usr/bin/empy
 
@@ -272,6 +341,21 @@ LSB_RELEASE_EXECUTABLE:FILEPATH=/usr/bin/lsb_release
 
 //Path to a program.
 NOSETESTS:FILEPATH=/usr/bin/nosetests-2.7
+
+//path to common headers
+PCL_COMMON_INCLUDE_DIR:PATH=/usr/include/pcl-1.8
+
+//path to pcl_common library
+PCL_COMMON_LIBRARY:FILEPATH=/usr/lib/aarch64-linux-gnu/libpcl_common.so
+
+//path to pcl_common library debug
+PCL_COMMON_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libpcl_common.so
+
+//The directory containing a CMake configuration file for PCL.
+PCL_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/pcl
+
+//pkg-config executable
+PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 
 //Path to a program.
 PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python2
@@ -321,8 +405,53 @@ actionlib_msgs_DIR:PATH=/opt/ros/melodic/share/actionlib_msgs/cmake
 //The directory containing a CMake configuration file for catkin.
 catkin_DIR:PATH=/opt/ros/melodic/share/catkin/cmake
 
+//The directory containing a CMake configuration file for class_loader.
+class_loader_DIR:PATH=/opt/ros/melodic/share/class_loader/cmake
+
+//The directory containing a CMake configuration file for costmap_2d.
+costmap_2d_DIR:PATH=/opt/ros/melodic/share/costmap_2d/cmake
+
 //The directory containing a CMake configuration file for cpp_common.
 cpp_common_DIR:PATH=/opt/ros/melodic/share/cpp_common/cmake
+
+//The directory containing a CMake configuration file for dynamic_reconfigure.
+dynamic_reconfigure_DIR:PATH=/opt/ros/melodic/share/dynamic_reconfigure/cmake
+
+//Value Computed by CMake
+exploration_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/frontier_exploration/exploration
+
+//Value Computed by CMake
+exploration_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/frontier_exploration/exploration
+
+//Value Computed by CMake
+exploration_msgs_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/frontier_exploration/exploration_msgs
+
+//The directory containing a CMake configuration file for exploration_msgs.
+exploration_msgs_DIR:PATH=/home/shihab/omobot_js/devel/share/exploration_msgs/cmake
+
+//Value Computed by CMake
+exploration_msgs_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/frontier_exploration/exploration_msgs
+
+//Value Computed by CMake
+exploration_server_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/frontier_exploration/exploration_server
+
+//The directory containing a CMake configuration file for exploration_server.
+exploration_server_DIR:PATH=/home/shihab/omobot_js/devel/share/exploration_server/cmake
+
+//Dependencies for the target
+exploration_server_LIB_DEPENDS:STATIC=general;/opt/ros/melodic/lib/libcostmap_2d.so;general;/opt/ros/melodic/lib/liblayers.so;general;/opt/ros/melodic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/melodic/lib/liblaser_geometry.so;general;/opt/ros/melodic/lib/libclass_loader.so;general;/usr/lib/libPocoFoundation.so;general;/usr/lib/aarch64-linux-gnu/libdl.so;general;/opt/ros/melodic/lib/libroslib.so;general;/opt/ros/melodic/lib/librospack.so;general;/usr/lib/aarch64-linux-gnu/libpython2.7.so;general;/usr/lib/aarch64-linux-gnu/libboost_program_options.so;general;/usr/lib/aarch64-linux-gnu/libtinyxml2.so;general;/opt/ros/melodic/lib/libvoxel_grid.so;general;/opt/ros/melodic/lib/libtf.so;general;/opt/ros/melodic/lib/libtf2_ros.so;general;/opt/ros/melodic/lib/libactionlib.so;general;/opt/ros/melodic/lib/libmessage_filters.so;general;/opt/ros/melodic/lib/libroscpp.so;general;/usr/lib/aarch64-linux-gnu/libboost_filesystem.so;general;/opt/ros/melodic/lib/libxmlrpcpp.so;general;/opt/ros/melodic/lib/libtf2.so;general;/opt/ros/melodic/lib/libroscpp_serialization.so;general;/opt/ros/melodic/lib/librosconsole.so;general;/opt/ros/melodic/lib/librosconsole_log4cxx.so;general;/opt/ros/melodic/lib/librosconsole_backend_interface.so;general;/usr/lib/aarch64-linux-gnu/liblog4cxx.so;general;/usr/lib/aarch64-linux-gnu/libboost_regex.so;general;/opt/ros/melodic/lib/librostime.so;general;/opt/ros/melodic/lib/libcpp_common.so;general;/usr/lib/aarch64-linux-gnu/libboost_system.so;general;/usr/lib/aarch64-linux-gnu/libboost_thread.so;general;/usr/lib/aarch64-linux-gnu/libboost_chrono.so;general;/usr/lib/aarch64-linux-gnu/libboost_date_time.so;general;/usr/lib/aarch64-linux-gnu/libboost_atomic.so;general;/usr/lib/aarch64-linux-gnu/libpthread.so;general;/usr/lib/aarch64-linux-gnu/libconsole_bridge.so.0.4;
+
+//Value Computed by CMake
+exploration_server_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/frontier_exploration/exploration_server
+
+//Value Computed by CMake
+frontier_exploration_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/frontier_exploration/frontier_exploration
+
+//Value Computed by CMake
+frontier_exploration_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/frontier_exploration/frontier_exploration
+
+//Dependencies for the target
+frontier_plugin_LIB_DEPENDS:STATIC=general;/opt/ros/melodic/lib/libcostmap_2d.so;general;/opt/ros/melodic/lib/liblayers.so;general;/opt/ros/melodic/lib/liblaser_geometry.so;general;/opt/ros/melodic/lib/libclass_loader.so;general;/usr/lib/libPocoFoundation.so;general;/usr/lib/aarch64-linux-gnu/libdl.so;general;/opt/ros/melodic/lib/libroslib.so;general;/opt/ros/melodic/lib/librospack.so;general;/usr/lib/aarch64-linux-gnu/libpython2.7.so;general;/usr/lib/aarch64-linux-gnu/libboost_program_options.so;general;/usr/lib/aarch64-linux-gnu/libtinyxml2.so;general;/opt/ros/melodic/lib/libvoxel_grid.so;general;/opt/ros/melodic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/melodic/lib/libtf.so;general;/opt/ros/melodic/lib/libtf2_ros.so;general;/opt/ros/melodic/lib/libmessage_filters.so;general;/opt/ros/melodic/lib/libtf2.so;general;/opt/ros/melodic/lib/libactionlib.so;general;/opt/ros/melodic/lib/libroscpp.so;general;/usr/lib/aarch64-linux-gnu/libboost_filesystem.so;general;/opt/ros/melodic/lib/librosconsole.so;general;/opt/ros/melodic/lib/librosconsole_log4cxx.so;general;/opt/ros/melodic/lib/librosconsole_backend_interface.so;general;/usr/lib/aarch64-linux-gnu/liblog4cxx.so;general;/usr/lib/aarch64-linux-gnu/libboost_regex.so;general;/opt/ros/melodic/lib/libxmlrpcpp.so;general;/opt/ros/melodic/lib/libroscpp_serialization.so;general;/opt/ros/melodic/lib/librostime.so;general;/opt/ros/melodic/lib/libcpp_common.so;general;/usr/lib/aarch64-linux-gnu/libboost_system.so;general;/usr/lib/aarch64-linux-gnu/libboost_thread.so;general;/usr/lib/aarch64-linux-gnu/libboost_chrono.so;general;/usr/lib/aarch64-linux-gnu/libboost_date_time.so;general;/usr/lib/aarch64-linux-gnu/libboost_atomic.so;general;/usr/lib/aarch64-linux-gnu/libpthread.so;general;/usr/lib/aarch64-linux-gnu/libconsole_bridge.so.0.4;general;/usr/lib/aarch64-linux-gnu/libboost_system.so;general;/usr/lib/aarch64-linux-gnu/libboost_filesystem.so;general;/usr/lib/aarch64-linux-gnu/libboost_thread.so;general;-lpthread;general;/usr/lib/aarch64-linux-gnu/libboost_date_time.so;general;/usr/lib/aarch64-linux-gnu/libboost_iostreams.so;general;/usr/lib/aarch64-linux-gnu/libboost_serialization.so;general;/usr/lib/aarch64-linux-gnu/libboost_chrono.so;general;/usr/lib/aarch64-linux-gnu/libboost_atomic.so;general;/usr/lib/aarch64-linux-gnu/libboost_regex.so;general;/usr/lib/aarch64-linux-gnu/libboost_system.so;general;/usr/lib/aarch64-linux-gnu/libboost_filesystem.so;general;/usr/lib/aarch64-linux-gnu/libboost_thread.so;general;-lpthread;general;/usr/lib/aarch64-linux-gnu/libboost_date_time.so;general;/usr/lib/aarch64-linux-gnu/libboost_iostreams.so;general;/usr/lib/aarch64-linux-gnu/libboost_serialization.so;general;/usr/lib/aarch64-linux-gnu/libboost_chrono.so;general;/usr/lib/aarch64-linux-gnu/libboost_atomic.so;general;/usr/lib/aarch64-linux-gnu/libboost_regex.so;optimized;/usr/lib/aarch64-linux-gnu/libpcl_common.so;debug;/usr/lib/aarch64-linux-gnu/libpcl_common.so;general;/usr/lib/aarch64-linux-gnu/libboost_system.so;general;/usr/lib/aarch64-linux-gnu/libboost_filesystem.so;general;/usr/lib/aarch64-linux-gnu/libboost_thread.so;general;-lpthread;general;/usr/lib/aarch64-linux-gnu/libboost_date_time.so;general;/usr/lib/aarch64-linux-gnu/libboost_iostreams.so;general;/usr/lib/aarch64-linux-gnu/libboost_serialization.so;general;/usr/lib/aarch64-linux-gnu/libboost_chrono.so;general;/usr/lib/aarch64-linux-gnu/libboost_atomic.so;general;/usr/lib/aarch64-linux-gnu/libboost_regex.so;
 
 //The directory containing a CMake configuration file for gencpp.
 gencpp_DIR:PATH=/opt/ros/melodic/share/gencpp/cmake
@@ -369,6 +498,9 @@ googletest-distribution_SOURCE_DIR:STATIC=/usr/src/googletest
 //Value Computed by CMake
 gtest_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/gtest/googlemock/gtest
 
+//The directory containing a CMake configuration file for gtest.
+gtest_DIR:PATH=gtest_DIR-NOTFOUND
+
 //Dependencies for the target
 gtest_LIB_DEPENDS:STATIC=general;-lpthread;
 
@@ -394,6 +526,9 @@ gtest_hide_internal_symbols:BOOL=OFF
 //Dependencies for the target
 gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
 
+//The directory containing a CMake configuration file for laser_geometry.
+laser_geometry_DIR:PATH=/opt/ros/melodic/share/laser_geometry/cmake
+
 //Value Computed by CMake
 ldlidar_stl_ros_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/lidar_ld19
 
@@ -408,6 +543,9 @@ localization_data_pub_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/localizatio
 
 //Value Computed by CMake
 localization_data_pub_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/localization_data_pub
+
+//The directory containing a CMake configuration file for map_msgs.
+map_msgs_DIR:PATH=/opt/ros/melodic/share/map_msgs/cmake
 
 //The directory containing a CMake configuration file for message_filters.
 message_filters_DIR:PATH=/opt/ros/melodic/share/message_filters/cmake
@@ -424,6 +562,9 @@ mobot_pkg_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/mobot_pkg
 //Value Computed by CMake
 mobot_pkg_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/mobot_pkg
 
+//The directory containing a CMake configuration file for move_base_msgs.
+move_base_msgs_DIR:PATH=/opt/ros/melodic/share/move_base_msgs/cmake
+
 //Value Computed by CMake
 mpu_6050_driver_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/mpu6050
 
@@ -432,6 +573,18 @@ mpu_6050_driver_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/mpu6050
 
 //The directory containing a CMake configuration file for nav_msgs.
 nav_msgs_DIR:PATH=/opt/ros/melodic/share/nav_msgs/cmake
+
+//The directory containing a CMake configuration file for pluginlib.
+pluginlib_DIR:PATH=/opt/ros/melodic/share/pluginlib/cmake
+
+//Value Computed by CMake
+polygon_layer_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/frontier_exploration/polygon_layer
+
+//Dependencies for the target
+polygon_layer_LIB_DEPENDS:STATIC=general;/opt/ros/melodic/lib/libcostmap_2d.so;general;/opt/ros/melodic/lib/liblayers.so;general;/opt/ros/melodic/lib/liblaser_geometry.so;general;/opt/ros/melodic/lib/libtf.so;general;/opt/ros/melodic/lib/libclass_loader.so;general;/usr/lib/libPocoFoundation.so;general;/usr/lib/aarch64-linux-gnu/libdl.so;general;/opt/ros/melodic/lib/libroslib.so;general;/opt/ros/melodic/lib/librospack.so;general;/usr/lib/aarch64-linux-gnu/libpython2.7.so;general;/usr/lib/aarch64-linux-gnu/libboost_program_options.so;general;/usr/lib/aarch64-linux-gnu/libtinyxml2.so;general;/opt/ros/melodic/lib/libvoxel_grid.so;general;/opt/ros/melodic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/melodic/lib/liborocos-kdl.so;general;/opt/ros/melodic/lib/liborocos-kdl.so.1.4.0;general;/opt/ros/melodic/lib/libtf2_ros.so;general;/opt/ros/melodic/lib/libactionlib.so;general;/opt/ros/melodic/lib/libmessage_filters.so;general;/opt/ros/melodic/lib/libroscpp.so;general;/usr/lib/aarch64-linux-gnu/libboost_filesystem.so;general;/opt/ros/melodic/lib/librosconsole.so;general;/opt/ros/melodic/lib/librosconsole_log4cxx.so;general;/opt/ros/melodic/lib/librosconsole_backend_interface.so;general;/usr/lib/aarch64-linux-gnu/liblog4cxx.so;general;/usr/lib/aarch64-linux-gnu/libboost_regex.so;general;/opt/ros/melodic/lib/libxmlrpcpp.so;general;/opt/ros/melodic/lib/libtf2.so;general;/opt/ros/melodic/lib/libroscpp_serialization.so;general;/opt/ros/melodic/lib/librostime.so;general;/opt/ros/melodic/lib/libcpp_common.so;general;/usr/lib/aarch64-linux-gnu/libboost_system.so;general;/usr/lib/aarch64-linux-gnu/libboost_thread.so;general;/usr/lib/aarch64-linux-gnu/libboost_chrono.so;general;/usr/lib/aarch64-linux-gnu/libboost_date_time.so;general;/usr/lib/aarch64-linux-gnu/libboost_atomic.so;general;/usr/lib/aarch64-linux-gnu/libpthread.so;general;/usr/lib/aarch64-linux-gnu/libconsole_bridge.so.0.4;
+
+//Value Computed by CMake
+polygon_layer_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/frontier_exploration/polygon_layer
 
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/melodic/share/rosconsole/cmake
@@ -451,11 +604,35 @@ rosgraph_DIR:PATH=/opt/ros/melodic/share/rosgraph/cmake
 //The directory containing a CMake configuration file for rosgraph_msgs.
 rosgraph_msgs_DIR:PATH=/opt/ros/melodic/share/rosgraph_msgs/cmake
 
+//The directory containing a CMake configuration file for roslib.
+roslib_DIR:PATH=/opt/ros/melodic/share/roslib/cmake
+
+//The directory containing a CMake configuration file for roslint.
+roslint_DIR:PATH=/opt/ros/melodic/share/roslint/cmake
+
+//The directory containing a CMake configuration file for rospack.
+rospack_DIR:PATH=/opt/ros/melodic/share/rospack/cmake
+
 //The directory containing a CMake configuration file for rospy.
 rospy_DIR:PATH=/opt/ros/melodic/share/rospy/cmake
 
+//The directory containing a CMake configuration file for rostest.
+rostest_DIR:PATH=/opt/ros/melodic/share/rostest/cmake
+
 //The directory containing a CMake configuration file for rostime.
 rostime_DIR:PATH=/opt/ros/melodic/share/rostime/cmake
+
+//Value Computed by CMake
+rrt_exploration_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/rrt_exploration
+
+//Value Computed by CMake
+rrt_exploration_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/rrt_exploration
+
+//Value Computed by CMake
+rrt_exploration_tutorials_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/rrt_exploration_tutorials
+
+//Value Computed by CMake
+rrt_exploration_tutorials_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/rrt_exploration_tutorials
 
 //The directory containing a CMake configuration file for sensor_msgs.
 sensor_msgs_DIR:PATH=/opt/ros/melodic/share/sensor_msgs/cmake
@@ -469,8 +646,14 @@ sensor_msgs_ext_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/sensor_msgs_ext
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/melodic/share/std_msgs/cmake
 
+//The directory containing a CMake configuration file for std_srvs.
+std_srvs_DIR:PATH=/opt/ros/melodic/share/std_srvs/cmake
+
 //The directory containing a CMake configuration file for tf2.
 tf2_DIR:PATH=/opt/ros/melodic/share/tf2/cmake
+
+//The directory containing a CMake configuration file for tf2_geometry_msgs.
+tf2_geometry_msgs_DIR:PATH=/opt/ros/melodic/share/tf2_geometry_msgs/cmake
 
 //The directory containing a CMake configuration file for tf2_msgs.
 tf2_msgs_DIR:PATH=/opt/ros/melodic/share/tf2_msgs/cmake
@@ -484,6 +667,12 @@ tf2_ros_DIR:PATH=/opt/ros/melodic/share/tf2_ros/cmake
 //The directory containing a CMake configuration file for tf.
 tf_DIR:PATH=/opt/ros/melodic/share/tf/cmake
 
+//The directory containing a CMake configuration file for visualization_msgs.
+visualization_msgs_DIR:PATH=/opt/ros/melodic/share/visualization_msgs/cmake
+
+//The directory containing a CMake configuration file for voxel_grid.
+voxel_grid_DIR:PATH=/opt/ros/melodic/share/voxel_grid/cmake
+
 //The directory containing a CMake configuration file for xmlrpcpp.
 xmlrpcpp_DIR:PATH=/opt/ros/melodic/share/xmlrpcpp/cmake
 
@@ -492,6 +681,50 @@ xmlrpcpp_DIR:PATH=/opt/ros/melodic/share/xmlrpcpp/cmake
 # INTERNAL cache entries
 ########################
 
+//ADVANCED property for variable: Boost_ATOMIC_LIBRARY_DEBUG
+Boost_ATOMIC_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_ATOMIC_LIBRARY_RELEASE
+Boost_ATOMIC_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_CHRONO_LIBRARY_DEBUG
+Boost_CHRONO_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_CHRONO_LIBRARY_RELEASE
+Boost_CHRONO_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_DATE_TIME_LIBRARY_DEBUG
+Boost_DATE_TIME_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_DATE_TIME_LIBRARY_RELEASE
+Boost_DATE_TIME_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_DIR
+Boost_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_FILESYSTEM_LIBRARY_DEBUG
+Boost_FILESYSTEM_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_FILESYSTEM_LIBRARY_RELEASE
+Boost_FILESYSTEM_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_INCLUDE_DIR
+Boost_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_IOSTREAMS_LIBRARY_DEBUG
+Boost_IOSTREAMS_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_IOSTREAMS_LIBRARY_RELEASE
+Boost_IOSTREAMS_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_LIBRARY_DIR_DEBUG
+Boost_LIBRARY_DIR_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_LIBRARY_DIR_RELEASE
+Boost_LIBRARY_DIR_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_REGEX_LIBRARY_DEBUG
+Boost_REGEX_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_REGEX_LIBRARY_RELEASE
+Boost_REGEX_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SERIALIZATION_LIBRARY_DEBUG
+Boost_SERIALIZATION_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SERIALIZATION_LIBRARY_RELEASE
+Boost_SERIALIZATION_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SYSTEM_LIBRARY_DEBUG
+Boost_SYSTEM_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SYSTEM_LIBRARY_RELEASE
+Boost_SYSTEM_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_THREAD_LIBRARY_DEBUG
+Boost_THREAD_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_THREAD_LIBRARY_RELEASE
+Boost_THREAD_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //catkin environment
 CATKIN_ENV:INTERNAL=/home/shihab/omobot_js/build/catkin_generated/env_cached.sh
 CATKIN_TEST_RESULTS_DIR:INTERNAL=/home/shihab/omobot_js/build/test_results
@@ -648,10 +881,18 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding Boost
+FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/include][cfound components: system filesystem thread date_time iostreams serialization chrono atomic regex ][v1.65.1(1.40.0)]
+//Details about finding PCL
+FIND_PACKAGE_MESSAGE_DETAILS_PCL:INTERNAL=[/usr/lib/aarch64-linux-gnu/libboost_system.so;/usr/lib/aarch64-linux-gnu/libboost_filesystem.so;/usr/lib/aarch64-linux-gnu/libboost_thread.so;-lpthread;/usr/lib/aarch64-linux-gnu/libboost_date_time.so;/usr/lib/aarch64-linux-gnu/libboost_iostreams.so;/usr/lib/aarch64-linux-gnu/libboost_serialization.so;/usr/lib/aarch64-linux-gnu/libboost_chrono.so;/usr/lib/aarch64-linux-gnu/libboost_atomic.so;/usr/lib/aarch64-linux-gnu/libboost_regex.so;optimized;/usr/lib/aarch64-linux-gnu/libpcl_common.so;debug;/usr/lib/aarch64-linux-gnu/libpcl_common.so;/usr/lib/aarch64-linux-gnu/libboost_system.so;/usr/lib/aarch64-linux-gnu/libboost_filesystem.so;/usr/lib/aarch64-linux-gnu/libboost_thread.so;-lpthread;/usr/lib/aarch64-linux-gnu/libboost_date_time.so;/usr/lib/aarch64-linux-gnu/libboost_iostreams.so;/usr/lib/aarch64-linux-gnu/libboost_serialization.so;/usr/lib/aarch64-linux-gnu/libboost_chrono.so;/usr/lib/aarch64-linux-gnu/libboost_atomic.so;/usr/lib/aarch64-linux-gnu/libboost_regex.so][/usr/include/pcl-1.8;/usr/include/eigen3;/usr/include][v()]
+//Details about finding PCL_COMMON
+FIND_PACKAGE_MESSAGE_DETAILS_PCL_COMMON:INTERNAL=[/usr/lib/aarch64-linux-gnu/libpcl_common.so][/usr/include/pcl-1.8][v()]
 //Details about finding PythonInterp
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/usr/bin/python2][v2.7.17()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
+//Details about finding eigen
+FIND_PACKAGE_MESSAGE_DETAILS_eigen:INTERNAL=[/usr/include/eigen3][v()]
 GMOCK_FROM_SOURCE_FOUND:INTERNAL=TRUE
 GMOCK_FROM_SOURCE_INCLUDE_DIRS:INTERNAL=/usr/include
 GMOCK_FROM_SOURCE_LIBRARIES:INTERNAL=gmock
@@ -672,10 +913,70 @@ GTEST_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 GTEST_MAIN_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: GTEST_MAIN_LIBRARY_DEBUG
 GTEST_MAIN_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PCL_COMMON_LIBRARY
+PCL_COMMON_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PCL_COMMON_LIBRARY_DEBUG
+PCL_COMMON_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+PC_EIGEN_CFLAGS:INTERNAL=-I/usr/include/eigen3
+PC_EIGEN_CFLAGS_I:INTERNAL=
+PC_EIGEN_CFLAGS_OTHER:INTERNAL=
+PC_EIGEN_FOUND:INTERNAL=1
+PC_EIGEN_INCLUDEDIR:INTERNAL=
+PC_EIGEN_INCLUDE_DIRS:INTERNAL=/usr/include/eigen3
+PC_EIGEN_LDFLAGS:INTERNAL=
+PC_EIGEN_LDFLAGS_OTHER:INTERNAL=
+PC_EIGEN_LIBDIR:INTERNAL=
+PC_EIGEN_LIBRARIES:INTERNAL=
+PC_EIGEN_LIBRARY_DIRS:INTERNAL=
+PC_EIGEN_LIBS:INTERNAL=
+PC_EIGEN_LIBS_L:INTERNAL=
+PC_EIGEN_LIBS_OTHER:INTERNAL=
+PC_EIGEN_LIBS_PATHS:INTERNAL=
+PC_EIGEN_MODULE_NAME:INTERNAL=eigen3
+PC_EIGEN_PREFIX:INTERNAL=/usr
+PC_EIGEN_STATIC_CFLAGS:INTERNAL=-I/usr/include/eigen3
+PC_EIGEN_STATIC_CFLAGS_I:INTERNAL=
+PC_EIGEN_STATIC_CFLAGS_OTHER:INTERNAL=
+PC_EIGEN_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/eigen3
+PC_EIGEN_STATIC_LDFLAGS:INTERNAL=
+PC_EIGEN_STATIC_LDFLAGS_OTHER:INTERNAL=
+PC_EIGEN_STATIC_LIBDIR:INTERNAL=
+PC_EIGEN_STATIC_LIBRARIES:INTERNAL=
+PC_EIGEN_STATIC_LIBRARY_DIRS:INTERNAL=
+PC_EIGEN_STATIC_LIBS:INTERNAL=
+PC_EIGEN_STATIC_LIBS_L:INTERNAL=
+PC_EIGEN_STATIC_LIBS_OTHER:INTERNAL=
+PC_EIGEN_STATIC_LIBS_PATHS:INTERNAL=
+PC_EIGEN_VERSION:INTERNAL=3.3.4
+PC_EIGEN_eigen3_INCLUDEDIR:INTERNAL=
+PC_EIGEN_eigen3_LIBDIR:INTERNAL=
+PC_EIGEN_eigen3_PREFIX:INTERNAL=
+PC_EIGEN_eigen3_VERSION:INTERNAL=
+//ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
+PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PYTHON_EXECUTABLE
 PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
 //This needs to be in PYTHONPATH when 'setup.py install' is called.
 //  And it needs to match.  But setuptools won't tell us where
 // it will install things.
 PYTHON_INSTALL_DIR:INTERNAL=lib/python2.7/dist-packages
+//Last used BOOST_INCLUDEDIR value.
+_BOOST_INCLUDEDIR_LAST:INTERNAL=/usr/include
+//Last used Boost_ADDITIONAL_VERSIONS value.
+_Boost_ADDITIONAL_VERSIONS_LAST:INTERNAL=1.65.1;1.65;1.64.0;1.64;1.63.0;1.63;1.62.0;1.62;1.61.0;1.61;1.60.0;1.60;1.59.0;1.59;1.58.0;1.58;1.57.0;1.57;1.56.0;1.56;1.55.0;1.55;1.54.0;1.54;1.53.0;1.53;1.52.0;1.52;1.51.0;1.51;1.50.0;1.50;1.49.0;1.49;1.48.0;1.48;1.47.0;1.47
+//Components requested for this build tree.
+_Boost_COMPONENTS_SEARCHED:INTERNAL=atomic;chrono;date_time;filesystem;iostreams;regex;serialization;system;thread
+//Last used Boost_INCLUDE_DIR value.
+_Boost_INCLUDE_DIR_LAST:INTERNAL=/usr/include
+//Last used Boost_LIBRARY_DIR_DEBUG value.
+_Boost_LIBRARY_DIR_DEBUG_LAST:INTERNAL=/usr/lib/aarch64-linux-gnu
+//Last used Boost_LIBRARY_DIR_RELEASE value.
+_Boost_LIBRARY_DIR_RELEASE_LAST:INTERNAL=/usr/lib/aarch64-linux-gnu
+//Last used Boost_NAMESPACE value.
+_Boost_NAMESPACE_LAST:INTERNAL=boost
+//Last used Boost_USE_MULTITHREADED value.
+_Boost_USE_MULTITHREADED_LAST:INTERNAL=TRUE
+__pkg_config_arguments_PC_EIGEN:INTERNAL=eigen3
+__pkg_config_checked_PC_EIGEN:INTERNAL=1
+prefix_result:INTERNAL=
 
