@@ -141,6 +141,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/shihab/omobot_js/build/lidar_ld19/cmake_install.cmake")
   include("/home/shihab/omobot_js/build/localization_data_pub/cmake_install.cmake")
   include("/home/shihab/omobot_js/build/mobot_pkg/cmake_install.cmake")
+  include("/home/shihab/omobot_js/build/ros_autonomous_slam/cmake_install.cmake")
 
 endif()
 

@@ -205,7 +205,7 @@ def Vxy2Angular(Vx, Vy, W0):
 	return W
 		
 
-publishing_frequency = 500
+publishing_frequency = 2000
 def joystickPublisher(joy_queue):
 	global joy_msg, cmd_vels, updated, curLinSpeed, curAngSpeed
 

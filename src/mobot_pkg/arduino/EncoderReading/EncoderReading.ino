@@ -2,32 +2,37 @@
    rosserial::geometry_msgs::PoseArray Test
    Sums an array, publishes sum
 */
-#include <Wire.h>
+//#include <Wire.h>
 
 
-#include <ros.h>
-#include <std_msgs/String.h>
+//#include <ros.h>
+//#include <std_msgs/String.h>
 //#include <geometry_msgs/Pose.h>
 //#include <geometry_msgs/PoseArray.h>
 
-ros::NodeHandle nh;
-bool set_;
-std_msgs::String str_msg;
-ros::Publisher p("encoder_feedback", &str_msg);
+//ros::NodeHandle nh;
+//bool set_;
+//std_msgs::String str_msg;
+//ros::Publisher p("encoder_feedback", &str_msg);
 String encoder_msg = "";
 
-#define pinEncRF1 5
 #define pinEncRF2 4
+#define pinEncRF1 5
 
 #define pinEncLF1 6
 #define pinEncLF2 7
 
-#define pinEncRB1 11
-#define pinEncRB2 10
-//#define pinEncLB1 10
-//#define pinEncLB2 11
 #define pinEncLB1 8
 #define pinEncLB2 9
+
+#define pinEncRB2 10
+#define pinEncRB1 11
+
+
+#define pinBatteryVol A0
+#define pinBatteryCur A1
+
+
 
 #define R 248.18582;
 #define pi 3.1416;
@@ -40,6 +45,7 @@ int prevSpeedRF = 0, prevSpeedLF = 0, prevSpeedRB = 0, prevSpeedLB = 0;
 long prevTime = 0, curTime, delTime;
 int ppr1 = 8544, ppr2 = 8576, ppr3 = 8544, ppr4 = 8576;
 float mmpp1 = 1, mmpp2 = 1, mmpp3 = 1, mmpp4 = 1;
+
 //void messageCb(const geometry_msgs::PoseArray& msg){
 //  sum_msg.position.x = 0;
 //  sum_msg.position.y = 0;
@@ -75,19 +81,22 @@ void setup()
 //  mmpp4 = 248.18582 / 8576;
   
   pinModeDef();
+  pinMode(pinBatteryVol, INPUT);
+  pinMode(pinBatteryCur, INPUT);
   //  pinModeDef1();
+  Serial1.begin(57600);
   Serial.begin(115200);
   attachInterrupt(digitalPinToInterrupt(pinEncRF1), Change_RF, CHANGE);
   attachInterrupt(digitalPinToInterrupt(pinEncLF1), Change_LF, CHANGE);
   attachInterrupt(digitalPinToInterrupt(pinEncRB1), Change_RB, CHANGE);
   attachInterrupt(digitalPinToInterrupt(pinEncLB1), Change_LB, CHANGE);
 
-  nh.initNode();
+//  nh.initNode();
   //  nh.subscribe(s);
-  nh.advertise(p);
+//  nh.advertise(p);
 }
 
-int delayTime = 10;
+int delayTime = 25;
 
 void loop()
 {
@@ -98,18 +107,20 @@ void loop()
   speedLB = (pulseLB - prevPulseLB) * mmpp3 * 1000 / delTime;
   speedRB = (pulseRB - prevPulseRB) * mmpp4 * 1000 / delTime;
 
+
+  
+
   prevPulseLF = pulseLF; prevPulseRF = pulseRF; prevPulseLB = pulseLB; prevPulseRB = pulseRB; 
   prevTime = curTime;
    
-  encoder_msg = String(speedLF) + "," + String(speedRF) + "," + String(speedLB) + "," + String(speedRB);
+  encoder_msg = String(speedLF) + "," + String(speedRF) + "," + String(speedLB) + "," + String(speedRB)+ "," + String(analogRead(pinBatteryVol));
   
-  int msg_len = encoder_msg.length() + 1;
-  char encoderMsgArray[msg_len];
-  encoder_msg.toCharArray(encoderMsgArray, msg_len);
-  Serial.print(encoder_msg);
-  str_msg.data = encoderMsgArray;
-  p.publish(&str_msg);
-  nh.spinOnce();
+//  int msg_len = encoder_msg.length() + 1;
+//  char encoderMsgArray[msg_len];
+//  encoder_msg.toCharArray(encoderMsgArray, msg_len);
+  Serial1.println(encoder_msg);
+  Serial.println(encoder_msg);
+
   delay(delayTime);
 }
 
@@ -124,15 +135,15 @@ void loop()
 void Change_RF() {
   if (digitalRead(pinEncRF2) == 0) {
     if (digitalRead(pinEncRF1) == 0) {
-      pulseRF--;
-    } else {
       pulseRF++;
+    } else {
+      pulseRF--;
     }
   } else {
     if (digitalRead(pinEncRF1) == 0) {
-      pulseRF++;
-    } else {
       pulseRF--;
+    } else {
+      pulseRF++;
     }
   }
 }
@@ -141,15 +152,15 @@ void Change_RF() {
 void Change_LF() {
   if (digitalRead(pinEncLF2) == 0) {
     if (digitalRead(pinEncLF1) == 0) {
-      pulseLF--;
-    } else {
       pulseLF++;
+    } else {
+      pulseLF--;
     }
   } else {
     if (digitalRead(pinEncLF1) == 0) {
-      pulseLF++;
-    } else {
       pulseLF--;
+    } else {
+      pulseLF++;
     }
   }
 }
@@ -157,15 +168,15 @@ void Change_LF() {
 void Change_RB() {
   if (digitalRead(pinEncRB2) == 0) {
     if (digitalRead(pinEncRB1) == 0) {
-      pulseRB--;
-    } else {
       pulseRB++;
+    } else {
+      pulseRB--;
     }
   } else {
     if (digitalRead(pinEncRB1) == 0) {
-      pulseRB++;
-    } else {
       pulseRB--;
+    } else {
+      pulseRB++;
     }
   }
 }
@@ -174,15 +185,15 @@ void Change_RB() {
 void Change_LB() {
   if (digitalRead(pinEncLB2) == 0) {
     if (digitalRead(pinEncLB1) == 0) {
-      pulseLB--;
-    } else {
       pulseLB++;
+    } else {
+      pulseLB--;
     }
   } else {
     if (digitalRead(pinEncLB1) == 0) {
-      pulseLB++;
-    } else {
       pulseLB--;
+    } else {
+      pulseLB++;
     }
   }
 }

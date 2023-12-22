@@ -24,8 +24,8 @@
   <param name="enable_angle_crop_func" type="bool" value="false"/>
   <!--    2. Angle cropping interval setting, The distance and intensity data within the set angle range will be set to 0 --> 
   <!--       angle >= "angle_crop_min" and angle <= "angle_crop_max", unit is degress -->
-  <param name="angle_crop_min" type="double" value="120.0"/>
-  <param name="angle_crop_max" type="double" value="240.0"/>
+  <param name="angle_crop_min" type="double" value="0.0"/>
+  <param name="angle_crop_max" type="double" value="360.0"/>
  </node>
 <!-- ldlidar message subscriber node -->
  <!-- node name="ListenLD19" pkg="ldlidar_stl_ros" type="ldlidar_stl_ros_listen_node" output="screen">

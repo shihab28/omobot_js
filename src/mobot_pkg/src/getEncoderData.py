@@ -72,7 +72,7 @@ def encoderFeedbackCB(datas, queue):
 	except:
 		print("Couldn't get Feedback, making feedback array [0, 0, 0, 0]")
 		W_speed = [0, 0, 0, 0]
-		print(W_speed)
+	print(W_speed)
 		
 	queue.put(W_speed)
 	##############
@@ -87,7 +87,7 @@ def encoderFeedbackThread(queue):
 	# global prevTimeWhl, prevTimePos
 
 	##########
-	rospy.Subscriber("/encoder_feedback", String, encoderFeedbackCB, callback_args=queue, queue_size=20)
+	rospy.Subscriber("/encoder_feedback", String, encoderFeedbackCB, callback_args=queue, queue_size=10)
 	signal.signal(signal.SIGINT, signal_handler)	
 	rospy.spin()
 	##########

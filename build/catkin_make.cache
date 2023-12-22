@@ -1,2 +1,2 @@
-lidar_ld19:localization_data_pub:mobot_pkg:mpu6050:sensor_msgs_ext
+lidar_ld19:localization_data_pub:mobot_pkg:mpu6050:ros_autonomous_slam:sensor_msgs_ext
 -DCATKIN_DEVEL_PREFIX=/home/shihab/omobot_js/devel -DCMAKE_INSTALL_PREFIX=/home/shihab/omobot_js/install -G Unix Makefiles

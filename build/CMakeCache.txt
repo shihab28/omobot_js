@@ -586,6 +586,12 @@ polygon_layer_LIB_DEPENDS:STATIC=general;/opt/ros/melodic/lib/libcostmap_2d.so;g
 //Value Computed by CMake
 polygon_layer_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/frontier_exploration/polygon_layer
 
+//Value Computed by CMake
+ros_autonomous_slam_BINARY_DIR:STATIC=/home/shihab/omobot_js/build/ros_autonomous_slam
+
+//Value Computed by CMake
+ros_autonomous_slam_SOURCE_DIR:STATIC=/home/shihab/omobot_js/src/ros_autonomous_slam
+
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/melodic/share/rosconsole/cmake
 
@@ -838,7 +844,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=10
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

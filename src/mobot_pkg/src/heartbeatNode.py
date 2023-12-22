@@ -8,7 +8,7 @@ import signal
 # import Jetson.GPIO as GPIO
 
 # GPIO.setmode(GPIO.BOARD)
-gpio_pin = 18
+gpio_pin = 23
 # GPIO.setup(gpio_pin, GPIO.OUT, initial=GPIO.LOW)
 
 pinMapping = {
@@ -80,12 +80,17 @@ if __name__ == '__main__':
 	while True:
 		runningVal = 1
 		stoppedVal = 1 - runningVal
-		if is_rosnode_running(node_name_to_check):
-			print("The ROS node '{}' is     running {}".format(node_name_to_check, runningVal))
-			digitalWrite(gpio_pin, runningVal)
-		else:
+
+		try:
+			if is_rosnode_running(node_name_to_check):
+				print("The ROS node '{}' is     running {}".format(node_name_to_check, runningVal))
+				digitalWrite(gpio_pin, runningVal)
+			else:
+				print("The ROS node '{}' is not running {}".format(node_name_to_check, stoppedVal))
+				digitalWrite(gpio_pin, stoppedVal)
+		except:
 			print("The ROS node '{}' is not running {}".format(node_name_to_check, stoppedVal))
 			digitalWrite(gpio_pin, stoppedVal)
-		time.sleep(1)
 
+		time.sleep(1)
 		signal.signal(signal.SIGINT, signal_handler)

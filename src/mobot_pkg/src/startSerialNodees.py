@@ -18,7 +18,7 @@ from std_msgs.msg import Int16MultiArray
 
 try:
 	system("echo y | rosnode cleanup\n")
-	time.sleep(1)
+	time.sleep(.5)
 except:
 	
 	pass
@@ -30,10 +30,10 @@ def signal_handler(sig, frame):
 	global arduino_mot_port
 	print('You pressed Ctrl+C!')
 	try:
-		arduino_mot_port.write('0,0,0,0,\n')
-		arduino_mot_port.write('0,0,0,0,\n')
-		arduino_mot_port.write('0,0,0,0,\n')
-		arduino_mot_port.write('0,0,0,0,\n')
+		arduino_mot_port.write('0,0,0,0\n')
+		arduino_mot_port.write('0,0,0,0\n')
+		arduino_mot_port.write('0,0,0,0\n')
+		arduino_mot_port.write('0,0,0,0\n')
 		system('echo y | rosnode cleanup\n')
 	except Exception as e:
 		print(e)
@@ -55,7 +55,14 @@ def startMotorNode():
 	global arduino_mot_port
 
 	motor_node = "motor_node"
-	arduino_mot_port = serial.Serial(port='/dev/arduinoMot', baudrate=115200, timeout=.05)
+	arduino_mot_port = arduino_mot_port = serial.Serial(
+		port="/dev/arduinoMot",
+		baudrate=230400,
+		bytesize=serial.EIGHTBITS,
+		parity=serial.PARITY_NONE,
+		stopbits=serial.STOPBITS_ONE,
+		timeout=0.05
+	)
 	rospy.init_node(motor_node, anonymous=False)
 
 	# global prevTimeWhl, prevTimePos
@@ -69,7 +76,7 @@ def startMotorNode():
 
 
 refresh_rate = 40
-vlotageRatio = 12.16/748
+vlotageRatio = 12.22/740
 voltageOn = True
 def startEncoderSerialNode():
 	try:
@@ -81,17 +88,24 @@ def startEncoderSerialNode():
 
 
 	# arduino_enc_port = serial.Serial(port='/dev/arduinoEnc', baudrate=115200, timeout=.05)
-	arduino_enc_port = serial.Serial(port='/dev/ttyTHS1', baudrate=57600, timeout=.05)
+	arduino_enc_port = serial.Serial(
+	port="/dev/ttyTHS1",
+	baudrate=57600,
+	bytesize=serial.EIGHTBITS,
+	parity=serial.PARITY_NONE,
+	stopbits=serial.STOPBITS_ONE,
+	timeout=.05
+)
+	
 	def serial_read():
 		data = arduino_enc_port.read_until('\n')
-		# print("data", data)
 		return str(data).strip().strip().split(",")
 	
 	
 
 	rospy.init_node("arduino_serial", anonymous=False)
-	enc_publisher = rospy.Publisher('/encoder_feedback', String, queue_size=5)
-	voltage_publisher = rospy.Publisher('/battery_voltage', Float32, queue_size=5)
+	enc_publisher = rospy.Publisher('/encoder_feedback', String, queue_size=1)
+	voltage_publisher = rospy.Publisher('/battery_voltage', Float32, queue_size=1)
 	rate = rospy.Rate(refresh_rate)
 	strData = String()
 	voltageData = Float32()
@@ -100,19 +114,20 @@ def startEncoderSerialNode():
 	while not rospy.is_shutdown():
 		signal.signal(signal.SIGINT, signal_handler)
 		value = serial_read()
-		# print("value : ", value)
+		
 		if len(value) == 5 and voltageOn:
 			strData.data = ','.join(value[:4])
 			voltageData.data = float(value[4])*vlotageRatio
 			enc_publisher.publish(strData) # printing the value
 			voltage_publisher.publish(voltageData) # printing the value
+			# print("value : ", value)
 		else:
 			strData.data = ','.join(value[:4])
 			enc_publisher.publish(strData)
 			voltageData.data = 0.00
 			voltage_publisher.publish(voltageData)
 		
-		print(rospy.Time().now().to_sec(), strData.data)#,  voltageData.data)
+		print(rospy.Time().now().to_sec(), strData.data, voltageData.data)#,  voltageData.data)
 
 		rate.sleep()
 
