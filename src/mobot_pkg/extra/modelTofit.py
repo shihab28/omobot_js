@@ -5,7 +5,7 @@ from scipy.optimize import curve_fit
 import pandas as pd
 import matplotlib.pyplot as plt
 
-csvFilePath = 'src/mobot_pkg/extra/pwmX_vs_W.csv'
+csvFilePath = 'src/mobot_pkg/extra/pwmX_vs_W_2.csv'
 
 pwmSpeedIn = []
 encSpeed_p = []

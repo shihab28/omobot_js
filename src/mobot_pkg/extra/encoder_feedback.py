@@ -260,13 +260,29 @@ def wheelSpeedPublisher(queue):
 
 	forwards = False
 	currentPwm = -255
+
+
+	pwmList = [vals for vals in range(70, 256, 5)]
+	direction = True
+	passed = False
+	pwmInd = 0
+	print(pwmList)
 	while not rospy.is_shutdown():
 
 		# wheel_msg.data =   [currentPwm, currentPwm, currentPwm, currentPwm]  # [W3, W4, W1, W2]
-
+		try:
+			currentPwm = pwmList[pwmInd]
+		except Exception as e:
+			print(e)
+			with open(csvFilePath, 'w') as wf:
+				wf.write(csvData)
+			break
 		dataStr = '0,0,0,0\n'
-		dataStr = ','.join([str(vals) in [currentPwm, currentPwm,
-						  currentPwm, currentPwm]])
+
+		if not direction:
+			currentPwm = currentPwm*-1
+	
+		dataStr = ','.join([str(vals) for vals in [currentPwm, currentPwm, currentPwm, currentPwm]])
 		dataStr += "\n"
 		
 
@@ -276,6 +292,8 @@ def wheelSpeedPublisher(queue):
 		currentSpeed = queue.get()
 		currentSpeedArray.append(currentSpeed)
 		csvData = ""
+		
+		
 		if len(currentSpeedArray) >= 200:
 			dataNpArray = np.array(currentSpeedArray[50:])
 			dataAvg = np.average(dataNpArray, axis=0)
@@ -283,22 +301,48 @@ def wheelSpeedPublisher(queue):
 			prdatStr = str(currentPwm)+" ,"+str(daAvgList[0])+", "+str(
 				daAvgList[1])+","+str(daAvgList[2])+", "+str(daAvgList[3])
 			csvData += prdatStr+"\n"
-			print(prdatStr)
+			print(pwmInd, prdatStr)
 			currentSpeedArray = []
-			currentPwm += 5
+			
 			wheel_msg.data = '0,0,0,0\n'
 			while queue.get() != [0, 0, 0, 0]:
 				pwm_pub.publish(wheel_msg)
+				rate.sleep()
+			
+			if direction:
+				passed = False
+				direction = False
+			else:
+				passed = True
+				direction = True
+				try:
+					pwmInd += 1
+				except:
+					break
 
-			# time.sleep(3)
-			rate.sleep()
+			prevData = csvData
+			
+			try:
+				with open(csvFilePath, 'w') as wf:
+					wf.write(csvData)
+			except:
+				pass
+			
+			time.sleep(1)
+			
+			
 
 		rate.sleep()
 
-		if not forwards and currentPwm > -50:
-			currentPwm = 50
-			forwards = True
-		if forwards and currentPwm > 255:
+		# if pwmInd >= len(pwmList):
+		# 	with open(csvFilePath, 'w') as wf:
+		# 		wf.write(csvData)
+		# 	break
+
+		# if not forwards and currentPwm > -70:
+		# 	currentPwm = 70
+		# 	forwards = True
+		if currentPwm >= 255:
 			with open(csvFilePath, 'w') as wf:
 				wf.write(csvData)
 			# ab_p, var_p, ab_n, var_n = getFittingParameters()
