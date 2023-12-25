@@ -26,9 +26,12 @@ r = .0398
 R = 2*3.14159*r
 
 
+# encoder_topic = "/encoder_feedback"
+# encoder_node = "encoder_node"
+
 encoder_topic = "/encoder_feedback"
 encoder_node = "encoder_node"
-csvFilePath = 'src/mobot_pkg/extra/pwmX_vs_W.csv'
+csvFilePath = 'src/mobot_pkg/extra/pwmX_vs_W_2.csv'
 
 
 def signal_handler(sig, frame):
@@ -239,12 +242,17 @@ finalSpeedArray = []
 
 
 def wheelSpeedPublisher(queue):
-
-	wheel_msg = Int16MultiArray()
-	wheel_msg.data = [0, 0, 0, 0]
+	
+	# wheel_msg = Int16MultiArray()
+	# wheel_msg.data = [0, 0, 0, 0]
+	dataStr = '0,0,0,0\n'
+	wheel_msg = String()
+	wheel_msg.data = dataStr
 
 	rospy.init_node('joystick_node', anonymous=True)
-	pwm_pub = rospy.Publisher("/wheel_pwm", Int16MultiArray, queue_size=10)
+	# rospy.Subscriber("/wheel_pwm_str", String, motorFeedbackCB, callback_args=arduino_mot_port, queue_size=2)
+	# pwm_pub = rospy.Publisher("/wheel_pwm", Int16MultiArray, queue_size=10)
+	pwm_pub = rospy.Publisher("/wheel_pwm_str", String, queue_size=2)
 	rate = rospy.Rate(publishing_frequency)
 	pwm_pub.publish(wheel_msg)
 
@@ -253,8 +261,16 @@ def wheelSpeedPublisher(queue):
 	forwards = False
 	currentPwm = -255
 	while not rospy.is_shutdown():
-		wheel_msg.data = [currentPwm, currentPwm,
-						  currentPwm, currentPwm]  # [W3, W4, W1, W2]
+
+		# wheel_msg.data =   [currentPwm, currentPwm, currentPwm, currentPwm]  # [W3, W4, W1, W2]
+
+		dataStr = '0,0,0,0\n'
+		dataStr = ','.join([str(vals) in [currentPwm, currentPwm,
+						  currentPwm, currentPwm]])
+		dataStr += "\n"
+		
+
+		wheel_msg.data =  dataStr 
 		pwm_pub.publish(wheel_msg)
 
 		currentSpeed = queue.get()
@@ -270,7 +286,7 @@ def wheelSpeedPublisher(queue):
 			print(prdatStr)
 			currentSpeedArray = []
 			currentPwm += 5
-			wheel_msg.data = [0, 0, 0, 0]
+			wheel_msg.data = '0,0,0,0\n'
 			while queue.get() != [0, 0, 0, 0]:
 				pwm_pub.publish(wheel_msg)
 

@@ -68,7 +68,7 @@ def startMotorNode():
 	# global prevTimeWhl, prevTimePos
 
 	##########
-	rospy.Subscriber("/wheel_pwm_str", String, motorFeedbackCB, callback_args=arduino_mot_port, queue_size=5)
+	rospy.Subscriber("/wheel_pwm_str", String, motorFeedbackCB, callback_args=arduino_mot_port, queue_size=2)
 	signal.signal(signal.SIGINT, signal_handler)	
 	rospy.spin()
 	
