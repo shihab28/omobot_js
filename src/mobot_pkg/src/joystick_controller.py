@@ -141,7 +141,7 @@ def joysticCB(joys, joy_queue):
 	joy_queue.put([curX, curY, curT, curLinSpeed, curAngSpeed])
 	cmd_vels = [curX, curY, curT]
 	updated = True
-	# print(rospy.Time.now().to_sec(), [curX, curY, curT], [curLinSpeed, curAngSpeed])
+	print(rospy.Time.now().to_sec(), [curX, curY, curT], [curLinSpeed, curAngSpeed])
 		
 
 def signal_handler(sig, frame):
@@ -205,18 +205,20 @@ def Vxy2Angular(Vx, Vy, W0):
 	return W
 		
 
-publishing_frequency = 2000
+publishing_frequency = 250
 def joystickPublisher(joy_queue):
 	global joy_msg, cmd_vels, updated, curLinSpeed, curAngSpeed
 
 	rospy.init_node('joystick_node', anonymous=True)
-	joy_pub = rospy.Publisher('/cmd_vel_set', Twist, queue_size=1)
+	joy_pub = rospy.Publisher('/cmd_vel_set', Twist, queue_size=3)
 	# pwm_pub = rospy.Publisher("/wheel_pwm", Int16MultiArray, queue_size=10)
 	rate = rospy.Rate(publishing_frequency)
 
 	# wheel_msg = Int16MultiArray(); wheel_msg.data = [0, 0, 0, 0]; 
 	# pwm_pub.publish(wheel_msg)
 	[joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z] = [0, 0, 0]; joy_pub.publish(joy_msg)
+	cnt = 0
+	refresh_rate = 50
 	while not rospy.is_shutdown():
 		# print("joy_msg")
 		try:
@@ -229,6 +231,7 @@ def joystickPublisher(joy_queue):
 			# W_ = Vxy2Angular(joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z)
 			# W_PWM = getPwmFromAngSpeed(W_)
 			# wheel_msg.data = W_PWM
+
 			joy_pub.publish(joy_msg)
 			# pwm_pub.publish(wheel_msg)
 			# print([joy_msg.linear.x, joy_msg.linear.y, joy_msg.angular.z])

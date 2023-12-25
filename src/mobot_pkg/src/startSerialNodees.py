@@ -127,7 +127,7 @@ def startEncoderSerialNode():
 			voltageData.data = 0.00
 			voltage_publisher.publish(voltageData)
 		
-		print(rospy.Time().now().to_sec(), strData.data, voltageData.data)#,  voltageData.data)
+		print("Serial Node : ", rospy.Time().now().to_sec(), strData.data, voltageData.data)#,  voltageData.data)
 
 		rate.sleep()
 

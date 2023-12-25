@@ -72,7 +72,7 @@ def encoderFeedbackCB(datas, queue):
 	except:
 		print("Couldn't get Feedback, making feedback array [0, 0, 0, 0]")
 		W_speed = [0, 0, 0, 0]
-	print(W_speed)
+	print("Encoder Node : ", rospy.Time().now().to_sec(), W_speed)
 		
 	queue.put(W_speed)
 	##############
@@ -173,7 +173,7 @@ def robotOdomPublisher(queue):
 		if (curW != [0, 0, 0, 0]):
 			# print(rospy.Time.now().to_sec(), [Vx, Vy, W0])
 			cur_wheel_pos = get_cur_wheel_pos(curW, cur_wheel_pos)
-			print(curW, output_, cur_robot_position)
+			print("Odom Node : ", rospy.Time().now().to_sec(), curW, output_, cur_robot_position)
 			# print(rospy.Time.now().to_sec(), output_)
 			
 		publishJointData(joint_pub, cur_wheel_pos)

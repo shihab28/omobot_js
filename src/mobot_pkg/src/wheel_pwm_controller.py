@@ -135,7 +135,7 @@ def pwmCB(cmdVelMsg):
 	W_PWM = getPwmFromAngSpeed(W_)
 	wheel_msg.data = W_PWM
 	if W_PWM != [0, 0, 0, 0]:
-		print(W_PWM)
+		print("Joystick Node : ", rospy.Time().now().to_sec(), W_PWM)
 	
 	pwm_pub.publish(wheel_msg)
 
@@ -158,7 +158,7 @@ def pwmCB_test(cmdVelMsg, pwm_pub):
 	elif Vx < -.1:
 		W_PWM = [-max_pwm, -max_pwm, -max_pwm, -max_pwm]
 	
-	print(W_PWM)
+	print("Joystick Node : ", rospy.Time().now().to_sec(), W_PWM)
 	wheel_msg.data = W_PWM
 	pwm_pub.publish(wheel_msg)
 
