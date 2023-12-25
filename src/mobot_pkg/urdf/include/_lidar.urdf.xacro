@@ -20,7 +20,7 @@
                 </geometry>
             </collision>
 
-            <xacro:inertial_cylinder mass=".03" rad=".015" hgt=".02">
+            <xacro:inertial_cylinder mass=".001" rad=".001" hgt=".001">
                 <origin xyz="-0 0 0" rpy="0 0 0"/>
             </xacro:inertial_cylinder>
 
