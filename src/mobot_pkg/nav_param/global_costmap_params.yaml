@@ -23,8 +23,8 @@ global_costmap:
 
   inflation_layer:
     enabled: true
-    inflation_radius: 0.1
-    cost_scaling_factor: 5
+    inflation_radius: 0.05
+    cost_scaling_factor: 2
 
 # global_costmap:
 #     global_frame: map
