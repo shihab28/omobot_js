@@ -31,8 +31,8 @@
     
 
 
-    <arg name="rviz_config_file" value="$(find mobot_pkg)/config/mobot.rviz"/>
-    <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)"/>
+    <!-- <arg name="rviz_config_file" value="$(find mobot_pkg)/config/mobot.rviz"/> -->
+    <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)"/> -->
     <node pkg="localization_data_pub" type="rviz_click_to_2d" name="rviz_click_to_2d">
     </node>
     <!-- <node pkg="mobot_pkg" type="wheel_pwm_controller.py" name="wheel_pwm_controller"/> -->
@@ -50,7 +50,7 @@
     
     
     <include file="$(find mobot_pkg)/launch/amcl.launch"/>
-    <include file="$(find mobot_pkg)/launch/twist_mux.launch"/>
+    <!-- <include file="$(find mobot_pkg)/launch/twist_mux.launch"/> -->
 
 
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
