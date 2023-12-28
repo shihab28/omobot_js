@@ -21,7 +21,6 @@ String encoder_msg = "";
 
 #define pinEncLF1 6
 #define pinEncLF2 7
-
 #define pinEncLB1 8
 #define pinEncLB2 9
 
@@ -85,7 +84,7 @@ void setup()
   pinMode(pinBatteryCur, INPUT);
   //  pinModeDef1();
   Serial1.begin(57600);
-  Serial.begin(115200);
+  // Serial.begin(115200);
   attachInterrupt(digitalPinToInterrupt(pinEncRF1), Change_RF, CHANGE);
   attachInterrupt(digitalPinToInterrupt(pinEncLF1), Change_LF, CHANGE);
   attachInterrupt(digitalPinToInterrupt(pinEncRB1), Change_RB, CHANGE);
@@ -97,7 +96,8 @@ void setup()
 }
 
 int delayTime = 25;
-
+int voltage = 0, voltageAvg = 0, current = 0, currentAvg = 0;
+int cnt = 0, sample = 5;
 void loop()
 {
   curTime = millis();
@@ -108,18 +108,29 @@ void loop()
   speedRB = (pulseRB - prevPulseRB) * mmpp4 * 1000 / delTime;
 
 
-  
+  if (cnt < sample){
+    voltage = voltage + analogRead(pinBatteryVol);
+    current = current + analogRead(pinBatteryCur);
+    cnt++;
+  }
+  else{
+    voltageAvg = voltage / sample;
+    currentAvg = current / sample;
+    cnt = 0;
+    voltage = 0;
+    current = 0
+  }
 
   prevPulseLF = pulseLF; prevPulseRF = pulseRF; prevPulseLB = pulseLB; prevPulseRB = pulseRB; 
   prevTime = curTime;
-   
-  encoder_msg = String(speedLF) + "," + String(speedRF) + "," + String(speedLB) + "," + String(speedRB)+ "," + String(analogRead(pinBatteryVol));
+  
+  encoder_msg = String(speedLF) + "," + String(speedRF) + "," + String(speedLB) + "," + String(speedRB)+ "," + String(voltageAvg) + "," + String(currentAvg);
   
 //  int msg_len = encoder_msg.length() + 1;
 //  char encoderMsgArray[msg_len];
 //  encoder_msg.toCharArray(encoderMsgArray, msg_len);
   Serial1.println(encoder_msg);
-  Serial.println(encoder_msg);
+  // Serial.println(encoder_msg);
 
   delay(delayTime);
 }
