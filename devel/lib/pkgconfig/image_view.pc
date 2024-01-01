@@ -1,0 +1,8 @@
+prefix=/home/shihab/omobot_js/devel
+
+Name: image_view
+Description: Description of image_view
+Version: 1.15.2
+Cflags: -I/home/shihab/omobot_js/devel/include
+Libs: -L${prefix}/lib 
+Requires: dynamic_reconfigure

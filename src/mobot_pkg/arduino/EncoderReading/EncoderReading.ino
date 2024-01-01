@@ -2,7 +2,10 @@
    rosserial::geometry_msgs::PoseArray Test
    Sums an array, publishes sum
 */
-//#include <Wire.h>
+#include <Wire.h>
+#include "ACS712.h"
+
+
 
 
 //#include <ros.h>
@@ -60,6 +63,8 @@ float mmpp1 = 1, mmpp2 = 1, mmpp3 = 1, mmpp4 = 1;
 
 //ros::Subscriber<geometry_msgs::PoseArray> s("poses",messageCb);
 
+ACS712  ACS(pinBatteryCur, 3.3, 1023, 520);
+
 void pinModeDef() {
   for (i = 4; i < 12; i++) {
     pinMode(i, INPUT_PULLUP);
@@ -70,6 +75,7 @@ void pinModeDef() {
 //    pinMode(pinIntV + i, OUTPUT);
 //  }
 //}
+
 
 
 void setup()
@@ -84,20 +90,24 @@ void setup()
   pinMode(pinBatteryCur, INPUT);
   //  pinModeDef1();
   Serial1.begin(57600);
-  // Serial.begin(115200);
+  Serial.begin(115200);
   attachInterrupt(digitalPinToInterrupt(pinEncRF1), Change_RF, CHANGE);
   attachInterrupt(digitalPinToInterrupt(pinEncLF1), Change_LF, CHANGE);
   attachInterrupt(digitalPinToInterrupt(pinEncRB1), Change_RB, CHANGE);
   attachInterrupt(digitalPinToInterrupt(pinEncLB1), Change_LB, CHANGE);
 
+
+  ACS.autoMidPoint();
 //  nh.initNode();
   //  nh.subscribe(s);
 //  nh.advertise(p);
 }
 
 int delayTime = 25;
-int voltage = 0, voltageAvg = 0, current = 0, currentAvg = 0;
-int cnt = 0, sample = 5;
+int voltage = 0, voltageAvg = 0, current = 0, currentAvg = 0, curMidValue = 508, curMultiplier = 100;
+int cnt = 0, sample = 4;
+int cnt_cur = 0, sample_cur = 40;
+int cnt_vol = 0, sample_vol = 20;
 void loop()
 {
   curTime = millis();
@@ -107,18 +117,26 @@ void loop()
   speedLB = (pulseLB - prevPulseLB) * mmpp3 * 1000 / delTime;
   speedRB = (pulseRB - prevPulseRB) * mmpp4 * 1000 / delTime;
 
-
-  if (cnt < sample){
-    voltage = voltage + analogRead(pinBatteryVol);
-    current = current + analogRead(pinBatteryCur);
-    cnt++;
+//  int mA = ACS.mA_DC();
+  int mA = (analogRead(pinBatteryCur) - curMidValue) * 1000 * 3.33 / (curMultiplier * 5);
+  
+  if (cnt_cur < sample_cur){
+    current = current + mA;
+    cnt_cur++;
   }
   else{
-    voltageAvg = voltage / sample;
-    currentAvg = current / sample;
-    cnt = 0;
+    currentAvg = current / sample_cur;
+    cnt_cur = 0;
+    current = 0;
+  }
+  if (cnt_vol < sample_vol){
+    voltage = voltage + analogRead(pinBatteryVol);
+    cnt_vol++;
+  }
+  else{
+    voltageAvg = voltage / sample_vol;
+    cnt_vol = 0;
     voltage = 0;
-    current = 0
   }
 
   prevPulseLF = pulseLF; prevPulseRF = pulseRF; prevPulseLB = pulseLB; prevPulseRB = pulseRB; 
@@ -130,7 +148,7 @@ void loop()
 //  char encoderMsgArray[msg_len];
 //  encoder_msg.toCharArray(encoderMsgArray, msg_len);
   Serial1.println(encoder_msg);
-  // Serial.println(encoder_msg);
+  Serial.println(encoder_msg);
 
   delay(delayTime);
 }

@@ -453,3 +453,17 @@ make[1]: Leaving directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
 
 
 
+Determining if the CXX compiler accepts the flag -Wl,--version-script,"/home/shihab/omobot_js/build/image_transport_plugins/compressed_depth_image_transport/class_loader_hide_library_symbols__compressed_depth_image_transport.script" passed with the following output:
+Change Dir: /home/shihab/omobot_js/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_4046c/fast && /usr/bin/make  -f CMakeFiles/cmTC_4046c.dir/build.make CMakeFiles/cmTC_4046c.dir/build
+make[1]: Entering directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_4046c.dir/DummyCXXFile.cxx.o
+/usr/bin/c++   -Wl,--version-script,"/home/shihab/omobot_js/build/image_transport_plugins/compressed_depth_image_transport/class_loader_hide_library_symbols__compressed_depth_image_transport.script" -o CMakeFiles/cmTC_4046c.dir/DummyCXXFile.cxx.o -c /usr/local/share/cmake-3.19/Modules/DummyCXXFile.cxx
+Linking CXX executable cmTC_4046c
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4046c.dir/link.txt --verbose=1
+/usr/bin/c++  -Wl,--version-script,"/home/shihab/omobot_js/build/image_transport_plugins/compressed_depth_image_transport/class_loader_hide_library_symbols__compressed_depth_image_transport.script" -rdynamic CMakeFiles/cmTC_4046c.dir/DummyCXXFile.cxx.o -o cmTC_4046c 
+make[1]: Leaving directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
+
+
+

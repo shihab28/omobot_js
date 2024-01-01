@@ -1,0 +1,8 @@
+prefix=/home/shihab/omobot_js/devel
+
+Name: image_publisher
+Description: Description of image_publisher
+Version: 1.15.2
+Cflags: -I/home/shihab/omobot_js/devel/include
+Libs: -L${prefix}/lib 
+Requires: 

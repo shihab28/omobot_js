@@ -35,6 +35,9 @@ csvFilePath = 'src/mobot_pkg/extra/pwmX_vs_W_2.csv'
 
 
 def signal_handler(sig, frame):
+	global csvData, csvFilePath
+	with open(csvFilePath, 'w') as wf:
+		wf.write(csvData)
 	print('You pressed Ctrl+C!')
 	os.system('echo y | rosnode cleanup')
 	sys.exit(0)
@@ -164,27 +167,43 @@ def getFittingParameters(plot_=True):
 
 
 max_wheel_rpm = [36, 36, 36, 36]
-max_wheel_rpm_pos = [35.6, 35.9, 37.25, 36.15]
-max_wheel_rpm_neg = [35.3, 36.7, 36.18, 36.65]
+max_wheel_rpm_pos = [ 36.1,  35.2,  36.4,  35.5]# [ 35.2,  34.90,  36.1,  35.2]
+max_wheel_rpm_neg = [-35.4, -36.9, -34.4, -37.2]# [-34.9, -36.15, -35.5, -36.1] 
 max_wheel_speed_pos = [vals*2*3.1416/60 for vals in max_wheel_rpm_pos]
 max_wheel_speed_neg = [vals*2*3.1416/60 for vals in max_wheel_rpm_neg]
 
 
+
+motorTest =False
+
 def encoderFeedbackCB(datas, queue):
-	ppsp = [5100,  5125,  5185, 5325]
-	ppsn = [5065, 5230, 5270, 5175]
+	global motorTest
+	ppsp = [ 5188, 5035, 5260, 5070]   # 5188,5035,5260, 5070
+	ppsn = [-5048,-5333,-4961,-5257] # -5048,-5333,-4961,-5257
 	# W_speed = [(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind]) if int(vals) > 0 else (int(vals)*max_wheel_speed_neg[ind]/ppsn[ind]) for ind, vals in enumerate(datas.data.strip().split(","))]
-	W_speed = [round(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind], 5) if int(vals) > 0 else round(int(vals) * max_wheel_speed_neg[ind]/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
+
+	encoderVals = str(datas.data).strip().replace('\\x', '')
+	# print(encoderVals)
+	try:
+		if motorTest:
+			W_speed = [int(vals) for vals in encoderVals.split(",")]
+			
 	# W_speed = [int(vals) if vals > 100 else 0 for vals in datas.data.strip().split(",")]
-	queue.put(W_speed)
+		else:
+			W_speed = [round(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind], 5) if int(vals) > 0 else round(int(vals) * max_wheel_speed_neg[ind]/ppsn[ind], 5) for ind, vals in enumerate(encoderVals.split(","))]
+			
+		queue.put(W_speed)
+	except Exception as e:
+		print(e)
+		pass
 	# if (W_speed != [0, 0, 0, 0]):
-	# 	print(W_speed)
+	# print(W_speed)
 
 
 def encoderFeedbackThread(queue):
 	rospy.init_node(encoder_node, anonymous=True)
 	rospy.Subscriber(encoder_topic, String, encoderFeedbackCB,
-					 callback_args=queue, queue_size=20)
+					 callback_args=queue, queue_size=5)
 	signal.signal(signal.SIGINT, signal_handler)
 	rospy.spin()
 
@@ -239,10 +258,9 @@ def publishJointData(joint_pub, wheel_pos):
 
 publishing_frequency = 100
 finalSpeedArray = []
-
-
+csvData = "0,0,0,0,0\n"
 def wheelSpeedPublisher(queue):
-	
+	global csvData, motorTest
 	# wheel_msg = Int16MultiArray()
 	# wheel_msg.data = [0, 0, 0, 0]
 	dataStr = '0,0,0,0\n'
@@ -255,31 +273,50 @@ def wheelSpeedPublisher(queue):
 	pwm_pub = rospy.Publisher("/wheel_pwm_str", String, queue_size=2)
 	rate = rospy.Rate(publishing_frequency)
 	pwm_pub.publish(wheel_msg)
-
+	
 	currentSpeedArray = []
 
 	forwards = False
 	currentPwm = -255
 
 
-	pwmList = [vals for vals in range(70, 256, 5)]
+	pwmList = [vals for vals in range(100, 256, 5)]
 	direction = True
 	passed = False
 	pwmInd = 0
 	print(pwmList)
+	print("Braking for 2 seconds...............")
+
+	csvData = ""
+	time.sleep(2)
+
+	if motorTest:
+		pwmList = [255]
+
 	while not rospy.is_shutdown():
 
 		# wheel_msg.data =   [currentPwm, currentPwm, currentPwm, currentPwm]  # [W3, W4, W1, W2]
+
+		
 		try:
 			currentPwm = pwmList[pwmInd]
 		except Exception as e:
 			print(e)
-			with open(csvFilePath, 'w') as wf:
-				wf.write(csvData)
+			currentPwm = 0
+			wheel_msg.data = '0,0,0,0\n'
+			pwm_pub.publish(wheel_msg)
+			time.sleep(.1)
+			wheel_msg.data = '0,0,0,0\n'
+			pwm_pub.publish(wheel_msg)
+			time.sleep(.1)
+			wheel_msg.data = '0,0,0,0\n'
+			pwm_pub.publish(wheel_msg)
+			time.sleep(.1)
 			break
 		dataStr = '0,0,0,0\n'
 
 		if not direction:
+
 			currentPwm = currentPwm*-1
 	
 		dataStr = ','.join([str(vals) for vals in [currentPwm, currentPwm, currentPwm, currentPwm]])
@@ -291,17 +328,16 @@ def wheelSpeedPublisher(queue):
 
 		currentSpeed = queue.get()
 		currentSpeedArray.append(currentSpeed)
-		csvData = ""
 		
 		
-		if len(currentSpeedArray) >= 200:
-			dataNpArray = np.array(currentSpeedArray[50:])
+		if len(currentSpeedArray) >= 300:
+			dataNpArray = np.array(currentSpeedArray[100:])
 			dataAvg = np.average(dataNpArray, axis=0)
 			daAvgList = dataAvg.tolist()
-			prdatStr = str(currentPwm)+" ,"+str(daAvgList[0])+", "+str(
-				daAvgList[1])+","+str(daAvgList[2])+", "+str(daAvgList[3])
+			prdatStr = str(currentPwm)+","+str(daAvgList[0])+","+str(
+				daAvgList[1])+","+str(daAvgList[2])+","+str(daAvgList[3])
 			csvData += prdatStr+"\n"
-			print(pwmInd, prdatStr)
+			print(prdatStr)
 			currentSpeedArray = []
 			
 			wheel_msg.data = '0,0,0,0\n'
@@ -318,15 +354,15 @@ def wheelSpeedPublisher(queue):
 				try:
 					pwmInd += 1
 				except:
-					break
+					pass
 
 			prevData = csvData
 			
-			try:
-				with open(csvFilePath, 'w') as wf:
-					wf.write(csvData)
-			except:
-				pass
+			# try:
+			# 	with open(csvFilePath, 'w') as wf:
+			# 		wf.write(csvData)
+			# except:
+			# 	pass
 			
 			time.sleep(1)
 			
@@ -342,15 +378,26 @@ def wheelSpeedPublisher(queue):
 		# if not forwards and currentPwm > -70:
 		# 	currentPwm = 70
 		# 	forwards = True
-		if currentPwm >= 255:
+		if abs(currentPwm) > 255:
 			with open(csvFilePath, 'w') as wf:
 				wf.write(csvData)
 			# ab_p, var_p, ab_n, var_n = getFittingParameters()
 			break
 
+	with open(csvFilePath, 'w') as wf:
+		wf.write(csvData)
+	wheel_msg.data = '0,0,0,0\n'
+	pwm_pub.publish(wheel_msg)
+	wheel_msg.data = '0,0,0,0\n'
+	pwm_pub.publish(wheel_msg)
+	wheel_msg.data = '0,0,0,0\n'
+	pwm_pub.publish(wheel_msg)
+	time.sleep(2)
+
+
 
 if __name__ == "__main__":
-
+	
 	queue = Queue()
 	queue.put([0, 0, 0, 0])
 	encoder_process = Process(
@@ -362,10 +409,10 @@ if __name__ == "__main__":
 def getPwmFromAngSpeed(x, mode=0):
 	yp = [0, 0, 0, 0]
 	yn = [0, 0, 0, 0]
-	ap = [-143.48526, -152.71374, -157.26158, -156.59191]
-	bp = [4.20121, 4.32203, 4.28761, 4.37398]
-	an = [-144.26665, -158.83706, -156.74901, -150.89588]
-	bn = [-4.2302, -4.37313, -4.41995, -4.28225]
+	ap = [-160.009, -146.00019, -176.47135, -149.16155]     
+	bp = [4.39476, 4.21889, 4.44955, 4.29408]     			
+	an = [-162.88575, -170.41074, -159.15366, -160.36608]   
+	bn = [-4.35132, -4.51622, -4.20662, -4.50658]     		
 	if mode:
 		yp[0] = -143.48526/x[0] + (4.20121)
 		yn[0] = -144.26665/x[0] + (-4.2302)

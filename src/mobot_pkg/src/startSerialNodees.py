@@ -47,7 +47,7 @@ def signal_handler(sig, frame):
 
 def motorFeedbackCB(wheelData, arduino_mot_port):
 	datas = wheelData.data
-	print("Sending Data to Arduino : ", datas)
+	# print("Sending Data to Arduino : ", datas)
 	arduino_mot_port.write(datas.encode('utf-8'))
 
 
@@ -78,6 +78,9 @@ def startMotorNode():
 refresh_rate = 40
 vlotageRatio = 12.22/740
 voltageOn = True
+currentRatio = 3.323/1023#0.62/506
+currentVoltageRatio = .1
+currentOn = True
 def startEncoderSerialNode():
 	try:
 		system("echo 1628 | sudo -S chmod 777 /dev/ttyTHS1")
@@ -106,29 +109,107 @@ def startEncoderSerialNode():
 	rospy.init_node("arduino_serial", anonymous=False)
 	enc_publisher = rospy.Publisher('/encoder_feedback', String, queue_size=1)
 	voltage_publisher = rospy.Publisher('/battery_voltage', Float32, queue_size=1)
+	current_publisher = rospy.Publisher('/battery_current', Float32, queue_size=1)
 	rate = rospy.Rate(refresh_rate)
 	strData = String()
-	voltageData = Float32()
 	strData.data = '0,0,0,0'
+	voltageData = Float32()
+	currentData = Float32()
 	print("Started Encoder Feedback Serial ttyTHS1.....")
+	samples = 4
+	sampleCnt = 0
+	totalVals = [0, 0, 0, 0, 0, 0]
+	prevVals = [0, 0, 0, 0, 0, 0]
+	testOn = False
 	while not rospy.is_shutdown():
 		signal.signal(signal.SIGINT, signal_handler)
-		value = serial_read()
-		
-		if len(value) == 5 and voltageOn:
-			strData.data = ','.join(value[:4])
-			voltageData.data = float(value[4])*vlotageRatio
-			enc_publisher.publish(strData) # printing the value
-			voltage_publisher.publish(voltageData) # printing the value
-			# print("value : ", value)
-		else:
-			strData.data = ','.join(value[:4])
-			enc_publisher.publish(strData)
-			voltageData.data = 0.00
-			voltage_publisher.publish(voltageData)
-		
-		print("Serial Node : ", rospy.Time().now().to_sec(), strData.data, voltageData.data)#,  voltageData.data)
+		value = []
+		serialData = serial_read()
 
+		# if testOn:
+		# 	if len(serialData) == 6:
+		# 		for ind, vals in enumerate(serialData):
+		# 			try:
+		# 				value.append(float(vals))
+		# 			except:
+		# 				value.append(0.0)
+				
+		# 		if sampleCnt >= samples:
+		# 			value = [str(int(vals/samples)) if ind < 4 else vals/samples for ind, vals in enumerate(totalVals)]
+		# 			if len(value) == 5 and voltageOn:
+		# 				strData.data = ','.join(value[:4])
+		# 				voltageData.data = round(float(value[4])*vlotageRatio, 3)
+		# 				currentData.data = 0.00
+
+		# 			elif len(value) == 6 and voltageOn and currentOn:
+		# 				strData.data = ','.join(value[:4])
+		# 				voltageData.data = round(float(value[4])*vlotageRatio, 3)
+		# 				currentData.data = round(float(value[5])*currentRatio, 3)
+
+		# 			else:
+		# 				strData.data = ','.join(value[:4])
+		# 				voltageData.data = 0.00
+		# 				currentData.data = 0.00
+					
+		# 			enc_publisher.publish(strData)
+		# 			voltage_publisher.publish(voltageData)
+		# 			current_publisher.publish(currentData)
+					
+		# 			# print("Serial Node : ", rospy.Time().now().to_sec(), strData.data, voltageData.data, voltageData.data)#,  voltageData.data)
+		# 			print("Serial Node : ", strData.data, voltageData.data, currentData.data)#,  voltageData.data)
+		# 			sampleCnt = 0
+		# 			totalVals = [0, 0, 0, 0, 0, 0]
+		# 		else:
+		# 			totalVals = [totalVals[ind]+vals for ind, vals in enumerate(value)]
+		# 			sampleCnt += 1
+				
+		# else:
+		value = serialData
+		try:
+			W_speed = [int(vals) for vals in value]
+		
+		# print(value)
+			if len(value) == 5 and voltageOn:
+				strData.data = ','.join(value[:4])
+				try:
+					voltageData.data = round(float(value[4])*vlotageRatio, 3)
+				except Exception as e:
+					print(e, value)
+					voltageData.data = 0.0
+				currentData.data = 0.00
+
+			elif len(value) == 6 and voltageOn and currentOn:
+				strData.data = ','.join(value[:4])
+
+				try:
+					voltageData.data = round(float(value[4])*vlotageRatio, 3)
+				except Exception as e:
+					print(e, value)
+					voltageData.data = 0.0
+				try:
+					currentData.data = round( (float(value[5])*currentRatio - 1.661) / currentVoltageRatio, 3)
+				except Exception as e:
+					print(e, value)
+					currentData.data = 0.0
+
+			else:
+				strData.data = ','.join(value[:4])
+				voltageData.data = 0.00
+				currentData.data = 0.00
+			
+			enc_publisher.publish(strData)
+			voltage_publisher.publish(voltageData)
+			current_publisher.publish(currentData)
+		except:
+			pass
+		
+		# print("Serial Node : ", rospy.Time().now().to_sec(), strData.data, voltageData.data, voltageData.data)#,  voltageData.data)
+		print("Serial Node : ", strData.data, voltageData.data, currentData.data)#,  voltageData.data)
+		
+
+
+		
+		# signal.signal(signal.SIGINT, signal_handler)
 		rate.sleep()
 
 def main():

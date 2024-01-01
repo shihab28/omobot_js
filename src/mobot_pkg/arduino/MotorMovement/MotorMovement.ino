@@ -41,6 +41,7 @@ float SL = sqrt(Ln * Ln + Wd*Wd), r  = .0398, R  = 2 * 3.14159 * r;
 float LS = 1 / SL;
 int i, j, k, l, n;
 int min_motor_speed = 30;
+int runSequence = {0, 1, 2, 3};
 //void cmdVelCallback(const geometry_msgs::Twist& cmd_vel_msg) {
 
 //void cmdVelCallback(const std_msgs::Int16MultiArray& wheel_pwm_msg) {
@@ -230,12 +231,16 @@ void checkMaxSpeed() {
 }
 
 void runAllMotorFromSpeed() {
-
+  int tempSeq
+  tempSeq = runSequence;
   for (int j = 0; j < 4; j++) {
-    runMotor(j, pwmSpeed[j]);
+    runMotor(runSequence[j], pwmSpeed[j]);
+    tempSeq[j] = (j + 1) % 4;
     //    Serial.print(pwmSpeed[j]); Serial.print(" | ");
     //    Serial1.print(pwmSpeed[j]); Serial1.print(" | ");
   }
+  runSequence = tempSeq;
+
   //  Serial.println("");
 
   //  runMotor(1, pwmSpeed[1]);

@@ -56,23 +56,23 @@ def signal_handler(sig, frame):
 	sys.exit(0)
 
 max_wheel_rpm = [36, 36, 36, 36]
-max_wheel_rpm_pos = [ 35.2,  34.90,  36.1,  35.2] #[35.6, 35.9, 37.25, 36.15]
-max_wheel_rpm_neg = [-34.9, -36.15, -35.5, -36.1] #[35.3, 36.7, 36.18, 36.65]
+max_wheel_rpm_pos =  [ 35.2,  34.90,  36.8,  34.5] # [35.3, 35.9, 36.4, 34.9]     # [ 35.2,  34.90,  36.1,  35.2]
+max_wheel_rpm_neg =  [-34.9, -36.15, -35.5, -36.1] # [-35.1, -35.3, -34.7, -33.1] # [-34.9, -36.15, -35.5, -36.1]
 max_wheel_speed_pos = [vals*2*3.1416/60 for vals in max_wheel_rpm_pos]
 max_wheel_speed_neg = [vals*2*3.1416/60 for vals in max_wheel_rpm_neg]
 
 def encoderFeedbackCB(datas, queue):
 	# global prevTimeWhl, prevTimePos, curW, curW, cur_robot_position, cur_wheel_pos, odom_pub, joint_pub
-	ppsp = [ 5045,  5023,  5193,  5055]
-	ppsn = [-5037, -5197, -5099, -5211]
+	ppsp = [ 5120, 5120, 5120, 5120] # [ 5204, 5015, 5303, 5034]  # [ 5045,  5023,  5193,  5055]  
+	ppsn = [-5046,-5335,-5036,-5206] # [-5046,-5335,-5036,-5206]  # [-5037, -5197, -5099, -5211]  
 	# W_speed_ = [round(int(vals)*3.7699/ppsp[ind], 5) if int(vals) > 0 else round(int(vals)*3.7699/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))
 	try:
-		W_speed_ = [round(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind], 5) if int(vals) > 0 else round(int(vals) * max_wheel_speed_neg[ind]/ppsn[ind], 5) for ind, vals in enumerate(datas.data.strip().split(","))]
+		W_speed_ = [round(int(vals)*max_wheel_speed_pos[ind]/ppsp[ind], 8) if int(vals) > 0 else round(int(vals) * max_wheel_speed_neg[ind]/ppsn[ind], 8) for ind, vals in enumerate(datas.data.strip().split(","))]
 		W_speed = [0.0 if abs(vals) < 0.0001 else vals for vals in W_speed_]
 	except:
 		print("Couldn't get Feedback, making feedback array [0, 0, 0, 0]")
 		W_speed = [0, 0, 0, 0]
-	print("Encoder Node : ", rospy.Time().now().to_sec(), W_speed)
+	# print("Encoder Node : ",W_speed)
 		
 	queue.put(W_speed)
 	##############
@@ -142,8 +142,8 @@ def robotOdomPublisher(queue):
 	cur_robot_position = [0, 0, 0]
 	cur_wheel_pos = [0, 0, 0, 0]
 	rospy.init_node(encoder_node, anonymous=True)
-	odom_pub = rospy.Publisher('/odom', Odometry, queue_size=20)
-	joint_pub = rospy.Publisher('/joint_states', JointState, queue_size=20)
+	odom_pub = rospy.Publisher('/odom', Odometry, queue_size=10)
+	joint_pub = rospy.Publisher('/joint_states', JointState, queue_size=10)
 
 	prevTimePos = rospy.Time.now().to_sec()
 	prevTimeWhl = rospy.Time.now().to_sec()
@@ -154,6 +154,7 @@ def robotOdomPublisher(queue):
 		# prevTimeWhl = rospy.Time.now().to_sec()
 		try:
 			curW = queue.get(timeout=1/refresh_rate)
+			# print("Odom Node > curW : ", curW)
 			if  len(curW) != 4:
 				curW = [0, 0, 0, 0]
 
@@ -173,7 +174,8 @@ def robotOdomPublisher(queue):
 		if (curW != [0, 0, 0, 0]):
 			# print(rospy.Time.now().to_sec(), [Vx, Vy, W0])
 			cur_wheel_pos = get_cur_wheel_pos(curW, cur_wheel_pos)
-			print("Odom Node : ", rospy.Time().now().to_sec(), curW, output_, cur_robot_position)
+			# print("Odom Node : ", rospy.Time().now().to_sec(), curW, output_, cur_robot_position)
+			print("Odom Node : ", output_, cur_robot_position)
 			# print(rospy.Time.now().to_sec(), output_)
 			
 		publishJointData(joint_pub, cur_wheel_pos)

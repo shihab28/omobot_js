@@ -75,6 +75,18 @@ CMAKE_BINARY_DIR = /home/shihab/omobot_js/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/local/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/local/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
@@ -99,17 +111,16 @@ install/local/fast: preinstall/fast
 	/usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/local/bin/cmake -P cmake_install.cmake
-.PHONY : install
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/local/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
 
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/local/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -131,17 +142,6 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/local/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -187,111 +187,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-lidar_ld19/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lidar_ld19/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
-.PHONY : lidar_ld19/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_nodejs: lidar_ld19/CMakeFiles/roscpp_generate_messages_nodejs.dir/rule
-
-.PHONY : roscpp_generate_messages_nodejs
-
-# fast build rule for target.
-roscpp_generate_messages_nodejs/fast:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f lidar_ld19/CMakeFiles/roscpp_generate_messages_nodejs.dir/build.make lidar_ld19/CMakeFiles/roscpp_generate_messages_nodejs.dir/build
-.PHONY : roscpp_generate_messages_nodejs/fast
-
-# Convenience name for target.
-lidar_ld19/CMakeFiles/roscpp_generate_messages_eus.dir/rule:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lidar_ld19/CMakeFiles/roscpp_generate_messages_eus.dir/rule
-.PHONY : lidar_ld19/CMakeFiles/roscpp_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_eus: lidar_ld19/CMakeFiles/roscpp_generate_messages_eus.dir/rule
-
-.PHONY : roscpp_generate_messages_eus
-
-# fast build rule for target.
-roscpp_generate_messages_eus/fast:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f lidar_ld19/CMakeFiles/roscpp_generate_messages_eus.dir/build.make lidar_ld19/CMakeFiles/roscpp_generate_messages_eus.dir/build
-.PHONY : roscpp_generate_messages_eus/fast
-
-# Convenience name for target.
-lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-.PHONY : lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_cpp: lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_cpp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_cpp/fast:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build.make lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-lidar_ld19/CMakeFiles/roscpp_generate_messages_cpp.dir/rule:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lidar_ld19/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-.PHONY : lidar_ld19/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_cpp: lidar_ld19/CMakeFiles/roscpp_generate_messages_cpp.dir/rule
-
-.PHONY : roscpp_generate_messages_cpp
-
-# fast build rule for target.
-roscpp_generate_messages_cpp/fast:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f lidar_ld19/CMakeFiles/roscpp_generate_messages_cpp.dir/build.make lidar_ld19/CMakeFiles/roscpp_generate_messages_cpp.dir/build
-.PHONY : roscpp_generate_messages_cpp/fast
-
-# Convenience name for target.
-lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-.PHONY : lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_eus: lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_eus
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_eus/fast:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build.make lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/build
-.PHONY : rosgraph_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-lidar_ld19/CMakeFiles/ldlidar_stl_ros_node.dir/rule:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lidar_ld19/CMakeFiles/ldlidar_stl_ros_node.dir/rule
-.PHONY : lidar_ld19/CMakeFiles/ldlidar_stl_ros_node.dir/rule
-
-# Convenience name for target.
-ldlidar_stl_ros_node: lidar_ld19/CMakeFiles/ldlidar_stl_ros_node.dir/rule
-
-.PHONY : ldlidar_stl_ros_node
-
-# fast build rule for target.
-ldlidar_stl_ros_node/fast:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f lidar_ld19/CMakeFiles/ldlidar_stl_ros_node.dir/build.make lidar_ld19/CMakeFiles/ldlidar_stl_ros_node.dir/build
-.PHONY : ldlidar_stl_ros_node/fast
-
-# Convenience name for target.
-lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-.PHONY : lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_lisp: lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_lisp
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_lisp/fast:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build.make lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
-.PHONY : rosgraph_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
 lidar_ld19/CMakeFiles/ldlidar_stl_ros_listen_node.dir/rule:
 	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lidar_ld19/CMakeFiles/ldlidar_stl_ros_listen_node.dir/rule
 .PHONY : lidar_ld19/CMakeFiles/ldlidar_stl_ros_listen_node.dir/rule
@@ -307,64 +202,19 @@ ldlidar_stl_ros_listen_node/fast:
 .PHONY : ldlidar_stl_ros_listen_node/fast
 
 # Convenience name for target.
-lidar_ld19/CMakeFiles/roscpp_generate_messages_py.dir/rule:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lidar_ld19/CMakeFiles/roscpp_generate_messages_py.dir/rule
-.PHONY : lidar_ld19/CMakeFiles/roscpp_generate_messages_py.dir/rule
+lidar_ld19/CMakeFiles/ldlidar_stl_ros_node.dir/rule:
+	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lidar_ld19/CMakeFiles/ldlidar_stl_ros_node.dir/rule
+.PHONY : lidar_ld19/CMakeFiles/ldlidar_stl_ros_node.dir/rule
 
 # Convenience name for target.
-roscpp_generate_messages_py: lidar_ld19/CMakeFiles/roscpp_generate_messages_py.dir/rule
+ldlidar_stl_ros_node: lidar_ld19/CMakeFiles/ldlidar_stl_ros_node.dir/rule
 
-.PHONY : roscpp_generate_messages_py
+.PHONY : ldlidar_stl_ros_node
 
 # fast build rule for target.
-roscpp_generate_messages_py/fast:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f lidar_ld19/CMakeFiles/roscpp_generate_messages_py.dir/build.make lidar_ld19/CMakeFiles/roscpp_generate_messages_py.dir/build
-.PHONY : roscpp_generate_messages_py/fast
-
-# Convenience name for target.
-lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
-.PHONY : lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_nodejs: lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_nodejs/fast:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build.make lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/build
-.PHONY : rosgraph_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-.PHONY : lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-rosgraph_msgs_generate_messages_py: lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/rule
-
-.PHONY : rosgraph_msgs_generate_messages_py
-
-# fast build rule for target.
-rosgraph_msgs_generate_messages_py/fast:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make lidar_ld19/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
-.PHONY : rosgraph_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-lidar_ld19/CMakeFiles/roscpp_generate_messages_lisp.dir/rule:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lidar_ld19/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-.PHONY : lidar_ld19/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-roscpp_generate_messages_lisp: lidar_ld19/CMakeFiles/roscpp_generate_messages_lisp.dir/rule
-
-.PHONY : roscpp_generate_messages_lisp
-
-# fast build rule for target.
-roscpp_generate_messages_lisp/fast:
-	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f lidar_ld19/CMakeFiles/roscpp_generate_messages_lisp.dir/build.make lidar_ld19/CMakeFiles/roscpp_generate_messages_lisp.dir/build
-.PHONY : roscpp_generate_messages_lisp/fast
+ldlidar_stl_ros_node/fast:
+	cd /home/shihab/omobot_js/build && $(MAKE) $(MAKESILENT) -f lidar_ld19/CMakeFiles/ldlidar_stl_ros_node.dir/build.make lidar_ld19/CMakeFiles/ldlidar_stl_ros_node.dir/build
+.PHONY : ldlidar_stl_ros_node/fast
 
 ldlidar_driver/src/core/ldlidar_driver.o: ldlidar_driver/src/core/ldlidar_driver.cpp.o
 
@@ -595,16 +445,6 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... roscpp_generate_messages_cpp"
-	@echo "... roscpp_generate_messages_eus"
-	@echo "... roscpp_generate_messages_lisp"
-	@echo "... roscpp_generate_messages_nodejs"
-	@echo "... roscpp_generate_messages_py"
-	@echo "... rosgraph_msgs_generate_messages_cpp"
-	@echo "... rosgraph_msgs_generate_messages_eus"
-	@echo "... rosgraph_msgs_generate_messages_lisp"
-	@echo "... rosgraph_msgs_generate_messages_nodejs"
-	@echo "... rosgraph_msgs_generate_messages_py"
 	@echo "... ldlidar_stl_ros_listen_node"
 	@echo "... ldlidar_stl_ros_node"
 	@echo "... ldlidar_driver/src/core/ldlidar_driver.o"

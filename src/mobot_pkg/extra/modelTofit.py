@@ -97,32 +97,39 @@ pwmSpeed_p, encSpeed_p, pwmSpeed_n, encSpeed_n = processData(csvFilePath)
 ab_p, var_p, ab_n, var_n = getParameters(fittingFunc, pwmSpeed_p, encSpeed_p, pwmSpeed_n, encSpeed_n)
 
 equation = 'Forward : '
+Display =False
 for i in range(4):
-    
-    plot_ = plt.plot(encSpeed_p[i], pwmSpeed_p, 'b', label=f'Speed{i}')
-    plots.append(plot_)
-    fitY = ReverseFitFunc(encSpeed_p[i], *ab_p[i])
-    plt.plot(encSpeed_p[i], fitY, 'r', label=f'fittedSpeed{i}')
-    equation += f"\nyp_{i+1} = {ab_p[i][0]}/x + ({ab_p[i][1]})\n"
+    if Display:
+        plot_ = plt.plot(encSpeed_p[i], pwmSpeed_p, 'b', label=f'Speed{i}')
+        plots.append(plot_)
+        fitY = ReverseFitFunc(encSpeed_p[i], *ab_p[i])
+        plt.plot(encSpeed_p[i], fitY, 'r', label=f'fittedSpeed{i}')
+        equation += f"\nyp_{i+1} = {ab_p[i][0]}/x + ({ab_p[i][1]})\n"
 
 
-    plt.plot(encSpeed_n[i], pwmSpeed_n, 'b', label=f'Speed{i}')
-    fitY =  ReverseFitFunc(encSpeed_n[i], *ab_n[i])
+        plt.plot(encSpeed_n[i], pwmSpeed_n, 'b', label=f'Speed{i}')
+        fitY =  ReverseFitFunc(encSpeed_n[i], *ab_n[i])
 
-    plt.plot(encSpeed_n[i], fitY, 'r', label=f'fittedSpeed{i}')
-    equation += f"yn_{i+1} = {ab_n[i][0]}/x + ({ab_n[i][1]})\n"
+        plt.plot(encSpeed_n[i], fitY, 'r', label=f'fittedSpeed{i}')
+        equation += f"yn_{i+1} = {ab_n[i][0]}/x + ({ab_n[i][1]})\n"
 
 
-    plt.xticks( np.arange(-4, 4, .5))
-    plt.yticks( np.arange(-260, 260, 50))
-    plt.grid(True, which='both')
+        plt.xticks( np.arange(-4, 4, .5))
+        plt.yticks( np.arange(-260, 260, 50))
+        plt.grid(True, which='both')
 
-    plt.ylabel(f'PWM_w{i+1}', size = 16)
-    plt.xlabel('encSpeed (mm/sec)', size = 16)
-    plt.legend(['True Data', 'Fitted Data'], fontsize="12")
-    plt.title(f'Model Fitting for motor {i+1}', size = 20)
+        plt.ylabel(f'PWM_w{i+1}', size = 16)
+        plt.xlabel('encSpeed (mm/sec)', size = 16)
+        plt.legend(['True Data', 'Fitted Data'], fontsize="12")
+        plt.title(f'Model Fitting for motor {i+1}', size = 20)
 
-    plt.show()
+        plt.show()
+    else:
+        fitY = ReverseFitFunc(encSpeed_p[i], *ab_p[i])
+        equation += f"\nyp_{i+1} = {ab_p[i][0]}/x + ({ab_p[i][1]})\n"
+        fitY =  ReverseFitFunc(encSpeed_n[i], *ab_n[i])
+        equation += f"yn_{i+1} = {ab_n[i][0]}/x + ({ab_n[i][1]})\n"
+
 
 equation += '\n\nReverse : '
 for i in range(4):
