@@ -27,17 +27,17 @@ DWAPlannerROS:
 
 # Forward Simulation Parameters
   sim_time: 1.0       # 1.7
-  vx_samples: 25    # 3
-  vy_samples: 3     # diff drive robot
-  vtheta_samples: 10  # 20
+  vx_samples: 10    # 3
+  vy_samples: 4     # diff drive robot
+  vtheta_samples: 25  # 20
 
 # Trajectory Scoring Parameters
   path_distance_bias: 32.0      # 32.0   - weighting for how much it should stick to the global path plan
-  goal_distance_bias: 8.0      # 24.0   - wighting for how much it should attempt to reach its goal
-  occdist_scale: 1          # 0.01   - weighting for how much the controller should avoid obstacles
+  goal_distance_bias: 24.0      # 24.0   - wighting for how much it should attempt to reach its goal
+  occdist_scale: .05          # 0.01   - weighting for how much the controller should avoid obstacles
   forward_point_distance: 0.1 # 0.325  - how far along to place an additional scoring point
   stop_time_buffer: 0.2         # 0.2    - amount of time a robot must stop in before colliding for a valid traj.
-  scaling_speed: 0.1           # 0.25   - absolute velocity at which to start scaling the robot's footprint
+  scaling_speed: 0.25           # 0.25   - absolute velocity at which to start scaling the robot's footprint
   max_scaling_factor: 0.2      # 0.2    - how much to scale the robot's footprint when at speed.
 
 # Oscillation Prevention Parameters
@@ -46,4 +46,4 @@ DWAPlannerROS:
 # Debugging
   # publish_traj_pc : true
   # publish_cost_grid_pc: true
-  global_frame_id: odom
+  global_frame_id: map

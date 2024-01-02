@@ -31,9 +31,8 @@
     
 
 
-    <!-- <arg name="rviz_config_file" value="$(find mobot_pkg)/config/mobot.rviz"/> -->
-    <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)"/> -->
-    <!-- <node pkg="localization_data_pub" type="rviz_click_to_2d" name="rviz_click_to_2d"/> -->
+    
+
     <!-- <node pkg="mobot_pkg" type="wheel_pwm_controller.py" name="wheel_pwm_controller"/> -->
     <!-- <node pkg="mobot_pkg" type="getEncoderData.py" name="getEncoderData"/> -->
     <!-- <node pkg="mobot_pkg" type="startSerialNodees.py" name="startSerialNodees"/> -->
@@ -52,7 +51,7 @@
     <!-- <include file="$(find mobot_pkg)/launch/twist_mux.launch"/> -->
 
 
-    <!-- <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
         <rosparam file="$(find mobot_pkg)/nav_param/costmap_common_params.yaml" command="load" ns="global_costmap" />
         <rosparam file="$(find mobot_pkg)/nav_param/costmap_common_params.yaml" command="load" ns="local_costmap" />
         <rosparam file="$(find mobot_pkg)/nav_param/local_costmap_params.yaml" command="load"  />
@@ -60,7 +59,10 @@
         <rosparam file="$(find mobot_pkg)/nav_param/move_base_params.yaml" command="load"  />
         <rosparam file="$(find mobot_pkg)/nav_param/dwa_local_planner_params.yaml" command="load" />
         <rosparam file="$(find mobot_pkg)/nav_param/base_local_planner_params.yaml" command="load" />
-    </node> -->
+    </node>
+    <!-- <arg name="rviz_config_file" value="$(find mobot_pkg)/config/mobot.rviz"/> -->
+    <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)"/> -->
+    <node pkg="localization_data_pub" type="rviz_click_to_2d" name="rviz_click_to_2d"/>
 
 
 

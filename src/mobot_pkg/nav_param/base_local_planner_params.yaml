@@ -25,9 +25,9 @@ TrajectoryPlannerROS:
   xy_goal_tolerance: 0.08
   yaw_goal_tolerance: 0.3
 
-  vx_samples: 20
-  vy_samples: 3
-  vtheta_samples: 20
+  vx_samples: 10
+  vy_samples: 4
+  vtheta_samples: 25
 
   controller_frequency: 5.0
 

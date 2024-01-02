@@ -1,11 +1,11 @@
 local_costmap:
-  update_frequency: 10.0
+  update_frequency: 5.0
   publish_frequency: 5.0
   transform_tolerance: 1.0
   static_map: false
   rolling_window: true
   resolution: .01
-  inflation_radius: 0.05
+  inflation_radius: 0.02
   width: 5
   height: 5
 
@@ -19,8 +19,8 @@ local_costmap:
 
   inflation_layer:
     enabled: true
-    inflation_radius: 0.05
-    cost_scaling_factor: .5
+    inflation_radius: 0.02
+    cost_scaling_factor: .1
 
 # local_costmap:
 #         global_frame: odom

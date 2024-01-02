@@ -1,8 +1,8 @@
 global_costmap:
   global_frame: odom
   robot_base_frame: base_footprint
-  update_frequency: 10.0
-  publish_frequency: 10.0
+  update_frequency: 5.0
+  publish_frequency: 5.0
   transform_tolerance: 1.0
   resolution: .1
   width:  12.0 #Fornt/Rear
@@ -24,7 +24,7 @@ global_costmap:
   inflation_layer:
     enabled: true
     inflation_radius: 0.01
-    cost_scaling_factor: 100
+    cost_scaling_factor: 10
 
 # global_costmap:
 #     global_frame: map
