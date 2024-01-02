@@ -1,3 +1,4 @@
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -128,19 +129,28 @@ export GIT_REMOTE_BRANCH=" https://github.com/shihab28/omobot_js.git main "
 export GIT_REMOTE_ADD=" git remote add omobot_js https://github.com/shihab28/omobot_js.git && git push --set-upstream omobot_js master"
 export GIT_KEY="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"
 
-alias supdate="echo 1628 |sudo -S apt-get update "
-alias sinstall="echo 1628 |sudo -S apt-get install "
+export PASS_="1628"
+
+alias supdate="echo $PASS_  |sudo -S apt-get update "
+alias sinstall="echo $PASS_ |sudo -S apt-get install "
 alias sremove="sudo apt remove "
-alias sedit="echo 1628 |sudo -S gedit "
-alias socker="echo 1628 |sudo -S docker "
-alias sedbash="echo 1628 |sudo -S gedit ~/.bashrc "
+alias sedit="echo $PASS_ |sudo -S gedit "
+alias socker="echo $PASS_ |sudo -S docker "
+alias sedbash="echo $PASS_ |sudo -S gedit ~/.bashrc "
 alias cdesk="cd ~/Desktop "
 alias cdmobo="cd ~/omobot_js "
 alias srcbash="source ~/.bashrc "
-alias restartnvgs="echo 1628 | sudo -S systemctl restart nvargus-daemon "
+alias restartnvgs="echo $PASS_ | sudo -S systemctl restart nvargus-daemon "
 
 source /opt/ros/melodic/setup.bash
 source /home/shihab/omobot_js/devel/setup.bash
+
+export currentIP=$(hostname -I)
+export currentIP=$(ifconfig $(route -n | grep ^0.0.0.0 | awk '{print $NF}') | grep inet | grep -v inet6 | awk '{print $2}')
+export ROS_MASTER_URI=http://${currentIP}:11311
+export ROS_IP=${currentIP}
+
+
 # source /home/shihab/mobot_ws/devel/setup.bash
 # source /home/shihab/ros2_dashing/ros2-linux/setup.bash
 # export OPENBLAS_CORETYPE=ARMV8
