@@ -1,0 +1,13 @@
+
+[Unit]
+Description=PiOLED stats display service
+
+[Service]
+Type=simple
+User=shihab
+ExecStart=/bin/sh -c "python3 -m pioled.stats"
+WorkingDirectory=/home/shihab
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

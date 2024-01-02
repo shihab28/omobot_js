@@ -1,0 +1,10 @@
+[Unit]
+Description=Script to check if serial communication is On
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python3 /home/shihab/omobot_js/src/mobot_pkg/src/heartbeatNode.py
+
+[Install]
+WantedBy=multi-user.target

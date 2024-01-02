@@ -1,1 +1,0 @@
-rosrun xacro  xacro src/mobot_pkg/robot/omobot.urdf.xacro --inorder > omobot_generated.urdf
