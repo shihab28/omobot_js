@@ -12,6 +12,7 @@
     <arg name="topic_name" default="scan"/>
     <arg name="frame_id" default="lidar1_link"/>
     <arg name="port_name" default="/dev/ttyUSB0"/>
+    <!-- <arg name="port_name" default="/dev/ttyUSB1"/> -->
     <arg name="port_baudrate" default="230400"/>
     <arg name="fix_to_base_link" default="true"/>
     <!-- ldldiar message publisher node -->

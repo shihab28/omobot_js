@@ -14,7 +14,7 @@ sudo apt install sysstat
 sudo apt-get install v4l-utils
 sudo apt install ubuntu-restricted-extras 
 sudo apt-get install ros-melodic-rosserial-arduino
-sudo apt-get install ros-melodic-serial ros-melodic-joy ros-melodic-joy-teleop ros-melodic-twist-mux
+sudo apt-get install -y ros-melodic-serial ros-melodic-joy ros-melodic-joy-teleop ros-melodic-twist-mux ros-melodic-move-base ros-melodic-amcl ros-melodic-map-server ros-melodic-map-laser 
 
 sudo apt-get install blueman # use bluetooth manager if facing trouble to connect controller with jetson, pain and trust the controller
 
