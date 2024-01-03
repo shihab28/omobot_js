@@ -904,7 +904,7 @@ print(W_avg)
 
 
 
-# os.system('echo 1628 | sudo -S chmod 777 /dev/arduinoEnc')
+# os.system('echo  ${PASS_} | sudo -S chmod 777 /dev/arduinoEnc')
 # print("Initiating..........")
 
 # arduinoEnc = serial.Serial(

@@ -3,8 +3,8 @@ import math
 from datetime import datetime as dtime
 import os, time
 from random import randint as rand
-# os.system('echo 1628 | sudo usermod -a -G dialout shihab')
-os.system('echo 1628 | sudo -S chmod 777 /dev/arduinoMot')
+# os.system('echo  ${PASS_} | sudo usermod -a -G dialout shihab')
+os.system('echo  ${PASS_} | sudo -S chmod 777 /dev/arduinoMot')
 # os.system('"1628" | sudo chmod 777 /dev/ttyTHS1')
 print("Initiating..........")
 

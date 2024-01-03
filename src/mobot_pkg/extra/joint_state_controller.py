@@ -12,7 +12,7 @@ from sensor_msgs.msg import JointState
 from std_msgs.msg import Header
 from std_msgs.msg import std_msgs, String
 import serial
-os.system('echo 1628 | sudo -S chmod 777 /dev/arduinoMot')
+os.system('echo  ${PASS_} | sudo -S chmod 777 /dev/arduinoMot')
 arduinoMot = serial.Serial(
     port="/dev/arduinoMot",
     baudrate=115200,
@@ -28,7 +28,7 @@ LS = 1/SL
 r  = .0398
 R  = 2*3.14159*r
 
-# os.system("rosrun rosserial_python serial_node.py /dev/ArduinoMot")
+# os.system("rosrun rosserial_python serial_node.py /dev/arduinoMot")
 # os.system("rosrun rosserial_python serial_node.py /dev/ArduinoEnc")
 
 

@@ -1,8 +1,0 @@
-prefix=/home/shihab/omobot_js/devel
-
-Name: rqt_image_view
-Description: Description of rqt_image_view
-Version: 0.4.17
-Cflags: -I/home/shihab/omobot_js/src/rqt_image_view/include -I/home/shihab/omobot_js/devel/include
-Libs: -L${prefix}/lib -lrqt_image_view
-Requires: rqt_gui rqt_gui_cpp image_transport sensor_msgs cv_bridge geometry_msgs

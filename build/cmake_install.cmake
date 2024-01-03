@@ -37,11 +37,6 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
-# Set default install directory permissions.
-if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/usr/bin/objdump")
-endif()
-
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   
       if (NOT EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}")
@@ -137,7 +132,6 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/shihab/omobot_js/build/gtest/cmake_install.cmake")
   include("/home/shihab/omobot_js/build/mpu6050/cmake_install.cmake")
-  include("/home/shihab/omobot_js/build/sensor_msgs_ext/cmake_install.cmake")
   include("/home/shihab/omobot_js/build/lidar_ld19/cmake_install.cmake")
   include("/home/shihab/omobot_js/build/localization_data_pub/cmake_install.cmake")
   include("/home/shihab/omobot_js/build/mobot_pkg/cmake_install.cmake")

@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "/home/shihab/omobot_js/devel/lib/localization_data_pub/rviz_click_to_2d"
-  "/home/shihab/omobot_js/devel/lib/localization_data_pub/rviz_click_to_2d.pdb"
   "CMakeFiles/rviz_click_to_2d.dir/src/rviz_click_to_2d.cpp.o"
+  "/home/shihab/omobot_js/devel/lib/localization_data_pub/rviz_click_to_2d.pdb"
+  "/home/shihab/omobot_js/devel/lib/localization_data_pub/rviz_click_to_2d"
 )
 
 # Per-language clean rules from dependency scanning.

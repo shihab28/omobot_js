@@ -1,65 +1,56 @@
-Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Determining if the pthread_create exist failed with the following output:
 Change Dir: /home/shihab/omobot_js/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_d8a0b/fast && /usr/bin/make  -f CMakeFiles/cmTC_d8a0b.dir/build.make CMakeFiles/cmTC_d8a0b.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_36645/fast"
+/usr/bin/make -f CMakeFiles/cmTC_36645.dir/build.make CMakeFiles/cmTC_36645.dir/build
 make[1]: Entering directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_d8a0b.dir/src.c.o
-/usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_d8a0b.dir/src.c.o -c /home/shihab/omobot_js/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_d8a0b
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d8a0b.dir/link.txt --verbose=1
-/usr/bin/cc -rdynamic CMakeFiles/cmTC_d8a0b.dir/src.c.o -o cmTC_d8a0b 
-CMakeFiles/cmTC_d8a0b.dir/src.c.o: In function `main':
-src.c:(.text+0x48): undefined reference to `pthread_create'
-src.c:(.text+0x50): undefined reference to `pthread_detach'
-src.c:(.text+0x58): undefined reference to `pthread_cancel'
-src.c:(.text+0x64): undefined reference to `pthread_join'
-src.c:(.text+0x74): undefined reference to `pthread_atfork'
+Building C object CMakeFiles/cmTC_36645.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_36645.dir/CheckSymbolExists.c.o   -c /home/shihab/omobot_js/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_36645
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_36645.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_36645.dir/CheckSymbolExists.c.o  -o cmTC_36645 
+CMakeFiles/cmTC_36645.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x14): undefined reference to `pthread_create'
+CheckSymbolExists.c:(.text+0x18): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_d8a0b.dir/build.make:105: recipe for target 'cmTC_d8a0b' failed
-make[1]: *** [cmTC_d8a0b] Error 1
+CMakeFiles/cmTC_36645.dir/build.make:97: recipe for target 'cmTC_36645' failed
+make[1]: *** [cmTC_36645] Error 1
 make[1]: Leaving directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
-Makefile:140: recipe for target 'cmTC_d8a0b/fast' failed
-make: *** [cmTC_d8a0b/fast] Error 2
+Makefile:126: recipe for target 'cmTC_36645/fast' failed
+make: *** [cmTC_36645/fast] Error 2
 
-
-Source file was:
+File /home/shihab/omobot_js/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
 #include <pthread.h>
 
-static void* test_func(void* data)
+int main(int argc, char** argv)
 {
-  return data;
-}
-
-int main(void)
-{
-  pthread_t thread;
-  pthread_create(&thread, NULL, test_func, NULL);
-  pthread_detach(thread);
-  pthread_cancel(thread);
-  pthread_join(thread, NULL);
-  pthread_atfork(NULL, NULL, NULL);
-  pthread_exit(NULL);
-
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
   return 0;
+#endif
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/shihab/omobot_js/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):/usr/bin/make cmTC_8f808/fast && /usr/bin/make  -f CMakeFiles/cmTC_8f808.dir/build.make CMakeFiles/cmTC_8f808.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_726e8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_726e8.dir/build.make CMakeFiles/cmTC_726e8.dir/build
 make[1]: Entering directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_8f808.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_8f808.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.19/Modules/CheckFunctionExists.c
-Linking C executable cmTC_8f808
-/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8f808.dir/link.txt --verbose=1
-/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create -rdynamic CMakeFiles/cmTC_8f808.dir/CheckFunctionExists.c.o -o cmTC_8f808  -lpthreads 
+Building C object CMakeFiles/cmTC_726e8.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_726e8.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_726e8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_726e8.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_726e8.dir/CheckFunctionExists.c.o  -o cmTC_726e8 -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_8f808.dir/build.make:105: recipe for target 'cmTC_8f808' failed
-make[1]: *** [cmTC_8f808] Error 1
+CMakeFiles/cmTC_726e8.dir/build.make:97: recipe for target 'cmTC_726e8' failed
+make[1]: *** [cmTC_726e8] Error 1
 make[1]: Leaving directory '/home/shihab/omobot_js/build/CMakeFiles/CMakeTmp'
-Makefile:140: recipe for target 'cmTC_8f808/fast' failed
-make: *** [cmTC_8f808/fast] Error 2
-
+Makefile:126: recipe for target 'cmTC_726e8/fast' failed
+make: *** [cmTC_726e8/fast] Error 2
 
 

@@ -21,21 +21,21 @@ pinMapping = {
 
 
 def pinModeInit(pinNumber=gpio_pin, mode='out'):
-	exportCmd = "echo 1628 | sudo -S echo {} > /sys/class/gpio/export".format(pinMapping[pinNumber])
+	exportCmd = "echo  ${PASS_} | sudo -S echo {} > /sys/class/gpio/export".format(pinMapping[pinNumber])
 	os.system(exportCmd)
 	time.sleep(2)
-	modeCmd = "echo 1628 | sudo -S echo {} > /sys/class/gpio/gpio{}/direction".format(mode, pinMapping[pinNumber])
+	modeCmd = "echo  ${PASS_} | sudo -S echo {} > /sys/class/gpio/gpio{}/direction".format(mode, pinMapping[pinNumber])
 	os.system(modeCmd)
 	print(exportCmd, "\n", modeCmd)
 
 
 def digitalWrite(pinNumber=gpio_pin, value=0):
-	os.system("echo 1628 | sudo -S echo {} > /sys/class/gpio/gpio{}/value".format(value, pinMapping[pinNumber]))
+	os.system("echo  ${PASS_} | sudo -S echo {} > /sys/class/gpio/gpio{}/value".format(value, pinMapping[pinNumber]))
 
 
 def releasePin(pinNumber=gpio_pin):
 	os.system(
-		"echo 1628 | sudo -S echo {} > /sys/class/gpio/unexport".format(pinMapping[pinNumber]))
+		"echo  ${PASS_} | sudo -S echo {} > /sys/class/gpio/unexport".format(pinMapping[pinNumber]))
 
 
 pinModeInit(gpio_pin, 'out')

@@ -7,5 +7,6 @@
 # new environment variables
 
 # modified environment variables
-export PATH='/home/shihab/omobot_js/devel/bin:/opt/ros/melodic/bin:/home/shihab/.local/bin:/usr/local/cuda-10.2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'
+export PATH='/opt/ros/melodic/bin:/usr/local/cuda-10.2/bin:/home/shihab/.vscode-server/bin/0ee08df0cf4527e40edc9aa28f4b5bd38bbff2b2/bin/remote-cli:/home/shihab/.local/bin:/usr/local/cuda-10.2/bin:/home/shihab/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'
+export PKG_CONFIG_PATH='/opt/ros/melodic/lib/pkgconfig'
 export PWD='/home/shihab/omobot_js/build'

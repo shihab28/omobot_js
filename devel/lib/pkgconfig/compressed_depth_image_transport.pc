@@ -1,8 +1,0 @@
-prefix=/home/shihab/omobot_js/devel
-
-Name: compressed_depth_image_transport
-Description: Description of compressed_depth_image_transport
-Version: 1.9.5
-Cflags: -I/home/shihab/omobot_js/devel/include -I/home/shihab/omobot_js/src/image_transport_plugins/compressed_depth_image_transport/include -I/usr/local/include/opencv4
-Libs: -L${prefix}/lib -lcompressed_depth_image_transport /usr/local/lib/libopencv_calib3d.so.4.8.0 /usr/local/lib/libopencv_core.so.4.8.0 /usr/local/lib/libopencv_dnn.so.4.8.0 /usr/local/lib/libopencv_features2d.so.4.8.0 /usr/local/lib/libopencv_flann.so.4.8.0 /usr/local/lib/libopencv_gapi.so.4.8.0 /usr/local/lib/libopencv_highgui.so.4.8.0 /usr/local/lib/libopencv_imgcodecs.so.4.8.0 /usr/local/lib/libopencv_imgproc.so.4.8.0 /usr/local/lib/libopencv_ml.so.4.8.0 /usr/local/lib/libopencv_objdetect.so.4.8.0 /usr/local/lib/libopencv_photo.so.4.8.0 /usr/local/lib/libopencv_stitching.so.4.8.0 /usr/local/lib/libopencv_video.so.4.8.0 /usr/local/lib/libopencv_videoio.so.4.8.0
-Requires: cv_bridge dynamic_reconfigure image_transport

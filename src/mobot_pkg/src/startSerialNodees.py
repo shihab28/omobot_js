@@ -83,8 +83,8 @@ currentVoltageRatio = .1
 currentOn = True
 def startEncoderSerialNode():
 	try:
-		system("echo 1628 | sudo -S chmod 777 /dev/ttyTHS1")
-		# system("echo 1628 | sudo -S chmod 777 /dev/arduinoEnc")
+		system("echo  ${PASS_} | sudo -S chmod 777 /dev/ttyTHS1")
+		# system("echo  ${PASS_} | sudo -S chmod 777 /dev/arduinoEnc")
 		# port_enc = rospy.get_param('~port','/dev/arduinoEnc')
 	except Exception as e:
 		print(e)
@@ -309,7 +309,7 @@ if __name__=="__main__":
 # 	port_enc = rospy.get_param('~port','/dev/arduinoEnc')
 # 	baud = int(rospy.get_param('~baud','115200'))
 # 	# try:
-# 	#     system("echo 1628 | sudo -S chmod 777 /dev/ttyTHS1")
+# 	#     system("echo  ${PASS_} | sudo -S chmod 777 /dev/ttyTHS1")
 # 	# except Exception as e:
 # 	#     print(e)
 		

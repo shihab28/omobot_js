@@ -130,6 +130,7 @@ export GIT_REMOTE_ADD=" git remote add omobot_js https://github.com/shihab28/omo
 export GIT_KEY="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"
 
 export PASS_="1628"
+export PASSWD="1628"
 
 alias supdate="echo $PASS_  |sudo -S apt-get update "
 alias sinstall="echo $PASS_ |sudo -S apt-get install "
