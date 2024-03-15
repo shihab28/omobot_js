@@ -126,8 +126,8 @@ def fall_detection(box, kpt):
 def sendEmail(person, ImgFileName):
     time.sleep(1)
     sender_email = os.environ['omobot_email']
-    receiver_email = "shihab.ahamad@maine.edu"
     omobot_pass =  os.environ['omobot_pass']
+    receiver_email = "shihab.ahamad@maine.edu"
     message = MIMEMultipart("alternative")
     message["Subject"] = "Falling Report"
     message["From"] = sender_email
