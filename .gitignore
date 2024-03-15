@@ -3,6 +3,7 @@ build/
 camera_calibrator/
 devel/
 src/Kalman-Filter-Python-for-mpu6050/
-src/Kalman-Filter-Python-for-mpu6050
-src/gscam
-src/jetson_csi_cam
+src/Kalman-Filter-Python-for-mpu6050/
+src/gscam/
+src/jetson_csi_cam/
+src/Pose-Estimation-Aruco-Marker-Ros/
