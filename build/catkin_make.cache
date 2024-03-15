@@ -1,0 +1,2 @@
+Pose-Estimation-Aruco-Marker-Ros/my_aruco_tracker:gscam:jetson_csi_cam:lidar_ld19:localization_data_pub:mobot_pkg:mpu_6050_driver
+-DCATKIN_DEVEL_PREFIX=/home/shihab/omobot_js/devel -DCMAKE_INSTALL_PREFIX=/home/shihab/omobot_js/install -G Unix Makefiles

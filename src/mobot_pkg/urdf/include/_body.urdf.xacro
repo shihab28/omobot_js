@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mobot">
+
+
+    <xacro:macro name="body" params="name_ parent_ x_ y_ z_ mat_ mesh">
+        <link name="${name_}_link">
+            <visual>
+                <origin rpy="0.0 0.0 0.0" xyz="0 0 0"/>
+                <geometry>
+                    <mesh filename="${mesh}"/>
+                    <!-- <box size="0.3 0.2 .1"/> -->
+                </geometry>
+                <material name="${mat_}"/>
+            </visual>
+            <collision>
+                <origin rpy="0.0 0.0 0.0" xyz="0 0 0405"/>
+                <geometry>
+                    <!-- <mesh filename="package://mobot_pkg/meshes/Omobot_Version2_Body.dae"/> -->
+                    <box size=".288 .288 .150"/>
+                    <!-- <mesh filename="${mesh}"/> -->
+                </geometry>
+            </collision>
+            <!-- <inertial>
+                <origin rpy="0.0 0.0 0.0" xyz="0 0 -.04"/>
+                <mass value="2.0"/>
+                <inertia ixx="0.0060802336" ixy="0.0" ixz="0.0" iyy="0.0156763936" iyz="0.0" izz="0.02039184"/>
+            </inertial> -->
+            <xacro:inertial_box mass="3.4" l=".001" w=".001" h=".001">
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0405"/>
+            </xacro:inertial_box>
+        </link>
+
+        <joint name="${name_}_joint" type="fixed">
+            <parent link="${parent_}"/>
+            <child link="${name_}_link"/>
+
+            <!-- <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/> -->
+            <origin rpy="0.0 0.0 0.0" xyz="${x_} ${y_} ${z_}"/>
+        </joint>
+
+    </xacro:macro>
+
+
+
+    <xacro:macro name="fixed_components" params="name_ parent_ x_ y_ z_ mass_ l_ w_ h_ mat_">
+
+        <link name="${name_}_link">
+            <visual>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+                <geometry>
+                    <box size="${l_} ${w_} ${h_}"/>
+                </geometry>
+                <material name="${mat_}"/>
+            </visual>
+            <collision>
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+                <geometry>
+                    <box size="${l_} ${w_} ${h_}"/>
+                </geometry>
+            </collision>
+            <!-- <inertial>
+                <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+                <mass value="1"/>
+                <inertia ixx="4.851392e-05" ixy="0.0" ixz="0.0" iyy="4.851392e-05" iyz="0.0" izz="8e-05"/>
+            </inertial> -->
+
+            <xacro:inertial_box mass="${mass_}" l="${l_}" w="${w_}" h="${h_}">
+                <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            </xacro:inertial_box>
+        </link>
+
+        <joint name="${name_}_joint" type="fixed">
+            <parent link="${parent_}"/>
+            <child link="${name_}_link"/>
+            <origin rpy="0.0 0.0 0.0" xyz="${x_} ${y_} ${z_}"/>
+        </joint>
+
+    </xacro:macro>
+
+
+
+
+</robot>

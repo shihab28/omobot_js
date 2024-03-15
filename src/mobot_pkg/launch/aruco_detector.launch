@@ -1,0 +1,57 @@
+<launch>
+  
+
+  <param name="robot_description" command="xacro --inorder '$(find mobot_pkg)/robot/omobot.xacro'"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  <node pkg="localization_data_pub" type="rviz_click_to_2d" name="rviz_click_to_2d"/>
+  <node pkg="mpu_6050_driver" type="imu_node.py" name="imu_node"/>
+
+
+  <arg name="topic_name" default="scan"/>
+  <arg name="frame_id" default="lidar0_link"/>
+  <arg name="port_name" default="/dev/ttyUSB0"/>
+  <arg name="port_baudrate" default="230400"/>
+  <arg name="fix_to_base_link" default="true"/>
+  <node name="LD19" pkg="ldlidar_stl_ros" type="ldlidar_stl_ros_node" output="screen" >
+      <param name="product_name" value="LDLiDAR_LD19"/>
+      <param name="topic_name" value="$(arg topic_name)"/>
+      <param name="frame_id" value="$(arg frame_id)"/>
+      <param name="port_name" value ="$(arg port_name)"/>
+      <param name="port_baudrate" value ="$(arg port_baudrate)"/>
+      <param name="laser_scan_dir" type="bool" value="true"/>
+      <param name="enable_angle_crop_func" type="bool" value="false"/>
+      <param name="angle_crop_min" type="double" value="0.0"/>
+      <param name="angle_crop_max" type="double" value="360.0"/>
+  </node>
+
+
+  <include file="$(find mobot_pkg)/launch/gscam_csi.launch"/>
+  <!-- <include file="$(find mobot_pkg)/launch/gscam_csi_stereo.launch"/> -->
+
+  <arg name="markerId"        default="26"/>
+  <arg name="markerSize"      default="0.0705"/>    
+  <arg name="eye"             default="left"/>
+  <arg name="side"             default="$(arg eye)"/>
+  <arg name="marker_frame"    default="marker_$(arg markerId)"/>
+  <arg name="sensor_id" default="0" />                      
+  <arg name="cam_name" default="camera_$(arg sensor_id)" />
+  <arg name="camera_frame"       default="$(arg cam_name)_link"/> 
+  <arg name="ref_frame"       default="base_link"/> 
+  <arg name="corner_refinement" default="SUBPIX" /> 
+  <arg name="PUBLISH_FRAME" default="true"/>
+
+  <node pkg="aruco_ros" type="single" name="aruco_single">
+      <remap from="/camera_info" to="/camera/camera_info" />
+      <remap from="/image" to="/camera/image_raw" />
+      <param name="image_is_rectified" value="True"/>
+      <param name="marker_size"        value="$(arg markerSize)"/>
+      <param name="marker_id"          value="$(arg markerId)"/>
+      <param name="reference_frame"    value="$(arg camera_frame)"/>   
+      <param name="camera_frame"       value="$(arg camera_frame)"/>
+      <param name="marker_frame"       value="$(arg marker_frame)" />
+      <param name="corner_refinement"  value="$(arg corner_refinement)" />
+  </node>
+  
+  <node pkg="mobot_pkg" type="imageParser.py" name="image_parser"/>
+
+</launch>

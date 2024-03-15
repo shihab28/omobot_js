@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mobot">
+
+    <xacro:macro name="stereo_camera" params="id_ parent_ x_ y_ z_ mat_">
+
+        <link name="camera_${id_}_link">
+            <visual>
+                <origin rpy="0.0 0.0 0.0" xyz="0 0 0.0065"/>
+                <geometry>
+                    <!-- <mesh filename="package://mobot_pkg/meshes/IMX219_83.dae"/> -->
+                    <box size=".001 0.001 0.001"/>
+                </geometry>
+                <material name="${mat_}"/>
+            </visual>
+            <collision>
+                <origin rpy="0.0 0.0 0.0" xyz="0 0 0.0065"/>
+                <geometry>
+                    <box size=".001 0.001 0.001"/>
+                    <!-- <mesh filename="package://mobot_pkg/meshes/IMX219_83.dae"/> -->
+                    <!-- <cylinder length="0.032" radius=".04"/> -->
+                </geometry>
+            </collision>
+            <xacro:inertial_box mass=".001" l=".001" w=".001" h=".001">
+                <origin xyz="0 0 0.0" rpy="0 0 0"/>
+            </xacro:inertial_box>
+        </link>
+
+        <joint name="camera_${id_}_joint" type="fixed">
+            <parent link="${parent_}"/>
+            <child link="camera_${id_}_link"/>
+            <origin rpy="0.0 1.5708 0.0" xyz="${x_} ${y_} ${z_}"/>
+        </joint>
+
+        <gazebo reference="camera_${id_}_link">
+            <sensor type="camera" name="camera0">
+                <update_rate>10.0</update_rate>
+                <camera name="head">
+                    <horizontal_fov>2.1</horizontal_fov>
+                    <image>
+                        <width>1280</width>
+                        <height>720</height>
+                        <format>R8G8B8</format>
+                    </image>
+                    <clip>
+                        <near>0.005</near>
+                        <far>300</far>
+                    </clip>
+                    <noise>
+                        <type>gaussian</type>
+                        <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+                        <mean>0.0</mean>
+                        <stddev>0.007</stddev>
+                    </noise>
+                </camera>
+                <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                    <alwaysOn>true</alwaysOn>
+                    <updateRate>10.0</updateRate>
+                    <cameraName>camera</cameraName>
+                    <imageTopicName>image_raw</imageTopicName>
+                    <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+                    <frameName>"camera_${id_}_link"</frameName>
+                    <hackBaseline>0.01</hackBaseline>
+                    <distortionK1>0.0</distortionK1>
+                    <distortionK2>0.0</distortionK2>
+                    <distortionK3>0.0</distortionK3>
+                    <distortionT1>0.0</distortionT1>
+                    <distortionT2>0.0</distortionT2>
+                </plugin>
+            </sensor>
+        </gazebo>
+
+    </xacro:macro>
+
+</robot>

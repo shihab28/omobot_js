@@ -1,0 +1,8 @@
+prefix=/home/shihab/omobot_js/install
+
+Name: my_aruco_tracker
+Description: Description of my_aruco_tracker
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<launch>
+    
+
+<!-- <param name="robot_description" command="xacro - -inorder '$(find mobot_pkg)/robot/omobot.xacro'"/> 
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>  -->
+
+  <!-- <node pkg="localization_data_pub" type="rviz_click_to_2d" name="rviz_click_to_2d"/>
+  <node pkg="mpu_6050_driver" type="imu_node.py" name="imu_node"/>
+
+  <arg name="topic_name" default="scan"/>
+  <arg name="frame_id" default="lidar0_link"/>
+  <arg name="port_name" default="/dev/ttyUSB0"/>
+  <arg name="port_baudrate" default="230400"/>
+  <arg name="fix_to_base_link" default="true"/>
+  <node name="LD19" pkg="ldlidar_stl_ros" type="ldlidar_stl_ros_node" output="screen" >
+      <param name="product_name" value="LDLiDAR_LD19"/>
+      <param name="topic_name" value="$(arg topic_name)"/>
+      <param name="frame_id" value="$(arg frame_id)"/>
+      <param name="port_name" value ="$(arg port_name)"/>
+      <param name="port_baudrate" value ="$(arg port_baudrate)"/>
+      <param name="laser_scan_dir" type="bool" value="true"/>
+      <param name="enable_angle_crop_func" type="bool" value="false"/>
+      <param name="angle_crop_min" type="double" value="0.0"/>
+      <param name="angle_crop_max" type="double" value="360.0"/>
+  </node> -->
+    
+    <!-- ldldiar message publisher node -->
+    <!-- <node name="LD19" pkg="ldlidar_stl_ros" type="ldlidar_stl_ros_node" output="screen">
+        <param name="product_name" value="LDLiDAR_LD19"/>
+        <param name="topic_name" value="$(arg topic_name)"/>
+        <param name="frame_id" value="$(arg frame_id)"/>
+        <param name="port_name" value ="$(arg port_name)"/>
+        <param name="port_baudrate" value ="$(arg port_baudrate)"/>
+        <param name="laser_scan_dir" type="bool" value="true"/>
+        <param name="enable_angle_crop_func" type="bool" value="false"/>
+        <param name="angle_crop_min" type="double" value="0.0"/>
+        <param name="angle_crop_max" type="double" value="360.0"/>
+    </node> -->
+    
+    <!-- <node name="base_to_laser" pkg="tf" type="static_transform_publisher" args=".0975, 0, .1265 0 0.0 0.0 base_link $(arg frame_id) 50" if="$(arg fix_to_base_link)"/> -->
+    
+    
+
+    
+
+    <!-- <node pkg="mobot_pkg" type="wheel_pwm_controller.py" name="wheel_pwm_controller"/> -->
+    <!-- <node pkg="mobot_pkg" type="getEncoderData.py" name="getEncoderData"/> -->
+    <!-- <node pkg="mobot_pkg" type="startSerialNodees.py" name="startSerialNodees"/> -->
+
+
+    <!-- <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
+        <rosparam command="load" file="$(find mobot_pkg)/config/slam_parameter.yaml"/>
+    </node> -->
+
+
+    <!-- <arg name="map_file" default="$(find mobot_pkg)/maps/lab_map.yaml"/> -->
+    <arg name="map_file" default="$(find mobot_pkg)/maps/map_201_lab.yaml"/>
+    <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)" />
+    
+    
+    <include file="$(find mobot_pkg)/launch/amcl.launch"/>
+    <!-- <include file="$(find mobot_pkg)/launch/twist_mux.launch"/> -->
+
+
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam file="$(find mobot_pkg)/nav_param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find mobot_pkg)/nav_param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find mobot_pkg)/nav_param/local_costmap_params.yaml" command="load"  />
+        <rosparam file="$(find mobot_pkg)/nav_param/global_costmap_params.yaml" command="load"  />
+        <rosparam file="$(find mobot_pkg)/nav_param/move_base_params.yaml" command="load"  />
+        <rosparam file="$(find mobot_pkg)/nav_param/dwa_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find mobot_pkg)/nav_param/base_local_planner_params.yaml" command="load" />
+    </node>
+    <!-- <arg name="rviz_config_file" value="$(find mobot_pkg)/config/mobot.rviz"/> -->
+    <!-- <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)"/> -->
+    <!-- <node pkg="localization_data_pub" type="rviz_click_to_2d" name="rviz_click_to_2d"/> -->
+
+
+</launch>

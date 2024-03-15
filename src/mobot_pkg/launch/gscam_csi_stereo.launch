@@ -1,0 +1,61 @@
+<launch>
+
+
+  <param name="robot_description" command="xacro --inorder '$(find mobot_pkg)/robot/omobot.xacro'"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+
+  <arg name="sync_sink" default="true" />                   
+  <arg name="width" default="1920" />                        
+  <arg name="height" default="1080" />                       
+  <arg name="fps" default="10" />                           
+  <arg name="flip_method" default="0" /> 
+  <arg name="PUBLISH_FRAME" default="true"/>
+
+
+  <arg name="sensor_id0" default="0" />                      
+  <arg name="cam_name0" default="camera_$(arg sensor_id0)" />
+  <arg name="frame_id0" default="$(arg cam_name0)_link" /> 
+
+  <param name="$(arg cam_name0)/camera_id" type="int" value="$(arg sensor_id0)" />
+  <param name="$(arg cam_name0)/image_width" type="int" value="$(arg width)" />
+  <param name="$(arg cam_name0)/image_height" type="int" value="$(arg height)" />
+  <param name="$(arg cam_name0)/target_fps" type="int" value="$(arg fps)" />
+  <env name="GSCAM_CONFIG" value="nvarguscamerasrc sensor-id=$(arg sensor_id0) ! video/x-raw(memory:NVMM), width=(int)$(arg width), height=(int)$(arg height), framerate=(fraction)$(arg fps)/1 ! nvvidconv flip-method=$(arg flip_method) ! video/x-raw, format=(string)BGRx ! videoconvert" />
+
+  <node pkg="gscam" type="gscam" name="$(arg cam_name0)">
+    <param name="camera_name" value="$(arg cam_name0)" />
+    <param name="frame_id" value="$(arg frame_id0)" />
+    <param name="sync_sink" value="$(arg sync_sink)" />
+    <param name="camera_info_url" value="$(find mobot_pkg)/config/$(arg cam_name0).yaml" />
+  </node>
+
+
+  <arg name="sensor_id1" default="1" />                      
+  <arg name="cam_name1" default="camera_$(arg sensor_id1)" />
+  <arg name="frame_id1" default="$(arg cam_name1)_link" /> \                 
+
+  <param name="$(arg cam_name1)/camera_id" type="int" value="$(arg sensor_id1)" />
+  <param name="$(arg cam_name1)/image_width" type="int" value="$(arg width)" />
+  <param name="$(arg cam_name1)/image_height" type="int" value="$(arg height)" />
+  <param name="$(arg cam_name1)/target_fps" type="int" value="$(arg fps)" />
+  <env name="GSCAM_CONFIG" value="nvarguscamerasrc sensor-id=$(arg sensor_id1) ! video/x-raw(memory:NVMM), width=(int)$(arg width), height=(int)$(arg height), framerate=(fraction)$(arg fps)/1 ! nvvidconv flip-method=$(arg flip_method) ! video/x-raw, format=(string)BGRx ! videoconvert" />
+
+  <node pkg="gscam" type="gscam" name="$(arg cam_name1)">
+    <param name="camera_name" value="$(arg cam_name1)" />
+    <param name="frame_id" value="$(arg frame_id1)" />
+    <param name="sync_sink" value="$(arg sync_sink)" />
+    <param name="camera_info_url" value="$(find mobot_pkg)/config/$(arg cam_name1).yaml" />
+  </node>
+
+  
+
+</launch>
+
+
+<!-- " gst-launch-1.0 nvarguscamerasrc sensor_id=0 !   'video/x-raw(memory:NVMM),width=1920, height=1080, framerate=21/1, format=NV12' !    nvvidconv flip-method=2 ! 'video/x-raw, width=1280, height=720' ! nvvidconv ! nvegltransform ! nveglglessink -e "  -->
+
+
+
+
+

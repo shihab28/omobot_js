@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+# Robot's Physical Info
+wheel_radius: .0395
+wheel_thickness: .0373
+wheel_center_x: .0825
+wheel_center_y: .1185
+lidar_cordinates: [.108, 0, .140]
+imu_cordinates: [0, 0.04, .095]
+camera_cordinates: [.108, 0, .154]
+
+
+# Robot's Collision Info
+robot_circular_body_radius: .274
+robot_collision_clearance: .066
+
+
+# Motor and Encoder Info
+robot_max_speed_x: .14
+robot_max_speed_y: .14
+robot_max_speed_w: .7
+robot_min_speed_x: .07
+robot_min_speed_y: .07
+robot_min_speed_w: .05
+motor_max_wheel_rpm_pos: [ 36.1,  35.2,  36.4,  35.5]
+motor_max_wheel_rpm_neg: [-35.4, -36.9, -34.4, -37.2]
+pulse_per_second_positive: [ 5188, 5035, 5260, 5070]
+pulse_per_second_negative: [-5048,-5333,-4961,-5257]
+# pulse_per_second_positive: [ 5045,  5023,  5193,  5055]
+# pulse_per_second_negative: [-5037, -5197, -5099, -5211]
+ap: [-160.009, -146.00019, -176.47135, -149.16155]
+bp: [4.39476, 4.21889, 4.44955, 4.29408]
+an: [-162.88575, -170.41074, -159.15366, -160.36608]
+bn: [-4.35132, -4.51622, -4.20662, -4.50658]
+
+# ap: [-143.21693, -146.35979, -130.29756, -136.70724]
+# bp: [4.31598, 4.29486, 4.36087, 4.27206]
+# an: [-139.48209, -154.50459, -123.10459, -134.60437]
+# bn: [-4.22564, -4.41595, -4.24997, -4.34679]
+
+# ap = [-160.009, -146.00019, -176.47135, -149.16155]
+# bp = [4.39476, 4.21889, 4.44955, 4.29408]
+# an = [-162.88575, -170.41074, -159.15366, -160.36608]
+# bn = [-4.35132, -4.51622, -4.20662, -4.50658]
+max_pwm: 250
+
+
+#PID Tuner Parameter
+KP: [.1, .1, .1, .1]
+KI: [.0, .0, .0, .0]
+KD: [.05, .05, .05, .05]
+
+
+# Serial Com Info
+encoder_serial_port: /dev/ttyTHS1
+motor_serial_port: /dev/arduinoMot
+encoder_baud_rate: 57600
+motor_baud_rate: 115200
+encoder_feedback_topic: "/encoder_feedback"
+
+
+# Lidar Info
+lidar_detection_range_min: .015
+lidar_detection_range_max: 12
+lidar_measuring_frequency_max: 4500
+lidar_scanning_frequency: 10
+lidar_measuring_resolution: .015
+lidar_baud_rate: 230400
+
+
+# Joystick Mapping
+RS_X: "axes[3]"
+RS_Y: "axes[4]"
+LS_Y: "axes[0]"
+LS_X: "axes[1]"
+ANG_XY_Switch: buttons[6]
+ANG_XY: "axes[2]"
+Lin_Vel_inc: "buttons[3]"  
+Lin_Vel_dec: "buttons[0]" 
+Rot_Vel_inc: "buttons[1]"  
+Rot_Vel_dec: "buttons[2]"
+Mov_front_back: "joys.axes[7]"
+Mov_left_right: "joys.axes[6]"
