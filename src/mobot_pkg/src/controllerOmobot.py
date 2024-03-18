@@ -28,8 +28,6 @@ updated = False
 
 
 
-
-
 uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
 roslaunch.configure_logging(uuid)
 twstMuxCli = ['./src/mobot_pkg/launch/twist_mux.launch','vel:=2.19']

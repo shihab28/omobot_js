@@ -26,6 +26,15 @@ pip2 install cython cpython numpy pandas matplotlib pillow
 pip3 install ssh-import-id  systemd-python system-service
 pip3 install pyserial pyserial-asyncio asyncio
 
+
+############################################Install Lidar-LD19 ROS Driver
+git clone https://github.com/ldrobotSensorTeam/ldlidar_stl_ros.git 
+############################################
+
+############################################Install IMU-6050 ROS Driver
+git clone https://github.com/OSUrobotics/mpu_6050_driver.git
+############################################
+
 ############################################Install Pytorch 1.8.0 Using Following
 #         pip3 install torch==1.8.2 torchvision==0.9.2 torchaudio==0.8.2 --extra-index-url https://download.pytorch.org/whl/lts/1.8/cu102
 #         https://qengineering.eu/install-pytorch-on-jetson-nano.html
