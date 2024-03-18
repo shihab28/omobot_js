@@ -10,3 +10,4 @@ src/Pose-Estimation-Aruco-Marker-Ros/
 src/lidar_ld19/
 src/mpu_6050_driver/
 src/oledDisplay/
+src/localization_data_pub/
