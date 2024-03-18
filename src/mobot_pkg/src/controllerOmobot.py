@@ -150,8 +150,7 @@ class ControllerClass():
 
 
 
-def joystickPublisher(joy_queue):
-	
+def joystickPublisher():
 	joystick_controller = ControllerClass()
 
 	print("joystickPublisher node init.............")
@@ -161,14 +160,14 @@ def joystickPublisher(joy_queue):
 		except:
 			pass
 
-		if updated:
+		if joystick_controller.updated:
 			joystick_controller.publishCmdVel()
 			print("joy_msg : ", joystick_controller.joy_msg.linear)
 
 		if joystick_controller.cmd_vel == [0.0, 0.0, 0.0]:
-			updated = False
+			joystick_controller.updated = False
 		else:
-			updated = True
+			joystick_controller.updated = True
 		
 		signal.signal(signal.SIGINT, signal_handler)
 		joystick_controller.rate.sleep()

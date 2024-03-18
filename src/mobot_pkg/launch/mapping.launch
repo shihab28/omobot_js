@@ -39,7 +39,7 @@
     
     <!-- <include file="$(find mobot_pkg)/launch/amcl.launch"/> -->
 
-    <node pkg="localization_data_pub" type="rviz_click_to_2d" name="rviz_click_to_2d"/>
+    <node pkg="mobot_pkg" type="rviz_click_to_2d" name="rviz_click_to_2d"/>
 
 
 
