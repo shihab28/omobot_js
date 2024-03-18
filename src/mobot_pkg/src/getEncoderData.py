@@ -94,7 +94,7 @@ class OdomentryPublisher():
             passedTime = (curTime-self.prevTimeWhl)
             self.prevTimeWhl = curTime
             self.cur_wheel_pos =  [self.cur_wheel_pos[0]+W[0]*passedTime, self.cur_wheel_pos[1]+W[1]*passedTime, self.cur_wheel_pos[2]+W[2]*passedTime, self.cur_wheel_pos[3]+W[3]*passedTime]
-            self.publishJointData()
+            # self.publishJointData()
         
     def publishOdomData(self):
         Vx, Vy, W0 = self.Vx, self.Vy, self.W0
@@ -125,11 +125,7 @@ class OdomentryPublisher():
         joint_msg.velocity = []
         joint_msg.effort = []
         self.joint_pub.publish(joint_msg)
-        prev_pos = joint_msg.position
-
-
-
-
+        # prev_pos = joint_msg.position
 
 
 
@@ -141,6 +137,7 @@ def startGetEncoderNode():
         
         odometryPublisher.getCurWheelPos()
         odometryPublisher.publishOdomData()
+        odometryPublisher.publishJointData()
         
         signal.signal(signal.SIGINT, signal_handler)
         odometryPublisher.rate.sleep()

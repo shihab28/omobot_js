@@ -15,7 +15,7 @@
  * From Practical Robotics in C++ book (ISBN-10 : 9389423465)
  *   by Lloyd Brombach
  */
- 
+
 // Include statements 
 #include "ros/ros.h"
 #include "geometry_msgs/PoseStamped.h"

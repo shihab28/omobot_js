@@ -11,3 +11,4 @@ src/lidar_ld19/
 src/mpu_6050_driver/
 src/oledDisplay/
 src/localization_data_pub/
+src/.localization_data_pub/

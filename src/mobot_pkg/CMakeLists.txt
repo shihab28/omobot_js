@@ -208,5 +208,12 @@ include_directories(
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
+
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+INCLUDE_DIRECTORIES(/usr/local/lib)
+LINK_DIRECTORIES(/usr/local/lib)
+ 
+add_executable(rviz_click_to_2d src/rviz_click_to_2d.cpp)
+target_link_libraries(rviz_click_to_2d ${catkin_LIBRARIES})
