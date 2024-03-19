@@ -12,17 +12,18 @@ def generateTree2MD(rootdir, prefix=''):
             mdLines.append(f"{prefix}+ {pth}/")
             mdLines += generateTree2MD(path, prefix + "    ")
         else:
-            mdLines.append(f"{prefix}- {pth}")
+            if ".pyc" not in pth.lower() and "git" not in pth.lower():
+                mdLines.append(f"{prefix}- {pth}")
     return mdLines
 
 def main():
-    rootDir = '/home/shihab/Downloads/omobotBackup'  # Change this to your directory path
+    rootDir = '/home/shihab/Downloads/omobot_js/'  # Change this to your directory path
     mdTree = generateTree2MD(rootDir)
     mdOutput = '\n'.join(mdTree)
     print(mdOutput)
     # Optionally, write to a Markdown file
-    # with open('directory_structure.md', 'w') as md_file:
-    #     md_file.write(markdown_output)
+    with open('src/mobot_pkg/extra/folderTree', 'w') as wf:
+        wf.write(mdOutput)
 
 if __name__ == '__main__':
     main()
