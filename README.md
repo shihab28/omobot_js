@@ -279,8 +279,6 @@ save and exit the file. From now on whenever the arduinos will be connected they
 
 - Upload the "mobot_pkg/arduino/MotorMovement/MotorMovement.ino" to the arduino controlling the motors
 
-
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
