@@ -11,13 +11,14 @@ sudo apt-get update
 sudo apt install openssh-server
 sudo apt install openssh-client
 sudo apt install sysstat
-
 sudo apt-get install v4l-utils
-sudo apt install -y ubuntu-restricted-extras 
+sudo apt install -y ubuntu-restricted-extras
+sudo apt-get install -y blueman # use bluetooth manager if facing trouble to connect controller with jetson, pain and trust the controller
+
 sudo apt-get install -y ros-melodic-rosserial-arduino
 sudo apt-get install -y ros-melodic-serial ros-melodic-joy ros-melodic-joy-teleop ros-melodic-twist-mux ros-melodic-move-base ros-melodic-amcl ros-melodic-map-server ros-melodic-map-laser 
 sudo apt-get install -y ros-melodic-aruco-ros ros-melodic-aruco-detect ros-melodic-image-pipeline 
-sudo apt-get install -y blueman # use bluetooth manager if facing trouble to connect controller with jetson, pain and trust the controller
+
 
 pip3 install  python-apt ubuntu-drivers-common
 pip3 install Jetson.GPIO jetson-stats Adafruit-GPIO Adafruit-SSD1306  adafruit-circuitpython-mpu6050       # for jetson nano user

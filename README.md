@@ -60,7 +60,7 @@ Omobot is an ros-based autonomous Omnidirectional MObile-roBOT developed for per
 
 <!-- Installation -->
 ## Installation
-Ensure that ROS Melodic and Python 2.7 are installed on your system. Follow the ROS Melodic installation instructions available at http://wiki.ros.org/melodic/Installation. To use in Jetson Nano, install jetpack 4.6.* following the instruction at https://developer.nvidia.com/jetpack-sdk-464.
+Ensure that ROS Melodic and Python 2.7 are installed on your system. Follow the ROS Melodic installation instructions available at http://wiki.ros.org/melodic/Installation. To use in Jetson Nano, install jetpack 4.6.4 following the instruction at https://developer.nvidia.com/jetpack-sdk-464.
 
 ### Dependencies
 - Jetson Jetpack 4.6.4 
@@ -74,7 +74,19 @@ Ensure that ROS Melodic and Python 2.7 are installed on your system. Follow the 
 Clone the repository for the root workspace.
 ```sh
   git clone https://github.com/shihab28/omobot_js.git
-  cd omobot_js
+  cd omobot_js/src
+  git clone https://github.com/ldrobotSensorTeam/ldlidar_stl_ros.git 
+  git clone https://github.com/OSUrobotics/mpu_6050_driver.git
+  cd ../
+```
+
+### Ros-Melodic Dependencies
+Install the ros melodic dependencies
+
+```sh
+sudo apt-get install -y ros-melodic-rosserial-arduino  ros-melodic-gscam 
+sudo apt-get install -y ros-melodic-serial ros-melodic-joy ros-melodic-joy-teleop ros-melodic-twist-mux ros-melodic-move-base ros-melodic-amcl ros-melodic-map-server ros-melodic-map-laser 
+sudo apt-get install -y ros-melodic-aruco-ros ros-melodic-aruco-detect ros-melodic-image-pipeline 
 ```
 
 
@@ -203,6 +215,42 @@ omobot_js/
             - world.launch
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- Jetson Nano Setup -->
+## Jetson Nano Setup
+Install jetpack 4.6.4 following the instruction at https://developer.nvidia.com/jetpack-sdk-464 on the Jetson Nano.
+
+### System Dependencies
+
+Install the system dependencies.
+```sh
+sudo apt-get update
+sudo apt-get install python3.6-dev
+sudo apt-get install python2-pip 
+sudo apt-get install python3-pip
+python -m pip install --upgrade pip setuptools wheel
+python3 -m pip install --upgrade pip setuptools wheel 
+python3 -m pip install  python-apt ubuntu-drivers-common
+python3 -m pip install Jetson.GPIO jetson-stats Adafruit-GPIO Adafruit-SSD1306 adafruit-circuitpython-mpu6050  
+python3 -m pip install ssh-import-id  systemd-python system-service
+python3 -m pip install pyserial pyserial-asyncio asyncio
+python2 -m pip cython opencv-python numpy pandas matplotlib pillow
+python3 -m pip cython opencv-python numpy pandas matplotlib pillow
+sudo apt-get update
+sudo apt install openssh-server
+sudo apt install openssh-client
+sudo apt install sysstat
+sudo apt-get install v4l-utils
+sudo apt install -y ubuntu-restricted-extras
+sudo apt-get install -y blueman 
+```
+
+
+
+
+
 
 
 
