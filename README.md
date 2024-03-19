@@ -269,27 +269,15 @@ sudo nano /etc/udev/rules.d/99-serial-ports.rules
 Now add the follwing lines at the end of the file if already not available
 ```txt
 # SUBSYSTEM=="tty", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="<Product ID of the arduino used for motor>", ATTRS{serial}=="<Serial attributes of the arduino used for motor>", SYMLINK+="ArduinoMot"
-
 # SUBSYSTEM=="tty", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="<Product ID of the arduino used for encoder>", ATTRS{serial}=="<Serial attributes of the arduino used for encoder>", SYMLINK+="ArduinoEnc"
 ```
 save and exit the file. From now on whenever the arduinos will be connected they can be accessed using these "ArduinoMot" and "ArduinoEnc" device name.
 
--- Upload the "mobot_pkg/arduino/EncoderReading/EncoderReading.ino" to the arduino controlling the encoder. If you are new with Arduino Nano RP2040, check "https://docs.arduino.cc/tutorials/nano-rp2040-connect/rp2040-01-technical-reference/" to see how to use it.
-  
--- Upload the "mobot_pkg/arduino/MotorMovement/MotorMovement.ino" to the arduino controlling the motors
 
+-- If you are new with Arduino Nano RP2040, check "https://docs.arduino.cc/tutorials/nano-rp2040-connect/rp2040-01-technical-reference/" to see how to use it.
+- Upload the "mobot_pkg/arduino/EncoderReading/EncoderReading.ino" to the arduino controlling the encoder. 
 
-
-
-
-
-
-
-
-
-
-
-
+- Upload the "mobot_pkg/arduino/MotorMovement/MotorMovement.ino" to the arduino controlling the motors
 
 
 
