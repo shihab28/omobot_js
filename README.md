@@ -37,9 +37,14 @@
       </ul>
     </li>
     <li><a href="#files-structure">Files Structure</a></li>
+    <li>
+      <a href="#jetson-nano-setup">Jetson Nano Setup</a>
+      <ul>
+        <li><a href="#system-dependencies">System Dependencies</a></li>
+      </ul>
+    </li>
   </ol>
 </details>
-
 
 
 <!-- ABOUT THE PROJECT -->
@@ -250,6 +255,7 @@ sudo apt-get install -y blueman
 
 
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
