@@ -200,7 +200,7 @@ omobot_js/
                 - model.config
                 - model.sdf
             - maze_world.world
-            - world.laun
+            - world.launch
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
