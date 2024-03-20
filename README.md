@@ -52,7 +52,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 <div align="center">
-<img src="src/mobot_pkg/meshes/Omobot_Assembly.jpg" alt="Logo" width="534" height="196"> <br />
+<img src="src/mobot_pkg/meshes/Omobot_Assembly.jpg" alt="Logo" width="572" height="210"> <br />
 </div>
 
 <div align="justify">
