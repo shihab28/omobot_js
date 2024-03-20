@@ -13,29 +13,17 @@
 
     <xacro:property name="wheel_rad" value=".0395"/>
     <xacro:property name="wheel_length" value=".032"/>
-    <!-- <xacro:property name="wheel_rad" value=".0395"/> -->
 
-    <!-- <xacro:body name_="base" parent_="base_footprint" x_="0.0" y_="0.0" z_="0" mat_="GRN" mesh="package://mobot_pkg/meshes/model.stl"/>  -->
     <xacro:body name_="base" parent_="base_footprint" x_="0.0" y_="0.0" z_="0" mat_="GRN" mesh="package://mobot_pkg/meshes/OmobotVersion2.dae"/>
     <gazebo reference="base_link">
         <material>Gazebo/Gray</material>
     </gazebo>
 
-    <!-- <xacro:fixed_components name_="jetson" parent_="base_link" mass_=".01" x_="0.01" y_="0" z_="0.126" l_="0.108" w_="0.102" h_="0.05" mat_="GRY"/>
-    <xacro:fixed_components name_="battery" parent_="base_link" mass_=".01" x_="0.0" y_="0.0" z_="0.0165" l_="0.05" w_="0.2" h_="0.03" mat_="GRY"/> -->
-
     <xacro:lidar id_="0" parent_="base_link" x_="0.0975" y_="0.0" z_="0.1265" mat_="RED"/>
     <xacro:imu id_="0" parent_="base_link" x_="0.013" y_="0.0" z_="0.0435" mat_="GRY"/>
     <xacro:stereo_camera id_="0" parent_="base_link" x_="0.1325" y_="0.04" z_="0.069" mat_="BLU"/>
     <xacro:stereo_camera id_="1" parent_="base_link" x_="0.1325" y_="-0.04" z_="0.069" mat_="BLU"/>
-
-
-    <!-- <gazebo reference="jetson_link">
-        <material>Gazebo/Black</material>
-    </gazebo>
-    <gazebo reference="battery_link">
-        <material>Gazebo/Black</material>
-    </gazebo> -->
+    
     <gazebo reference="lidar0_link">
         <material>Gazebo/Blue</material>
     </gazebo>

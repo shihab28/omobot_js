@@ -2,6 +2,5 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="omobot">
     <xacro:include filename="$(find mobot_pkg)/urdf/omobot.urdf.xacro"/>
     <xacro:include filename="$(find mobot_pkg)/gazebo/gazebo_control.xacro"/>
-
     <xacro:omobot_controller/>
 </robot>

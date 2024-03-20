@@ -4,9 +4,9 @@ Description=PiOLED stats display service
 
 [Service]
 Type=simple
-User=shihab
+User=<user name>
 ExecStart=/bin/sh -c "python3 -m pioled.stats"
-WorkingDirectory=/home/shihab
+WorkingDirectory=/home/<user name>
 Restart=always
 
 [Install]
