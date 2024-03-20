@@ -236,10 +236,9 @@ sudo apt-get install python3.6-dev
 sudo apt-get install python2-pip 
 sudo apt-get install python3-pip
 python2 -m pip install --upgrade pip setuptools wheel cython opencv-python numpy pandas matplotlib pillow
-python3 -m pip install --upgrade pip setuptools wheel python-apt ubuntu-drivers-common opencv-python numpy pandas matplotlib pillow   
+python3 -m pip install --upgrade pip setuptools wheel python-apt ubuntu-drivers-common opencv-python numpy pandas matplotlib pillow  ssh-import-id  systemd-python system-service   
+python3 -m pip install Jetson.GPIO jetson-stats Adafruit-GPIO Adafruit-SSD1306 adafruit-circuitpython-mpu6050 pyserial pyserial-asyncio asyncio
 sudo apt-get update
-python3 -m pip install Jetson.GPIO jetson-stats Adafruit-GPIO Adafruit-SSD1306 adafruit-circuitpython-mpu6050  
-python3 -m pip install ssh-import-id  systemd-python system-service pyserial pyserial-asyncio asyncio
 sudo apt install openssh-server openssh-client sysstat v4l-utils ubuntu-restricted-extras blueman  
 ```
 ### Arduino Setup 
