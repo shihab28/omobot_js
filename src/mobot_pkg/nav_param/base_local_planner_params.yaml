@@ -2,38 +2,50 @@
 # planner_frequency: 1
 
 TrajectoryPlannerROS:
+  # Maximum and minimum velocities in the x-direction (forward).
   max_vel_x: 0.15
   min_vel_x: 0.07
 
+  # Maximum rotation velocity and minimum in-place rotation velocity.
   max_vel_theta: .5
-  #min_vel_theta: -0.05
+  #min_vel_theta: -0.05  # Uncomment to set a minimum rotational velocity, if necessary.
   min_in_place_vel_theta: 0.5
-  
- 
-  acc_lim_theta: 0.6
-  acc_lim_x: 0.6
-  acc_lim_Y: 0.6
 
+  # Acceleration limits for rotation and linear movement.
+  acc_lim_theta: 0.6  # Acceleration limit for angular velocity.
+  acc_lim_x: 0.6      # Acceleration limit for linear velocity in the x-direction.
+  acc_lim_Y: 0.6      # Acceleration limit for linear velocity in the y-direction (typo, should be lowercase 'y').
+
+  # Specifies if the robot is holonomic (true) or non-holonomic (false).
   holonomic_robot: true
+  
+  # Maximum and minimum velocities in the y-direction (sideways).
   max_vel_y: 0.15
   min_vel_y: 0.07
-  
+
+  # Predefined velocities in the y-direction for exploration.
   y_vels: [-1.0, -1.1, -1.2, 0, 1.2, 1.1, 1.0]
 
-
+  # If true, scoring is based on meters rather than cells.
   meter_scoring: true
 
-  xy_goal_tolerance: 0.2
-  yaw_goal_tolerance: 0.4
+  # Tolerance values for reaching a goal - both position (xy) and orientation (yaw).
+  xy_goal_tolerance: 0.2  # Allowed positional error in meters.
+  yaw_goal_tolerance: 0.4 # Allowed orientation error in radians.
 
-  vx_samples: 10
-  vy_samples: 5
-  vtheta_samples: 10
+  # Sampling parameters for generating velocity samples in x, y, and theta.
+  vx_samples: 10   # Number of samples for linear velocity in the x-direction.
+  vy_samples: 5    # Number of samples for linear velocity in the y-direction.
+  vtheta_samples: 10 # Number of samples for angular velocity.
 
+  # Control loop frequency for the local planner.
   controller_frequency: 5.0
 
- 
+  # Enables Dynamic Window Approach for trajectory planning.
   dwa: true
+
+
+  
   # acc_lim_x: 0.5
   # acc_lim_theta:  0.5
   # max_vel_x: 0.17

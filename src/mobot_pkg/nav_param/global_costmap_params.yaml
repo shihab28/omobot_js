@@ -1,43 +1,38 @@
 global_costmap:
-  global_frame: map
-  robot_base_frame: base_footprint
-  update_frequency: 5.0
-  publish_frequency: 5.0
-  transform_tolerance: 1.0
-  resolution: .05
-  width:  18.0 #Fornt/Rear
-  height: 18.0 #Left/Right
-
-  static_map: true
-  # track_unknown_space: false
-  # rolling_window: false
+  global_frame: map  # The global frame of reference, typically 'map'.
+  robot_base_frame: base_footprint  # The robot's frame of reference, usually 'base_footprint'.
+  
+  # Frequency parameters.
+  update_frequency: 5.0  # How often the costmap is updated (in Hz).
+  publish_frequency: 5.0  # How often the costmap is published (in Hz).
+  
+  # Tolerance for the transformation between frames.
+  transform_tolerance: 1.0  # Maximum delay (in seconds) tolerated for transforming sensor data.
+  
+  # Map resolution and size parameters.
+  resolution: .05  # Resolution of the costmap (in meters/pixel).
+  width:  18.0  # Width of the costmap (in meters) covering front and rear of the robot.
+  height: 18.0  # Height of the costmap (in meters) covering left and right sides of the robot.
+  
+  # Costmap generation parameters.
+  static_map: true  # Whether to use a pre-built static map.
+  # track_unknown_space: false  # Uncomment to track unknown space.
+  # rolling_window: false  # Uncomment for a rolling window version of the costmap.
+  
+  # Plugins for adding layers to the costmap.
   plugins:
-        - {name: static,                  type: "costmap_2d::StaticLayer"}
-        - {name: obstacles_laser,         type: "costmap_2d::ObstacleLayer"}
-        - {name: inflation,               type: "costmap_2d::InflationLayer"}
+        - {name: static,                  type: "costmap_2d::StaticLayer"}  # For static obstacles.
+        - {name: obstacles_laser,         type: "costmap_2d::ObstacleLayer"}  # For dynamic obstacles.
+        - {name: inflation,               type: "costmap_2d::InflationLayer"}  # For inflating obstacle costs.
 
-
+  # Configuration for the obstacle layer.
   obstacle_layer:
-    observation_sources: laser_scan_sensor
+    observation_sources: laser_scan_sensor  # Defines the laser scan sensor as an observation source.
     laser_scan_sensor: {sensor_frame: lidar0_link, data_type: LaserScan, topic: /scan, marking: true, clearing: true}
+    # Sensor frame, data type, topic, and behaviors for marking and clearing obstacles are specified here.
 
+  # Configuration for the inflation layer.
   inflation_layer:
-    enabled: false
-    inflation_radius: 0.02
-    cost_scaling_factor: 1
-
-# global_costmap:
-#     global_frame: map
-#     robot_base_frame: robot_footprint
-#     update_frequency: 5
-#     publish_frequency: 0.5
-#     width: 20.0
-#     height: 20.0
-#     resolution: 0.05
-#     static_map: true
-#     track_unknown_space: false
-#     rolling_window: false
-#     plugins:
-#         - {name: static,                  type: "costmap_2d::StaticLayer"}
-#         - {name: obstacles_laser,         type: "costmap_2d::VoxelLayer"}
-#         - {name: inflation,               type: "costmap_2d::InflationLayer"}
+    enabled: false  # Whether the inflation layer is enabled.
+    inflation_radius: 0.02  # The radius around obstacles to inflate.
+    cost_scaling_factor: 1  # Factor controlling the cost inflation around obstacles.

@@ -1,63 +1,53 @@
+# General costmap parameters.
 map_type: costmap
 
-obstacle_range: 10
-raytrace_range: 10
+# Range settings for detecting and processing obstacles.
+obstacle_range: 10           # Maximum distance from which to include obstacles.
+raytrace_range: 10           # Distance for the costmap to raytrace free space.
+
+# The robot's footprint describes its shape and size, used for collision detection.
 footprint: [[-0.15, -0.15], [-0.15, 0.15], [0.15, 0.15], [0.15, -0.15]]
-map_topic: /map
-subscribe_to_updates: true
-global_frame: map
-robot_base_frame: base_footprint
-update_frequency: 5.0
-publish_frequency: 5.0
+
+# Topics and frames related to the costmap.
+map_topic: /map              # Topic from which the map is obtained.
+subscribe_to_updates: true   # Whether the costmap subscribes to map updates.
+global_frame: map            # The global frame of reference.
+robot_base_frame: base_footprint # The frame of reference attached to the robot base.
+
+# Frequency parameters for updating and publishing the costmap.
+update_frequency: 5.0        # How often to update the map (Hz).
+publish_frequency: 5.0       # How often to publish the costmap (Hz).
+
+# Whether the costmap is continuously rolling with the robot or static.
 rolling_window: true
 
-max_obstacle_height: 1.0
-min_obstacle_height: 0.05
+# Obstacle height parameters used to include or exclude obstacles based on their height.
+max_obstacle_height: 1.0     # The maximum height of an obstacle to be included.
+min_obstacle_height: 0.05    # The minimum height of an obstacle to be included.
+
+# Tolerance for the transformation between frames.
 transform_tolerance:  1.5
 
+# Plugins used for adding layers to the costmap.
 plugins:
   - {name: static_layer, type: "costmap_2d::StaticLayer"}
   - {name: obstacle_layer, type: "costmap_2d::ObstacleLayer"}
   # - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
 
+# Configuration for the static map layer.
 static_layer:
   map_topic: /map
-  subscribe_to_updates: false
+  subscribe_to_updates: false # Does not subscribe to updates by default for the static layer.
 
+# Configuration for the obstacle layer.
 obstacle_layer:
     observation_sources: laser_scan_sensor
     laser_scan_sensor: {sensor_frame: lidar0_link, data_type: LaserScan, topic: /scan, marking: true, clearing: true}
+    # Defines a laser scan sensor as an observation source for detecting obstacles.
 
+# Configuration for the inflation layer (disabled by default in this setup).
 inflation_layer:
-  enabled: false
-  inflation_radius: 0.02
-  cost_scaling_factor: 1
+  enabled: false              # The inflation layer is not enabled by default.
+  inflation_radius: 0.02      # The radius around obstacles to inflate.
+  cost_scaling_factor: 1      # Factor controlling the cost inflation around obstacles.
 
-
-
-# footprint: [[-0.175, -0.175], [-0.175, 0.175], [0.175, 0.175], [0.175, -0.175]]
-#     footprint_padding: 0.05
-#     map_type: costmap
-
-#     obstacle_range: 3
-#     raytrace_range: 3.5
-
-#     transform_tolerance: 0.5
-
-#     min_obstacle_height: 0.0
-#     max_obstacle_height: 0.3
-
-#     #layer definitions
-#     static:
-#         enable: true
-#         map_topic: /map
-
-#     obstacles_laser:
-#         enabled: true
-#         observation_sources: laser
-#         laser: {data_type: LaserScan, clearing: true, marking: true, topic: /scan, inf_is_valid: true}
-
-#     inflation:
-#         enabled: true
-#         inflation_radius: 0.25
-#         cost_scaling_factor: 1

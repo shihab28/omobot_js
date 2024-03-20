@@ -1,42 +1,35 @@
 local_costmap:
+  # Frame parameters.
+  global_frame: map  # Frame in which the costmap is represented. Typically 'odom' for local costmaps.
+  robot_base_frame: base_footprint  # The frame attached to the moving part of the robot.
 
-  global_frame: map
-  robot_base_frame: base_footprint
-  update_frequency: 5.0
-  publish_frequency: 5.0
-  static_map: false
-  rolling_window: true
-  resolution: .02
-  width: 2
-  height: 2
+  # Update and publish frequencies.
+  update_frequency: 5.0  # How often the costmap gets updated (Hz).
+  publish_frequency: 5.0  # How often the costmap gets published (Hz).
 
+  # Map type and dimensions.
+  static_map: false  # Indicates the costmap does not use a pre-built static map.
+  rolling_window: true  # The costmap moves with the robot, covering a window around it.
+  resolution: .02  # The resolution of the costmap (meters/pixel).
+  width: 2  # Width of the costmap (meters).
+  height: 2  # Height of the costmap (meters).
 
-  transform_tolerance: 1.0
+  # Tolerance for transforming sensor data to the costmap frame.
+  transform_tolerance: 1.0  # Time in seconds.
 
+  # Plugins for adding functionality to the costmap.
   plugins:
-    - {name: obstacle_layer, type: "costmap_2d::ObstacleLayer"}
-    - {name: inflation, type: "costmap_2d::InflationLayer"}
+    - {name: obstacle_layer, type: "costmap_2d::ObstacleLayer"}  # Detects and adds obstacles to the costmap.
+    - {name: inflation, type: "costmap_2d::InflationLayer"}  # Adds cost around obstacles based on their inflation radius.
 
+  # Configuration for the obstacle layer.
   obstacle_layer:
-    observation_sources: laser_scan_sensor
+    observation_sources: laser_scan_sensor  # Defines observation sources for the layer.
     laser_scan_sensor: {sensor_frame: lidar0_link, data_type: LaserScan, topic: /scan, marking: true, clearing: true}
+    # Configuration for the laser scan sensor, including the frame, data type, topic, and behaviors for marking and clearing obstacles.
 
+  # Configuration for the inflation layer.
   inflation_layer:
-    enabled: false
-    inflation_radius: 0.01
-    cost_scaling_factor: 1
-
-# local_costmap:
-#         global_frame: odom
-#         robot_base_frame: robot_footprint
-#         update_frequency: 10
-#         publish_frequency: 4.0
-#         width: 2.0
-#         height: 2.0
-#         resolution: 0.02
-#         static_map: false
-#         rolling_window: true
-
-#        plugins:
-#            - {name: obstacles_laser,           type: "costmap_2d::ObstacleLayer"}
-#            - {name: inflation,                 type: "costmap_2d::InflationLayer"}
+    enabled: false  # Determines if the inflation layer is enabled.
+    inflation_radius: 0.01  # The radius around obstacles that affects the robot's path planning.
+    cost_scaling_factor: 1  # Affects how the cost decreases with distance from an obstacle.

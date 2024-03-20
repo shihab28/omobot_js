@@ -1,49 +1,42 @@
 DWAPlannerROS:
+  # Robot Configuration Parameters
+  max_vel_x: 0.15  # Maximum forward velocity.
+  min_vel_x: 0.07  # Minimum forward velocity.
+  max_vel_y: 0.15  # Maximum sideways velocity (for differential drive, this might be zero).
+  min_vel_y: 0.07  # Minimum sideways velocity.
 
-# Robot Configuration Parameters
-  max_vel_x: 0.15  #0.3  # 0.5
-  min_vel_x: 0.07  # 0.0
-
-  max_vel_y: 0.15  # diff drive robot
-  min_vel_y: 0.07 # diff drive robot
-
-  # max_trans_vel: 0.14
-  # min_trans_vel: 0.07
-  # trans_stopped_vel: 0.3
-
-  max_rot_vel:  .8 # 1.0
-  min_rot_vel: 0.4  # could set this lower
-  rot_stopped_vel: 0.4
+  max_rot_vel:  .8 # Maximum rotational velocity.
+  min_rot_vel: 0.4  # Minimum rotational velocity.
+  rot_stopped_vel: 0.4  # Below this rotational velocity, the robot is considered stopped.
   
-  controller_frequency: 5.0
-  acc_lim_x: .7
-  acc_lim_theta: .7 # 1.0 
-  acc_lim_y: .7      # diff drive robot
+  controller_frequency: 5.0  # Frequency in Hz at which to run the controller.
+  acc_lim_x: .7  # Acceleration limit in the x-direction.
+  acc_lim_theta: .7 # Acceleration limit for rotation.
+  acc_lim_y: .7  # Acceleration limit in the y-direction.
 
-# Goal Tolerance Parameters
-  yaw_goal_tolerance: 0.4  # 0.05
-  xy_goal_tolerance: 0.1  # 0.10
-  # latch_xy_goal_tolerance: false
+  # Goal Tolerance Parameters
+  yaw_goal_tolerance: 0.4  # Tolerance for the robot's yaw in radians.
+  xy_goal_tolerance: 0.1  # Tolerance for the robot's position in meters.
 
-# Forward Simulation Parameters
-  sim_time: 1.5       # 1.7
-  vx_samples: 5    # 3
-  vy_samples: 5     # diff drive robot
-  vtheta_samples: 20  # 20
+  # Forward Simulation Parameters
+  sim_time: 1.5  # Time to simulate ahead to check trajectories.
+  vx_samples: 5  # Number of samples to use in the velocity space for x.
+  vy_samples: 5  # Number of samples to use in the velocity space for y.
+  vtheta_samples: 20  # Number of samples to use in the velocity space for theta.
 
-# Trajectory Scoring Parameters
-  path_distance_bias: 64.0      # 32.0   - weighting for how much it should stick to the global path plan
-  goal_distance_bias: 24.0      # 24.0   - wighting for how much it should attempt to reach its goal
-  occdist_scale: .01          # 0.01   - weighting for how much the controller should avoid obstacles
-  forward_point_distance: 0.325 # 0.325  - how far along to place an additional scoring point
-  stop_time_buffer: 0.2         # 0.2    - amount of time a robot must stop in before colliding for a valid traj.
-  scaling_speed: 0.25           # 0.25   - absolute velocity at which to start scaling the robot's footprint
-  max_scaling_factor: 0.5      # 0.2    - how much to scale the robot's footprint when at speed.
+  # Trajectory Scoring Parameters
+  path_distance_bias: 64.0  # Bias for the path distance.
+  goal_distance_bias: 24.0  # Bias for the distance to goal.
+  occdist_scale: .01  # Weight for obstacle avoidance.
+  forward_point_distance: 0.325  # Distance from the center point of the robot to place an additional scoring point.
+  stop_time_buffer: 0.2  # Time buffer to stop before hitting an obstacle.
+  scaling_speed: 0.25  # Speed at which to start scaling the robot's footprint.
+  max_scaling_factor: 0.5  # Maximum scaling factor for the robot's footprint.
 
-# Oscillation Prevention Parameters
-  oscillation_reset_dist: 0.05  # 0.05   - how far to travel before resetting oscillation flags
+  # Oscillation Prevention Parameters
+  oscillation_reset_dist: 0.05  # Distance to move before resetting the oscillation flags.
 
-# Debugging
-  publish_traj_pc : true
-  # publish_cost_grid_pc: true
-  global_frame_id: map
+  # Debugging
+  publish_traj_pc : true  # Publish trajectory point clouds for visualization.
+  global_frame_id: map  # Frame id for global planning.
+
