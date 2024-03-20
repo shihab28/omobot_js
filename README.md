@@ -235,21 +235,12 @@ sudo apt-get update
 sudo apt-get install python3.6-dev
 sudo apt-get install python2-pip 
 sudo apt-get install python3-pip
-python -m pip install --upgrade pip setuptools wheel
-python3 -m pip install --upgrade pip setuptools wheel 
-python3 -m pip install  python-apt ubuntu-drivers-common
-python3 -m pip install Jetson.GPIO jetson-stats Adafruit-GPIO Adafruit-SSD1306 adafruit-circuitpython-mpu6050  
-python3 -m pip install ssh-import-id  systemd-python system-service
-python3 -m pip install pyserial pyserial-asyncio asyncio
-python2 -m pip cython opencv-python numpy pandas matplotlib pillow
-python3 -m pip cython opencv-python numpy pandas matplotlib pillow
+python2 -m pip install --upgrade pip setuptools wheel cython opencv-python numpy pandas matplotlib pillow
+python3 -m pip install --upgrade pip setuptools wheel python-apt ubuntu-drivers-common opencv-python numpy pandas matplotlib pillow   
 sudo apt-get update
-sudo apt install openssh-server
-sudo apt install openssh-client
-sudo apt install sysstat
-sudo apt-get install v4l-utils
-sudo apt install -y ubuntu-restricted-extras
-sudo apt-get install -y blueman 
+python3 -m pip install Jetson.GPIO jetson-stats Adafruit-GPIO Adafruit-SSD1306 adafruit-circuitpython-mpu6050  
+python3 -m pip install ssh-import-id  systemd-python system-service pyserial pyserial-asyncio asyncio
+sudo apt install openssh-server openssh-client sysstat v4l-utils ubuntu-restricted-extras blueman  
 ```
 ### Arduino Setup 
 Create symlink for the serial ports. arduinoMot indicates the arduino connected for motor control, arduinoEnc indicates the arduino connected for encoder feedback
@@ -266,7 +257,7 @@ open the serial port rules files using:
 ```sh
 sudo nano /etc/udev/rules.d/99-serial-ports.rules 
 ```
-Now add the follwing lines at the end of the file if already not available
+Now add the follwing lines at the end of the file if already unavailable
 ```txt
 # SUBSYSTEM=="tty", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="<Product ID of the arduino used for motor>", ATTRS{serial}=="<Serial attributes of the arduino used for motor>", SYMLINK+="ArduinoMot"
 # SUBSYSTEM=="tty", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="<Product ID of the arduino used for encoder>", ATTRS{serial}=="<Serial attributes of the arduino used for encoder>", SYMLINK+="ArduinoEnc"
