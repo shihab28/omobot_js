@@ -41,6 +41,8 @@
       <a href="#jetson-nano-setup">Jetson Nano Setup</a>
       <ul>
         <li><a href="#system-dependencies">System Dependencies</a></li>
+        <li><a href="#arduino-setup">Arduino Setup</a></li>
+        <li><a href="#hardware-connections">Hardware Connections</a></li>
       </ul>
     </li>
   </ol>
@@ -222,14 +224,14 @@ omobot_js/
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+## Hardware Setup
 
-<!-- Jetson Nano Setup -->
-## Jetson Nano Setup
-Install jetpack 4.6.4 following the instruction at https://developer.nvidia.com/jetpack-sdk-464 on the Jetson Nano.
+Check <a href="omobot.docs"><strong>omobot.docs</strong></a> for detailed hardware setup.
 
-### System Dependencies
+### Jetson Nano Setup
+-- Install jetpack 4.6.4 following the instruction at https://developer.nvidia.com/jetpack-sdk-464 on the Jetson Nano.
 
-Install the system dependencies.
+-- Install the system dependencies.
 ```sh
 sudo apt-get update
 sudo apt-get install python3.6-dev
@@ -241,6 +243,8 @@ python3 -m pip install Jetson.GPIO jetson-stats Adafruit-GPIO Adafruit-SSD1306 a
 sudo apt-get update
 sudo apt install openssh-server openssh-client sysstat v4l-utils ubuntu-restricted-extras blueman  
 ```
+
+
 ### Arduino Setup 
 Create symlink for the serial ports. arduinoMot indicates the arduino connected for motor control, arduinoEnc indicates the arduino connected for encoder feedback
 
@@ -258,8 +262,8 @@ sudo nano /etc/udev/rules.d/99-serial-ports.rules
 ```
 Now add the follwing lines at the end of the file if already unavailable
 ```txt
-# SUBSYSTEM=="tty", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="<Product ID of the arduino used for motor>", ATTRS{serial}=="<Serial attributes of the arduino used for motor>", SYMLINK+="ArduinoMot"
-# SUBSYSTEM=="tty", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="<Product ID of the arduino used for encoder>", ATTRS{serial}=="<Serial attributes of the arduino used for encoder>", SYMLINK+="ArduinoEnc"
+# SUBSYSTEM=="tty", ATTRS{idVendor}=="<Vendor ID of the arduino used for motor>", ATTRS{idProduct}=="<Product ID of the arduino used for motor>", ATTRS{serial}=="<Serial attributes of the arduino used for motor>", SYMLINK+="ArduinoMot"
+# SUBSYSTEM=="tty", ATTRS{idVendor}=="<Vendor ID of the arduino used for encoder>", ATTRS{idProduct}=="<Product ID of the arduino used for encoder>", ATTRS{serial}=="<Serial attributes of the arduino used for encoder>", SYMLINK+="ArduinoEnc"
 ```
 save and exit the file. From now on whenever the arduinos will be connected they can be accessed using these "ArduinoMot" and "ArduinoEnc" device name.
 
@@ -268,6 +272,10 @@ save and exit the file. From now on whenever the arduinos will be connected they
 - Upload the "mobot_pkg/arduino/EncoderReading/EncoderReading.ino" to the arduino controlling the encoder. 
 
 - Upload the "mobot_pkg/arduino/MotorMovement/MotorMovement.ino" to the arduino controlling the motors
+
+
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
