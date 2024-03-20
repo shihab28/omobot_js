@@ -4,15 +4,11 @@
   <param name="robot_description" command="xacro --inorder '$(find mobot_pkg)/robot/omobot.xacro'"/>
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
-
-
     <arg name="topic_name" default="scan"/>
     <arg name="frame_id" default="lidar0_link"/>
     <arg name="port_name" default="/dev/ttyUSB0"/>
-    <!-- <arg name="port_name" default="/dev/ttyUSB1"/> -->
     <arg name="port_baudrate" default="230400"/>
     <arg name="fix_to_base_link" default="true"/>
-    <!-- ldldiar message publisher node -->
     <node name="LD19" pkg="ldlidar_stl_ros" type="ldlidar_stl_ros_node" output="screen">
         <param name="product_name" value="LDLiDAR_LD19"/>
         <param name="topic_name" value="$(arg topic_name)"/>
@@ -25,23 +21,13 @@
         <param name="angle_crop_max" type="double" value="360.0"/>
     </node>
   
-
-
     <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
         <rosparam command="load" file="$(find mobot_pkg)/config/slam_parameter.yaml"/>
     </node>
 
-
-
     <arg name="map_file" default="$(find mobot_pkg)/maps/map_201.yaml"/>
     <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)" />
-    
-    
-    <!-- <include file="$(find mobot_pkg)/launch/amcl.launch"/> -->
 
     <node pkg="mobot_pkg" type="rviz_click_to_2d" name="rviz_click_to_2d"/>
-
-
-
 
 </launch>

@@ -1,13 +1,9 @@
 <launch>
-  <!-- <arg name="joy_vel_in"  default="cmd_vel_set"/>
-  <arg name="joy_vel_out" default="cmd_vel_set"/> -->
 
   <arg name="cmd_vel_out" default="cmd_vel_out"/>
 
   <arg name="config_locks"  default="$(find mobot_pkg)/config/twist_mux_locks.yaml"/>
   <arg name="config_topics" default="$(find mobot_pkg)/config/twist_mux_topics.yaml"/>
-
-  <!-- <arg name="config_joy" default="$(find twist_mux)/config/joystick.yaml"/> -->
 
   <node pkg="twist_mux" type="twist_mux" name="twist_mux" output="screen">
     <remap from="cmd_vel_out" to="$(arg cmd_vel_out)"/>

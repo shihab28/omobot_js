@@ -1,15 +1,17 @@
-twist_mux:
-  ros__parameters:
-    topics:
-      navigation:
-        topic   : cmd_vel
-        timeout : 0.5
-        priority: 10
-      keyboard:
-        topic   : cmd_vel_key
-        timeout : 0.5
-        priority: 50
-      joystick:
-        topic   : cmd_vel_joy
-        timeout : 0.5
-        priority: 100
+# twist_mux configuration for the twist message inputs
+
+twist_mux:  
+  ros__parameters:  # ROS parameter namespace
+    topics:  # List of topics twist_mux will subscribe to
+      navigation:  # First velocity command source
+        topic   : cmd_vel  # Velocity command topic from move_base navigation
+        timeout : 0.5  # Time in seconds before considering this source inactive
+        priority: 10  # Lower priority value means lower precedence
+      keyboard:  # Second velocity command source
+        topic   : cmd_vel_key  # Velocity command topic from keyboard
+        timeout : 0.5  # Time in seconds before considering this source inactive
+        priority: 50  # Higher priority than navigation, lower than joystick
+      joystick:  # Third velocity command source
+        topic   : cmd_vel_joy  # Velocity command topic from joystick
+        timeout : 0.5  # Time in seconds before considering this source inactive
+        priority: 100  # Highest priority, joystick commands take precedence over others

@@ -1,12 +1,9 @@
 <launch>
-  
 
   <param name="robot_description" command="xacro --inorder '$(find mobot_pkg)/robot/omobot.xacro'"/>
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
-  <!-- <node pkg="localization_data_pub" type="rviz_click_to_2d" name="rviz_click_to_2d"/> -->
   <node pkg="mobot_pkg" type="rviz_click_to_2d" name="rviz_click_to_2d"/>
   <node pkg="mpu_6050_driver" type="imu_node.py" name="imu_node"/>
-
 
   <arg name="topic_name" default="scan"/>
   <arg name="frame_id" default="lidar0_link"/>
@@ -27,7 +24,6 @@
 
 
   <include file="$(find mobot_pkg)/launch/gscam_csi.launch"/>
-  <!-- <include file="$(find mobot_pkg)/launch/gscam_csi_stereo.launch"/> -->
 
   <arg name="markerId"        default="26"/>
   <arg name="markerSize"      default="0.0705"/>    
