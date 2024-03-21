@@ -269,7 +269,7 @@ save and exit the file. From now on whenever the arduinos will be connected they
 
 
 -- If you are new with Arduino Nano RP2040, check "https://docs.arduino.cc/tutorials/nano-rp2040-connect/rp2040-01-technical-reference/" to see how to use it.
-- Upload the <a href="src/mobot_pkg/arduino/MotorMovement/EncoderReading.ino"><strong>mobot_pkg/arduino/MotorMovement/EncoderReading.ino</strong></a> to the arduino controlling the encoder. 
+- Upload the <a href="src/mobot_pkg/arduino/EncoderReading/EncoderReading.ino"><strong>mobot_pkg/arduino/MotorMovement/EncoderReading.ino</strong></a> to the arduino controlling the encoder. 
 
 - Upload the <a href="src/mobot_pkg/arduino/MotorMovement/MotorMovement.ino"><strong>mobot_pkg/arduino/MotorMovement/MotorMovement.ino</strong></a> to the arduino controlling the motors
 
