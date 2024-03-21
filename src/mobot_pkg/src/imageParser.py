@@ -1,12 +1,12 @@
 #!/usr/bin/env /usr/bin/python2
 
 '''
-Owner Information
+Author Information
 Author: Shihab Uddin Ahamad
 Email: shihab.ahamad28@gmail.com
 Date: 03/20/2024
 Description: 
---  This ROS script subscribes to the "/camera/image_raw" topic to receive image messages. Upon receiving an image, it converts the ROS image message to an OpenCV format using CvBridge. Then, it saves the image to a specific location `mempath`, specifically "/dev/shm/" to utilize shared memory for faster access and reduced disk wear. The script uses file locking to ensure thread-safe writing to the disk, making it suitable for applications where multiple processes might attempt to write to the same file. It is intended to capture and process images from the a ROS image topic, and use the saved image for fall detection later. 
+    This ROS script subscribes to the "/camera/image_raw" topic to receive image messages. Upon receiving an image, it converts the ROS image message to an OpenCV format using CvBridge. Then, it saves the image to a specific location `mempath`, specifically "/dev/shm/" to utilize shared memory for faster access and reduced disk wear. The script uses file locking to ensure thread-safe writing to the disk, making it suitable for applications where multiple processes might attempt to write to the same file. It is intended to capture and process images from the a ROS image topic, and use the saved image for fall detection later. 
 '''
 
 # Import necessary libraries

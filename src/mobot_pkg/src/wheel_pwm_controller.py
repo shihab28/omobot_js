@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 
-''' Owner Information
+''' 
+Author Information
 Author: Shihab Uddin Ahamad
 Email: shihab.ahamad28@gmail.com
 Date: 03/20/2024
 Description: 
--   This ROS Python 2 code subscribes to the cmd_vel topic to receive velocity commands, calculates the corresponding PWM values to control the speed of the robot's wheels, and publishes those PWM values for execution. 
--   This ROS node subscribes to the `cmd_vel` topic to receive linear and angular velocity commands intended for the robot's motion.
--   It calculates the Pulse Width Modulation (PWM) values needed to achieve omnidirectional movement with the specified speeds for each wheel.
--   The calculated PWM values are published to the `/wheel_pwm` topic as a `Int16MultiArray` message and a debug string to `/wheel_pwm_str`.
+    This ROS Python 2 code subscribes to the cmd_vel topic to receive velocity commands, calculates the corresponding PWM values to control the speed of the robot's wheels, and publishes those PWM values for execution. The ROS node subscribes to the `cmd_vel` topic to receive linear and angular velocity commands intended for the robot's motion. It calculates the Pulse Width Modulation (PWM) values needed to achieve omnidirectional movement with the specified speeds for each wheel. The calculated PWM values are published to the `/wheel_pwm` topic as a `Int16MultiArray` message and a debug string to `/wheel_pwm_str`.
 '''
 
 

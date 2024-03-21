@@ -1,12 +1,21 @@
 #!/usr/bin/env python2
 
-import rospy, os, sys, signal, yaml, random
-from tf import transformations, TransformBroadcaster
-from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3, PoseStamped
-from nav_msgs.msg import Odometry, Path
-from multiprocessing import Process, Queue
-from std_msgs.msg import Float32, Int16, String, Bool
+'''
+Owner Information
+Author: Shihab Uddin Ahamad
+Email: shihab.ahamad28@gmail.com
+Date: 03/20/2024
+Description: 
+
+'''
+
+import rospy, os, yaml
+from geometry_msgs.msg import Twist, PoseStamped
+from nav_msgs.msg import Path
+from multiprocessing import Queue
+from std_msgs.msg import Float32, Int16, String
 from actionlib_msgs.msg import GoalID
+
 
 refresh_rate = 10
 mempath = "/dev/shm/"
@@ -247,3 +256,90 @@ def startExplorationNode():
 if __name__ == "__main__":
     
     startExplorationNode()
+    
+    
+    
+#!/usr/bin/env python2
+
+'''
+Owner Information:
+Author: Shihab Uddin Ahamad
+Email: shihab.ahamad28@gmail.com
+Date: 03/20/2024
+
+Description:
+This script enables a robot to autonomously explore a series of predefined locations on a static map within a ROS (Robot Operating System) environment. It monitors the robot's battery state through the "/battery_voltage" topic and decides whether to continue exploring or return to a docking station for charging. Exploration waypoints and docking positions are predefined in the script and can be customized for any static map setup.
+
+Key Features:
+- Autonomous navigation through a list of predefined waypoints.
+- Intelligent docking behavior based on battery level thresholds.
+- Fall detection to pause navigation, ensuring safety.
+- Utilization of shared memory ("/dev/shm/") for efficient data handling.
+- Dynamic exploration path planning with feedback from the battery state.
+
+Workflow:
+1. The robot starts in exploration mode, navigating through predefined waypoints.
+2. Battery voltage is periodically checked. If the voltage drops below a specified threshold, the robot navigates to the docking station.
+3. The robot can detect falls, pausing its navigation to ensure safety.
+4. Once docked and charged, or if no fall is detected, the robot resumes its exploration from the last point or restarts the cycle.
+'''
+
+import rospy, os, yaml
+from geometry_msgs.msg import Twist, PoseStamped
+from nav_msgs.msg import Path
+from multiprocessing import Queue
+from std_msgs.msg import Float32, Int16, String
+from actionlib_msgs.msg import GoalID
+
+# Initialization and global variables
+refresh_rate = 10
+mempath = "/dev/shm/"
+if not os.path.isdir(mempath):
+    os.makedirs(mempath)
+fallFileLoc = f"{mempath}fallInfo.txt"
+
+# Map zones coordinates for exploration and docking
+mapZonesCoordinates = {
+    "exploration": {...},
+    "dock": {...},
+    "goal": {...}
+}
+
+# Load robot configuration or map zones from a YAML file
+with open("src/mobot_pkg/config/omobot.yaml", "r") as yf:
+    try:
+        omobotConfig = yaml.safe_load(yf)
+    except yaml.YAMLError as exc:
+        print(exc)
+
+# Define functions for docking, navigation, and battery state handling
+def uninitiateDocking(batStatePub):
+    pass
+
+def initiateNavigation(pub, mode="dock", LOC="H"):
+    # Constructs and publishes navigation goals based on mode and location
+    pass
+
+def voltageFeedbackCB(data, queue):
+    # Callback function for updating the battery voltage state
+    pass
+
+# Main class for exploration node
+class ExplorationNode:
+    def __init__(self):
+        # Initialization of ROS node, subscribers, and publishers
+        pass
+
+    def run(self):
+        # Main loop for exploration, docking decision-making, and fall detection handling
+        pass
+
+# Main function to start the exploration node
+def startExplorationNode():
+    queue = Queue()
+    queue.put([0, 0, 0, 0])
+    ExplorationNode(queue).run()
+
+if __name__ == "__main__":
+    startExplorationNode()
+
