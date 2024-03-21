@@ -271,19 +271,21 @@ Description:
 This script enables a robot to autonomously explore a series of predefined locations on a static map within a ROS (Robot Operating System) environment. It monitors the robot's battery state through the "/battery_voltage" topic and decides whether to continue exploring or return to a docking station for charging. Exploration waypoints and docking positions are predefined in the script and can be customized for any static map setup.
 
 Key Features:
-- Autonomous navigation through a list of predefined waypoints.
-- Intelligent docking behavior based on battery level thresholds.
+- Autonomous navigation through a list of predefined waypoints (A-G).
+- Intelligent docking behavior for wireless charging based on battery level thresholds.
 - Fall detection to pause navigation, ensuring safety.
-- Utilization of shared memory ("/dev/shm/") for efficient data handling.
-- Dynamic exploration path planning with feedback from the battery state.
+- Utilization of shared memory ("/dev/shm/") for data handling.
+- Dynamic exploration path planning with feedback from the battery state (Volatage).
 
 Workflow:
-1. The robot starts in exploration mode, navigating through predefined waypoints.
+1. The robot starts in exploration mode, navigating through predefined waypoints (A-G).
 2. Battery voltage is periodically checked. If the voltage drops below a specified threshold, the robot navigates to the docking station.
-3. The robot can detect falls, pausing its navigation to ensure safety.
+3. The robot can detect falls, pausing its navigation to ensure safety and avoid collision.
 4. Once docked and charged, or if no fall is detected, the robot resumes its exploration from the last point or restarts the cycle.
 '''
 
+
+# Importing necessary libraries and modules
 import rospy, os, yaml
 from geometry_msgs.msg import Twist, PoseStamped
 from nav_msgs.msg import Path
