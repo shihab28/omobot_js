@@ -1,16 +1,12 @@
 #!/usr/bin/env python
 
+
+import rospy, signal, sys, threading
 from __future__ import print_function
-
-import threading
-
 import roslib; roslib.load_manifest('teleop_twist_keyboard')
-import rospy, signal
 from os import system
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import TwistStamped
-
-import sys
 from select import select
 
 if sys.platform == 'win32':

@@ -22,15 +22,10 @@
 # Portions copyright (c) NVIDIA 2019
 # Portions copyright (c) JetsonHacks 2019
 
-import time
-
+import time, subprocess
 import Adafruit_SSD1306   # This is the driver chip for the Adafruit PiOLED
 from jtop import jtop
-from PIL import Image
-from PIL import ImageDraw
-from PIL import ImageFont
-
-import subprocess
+from PIL import Image, ImageDraw, ImageFont
 
 
 def get_network_interface_state(interface):

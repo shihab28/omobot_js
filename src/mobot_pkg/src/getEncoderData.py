@@ -31,10 +31,9 @@ import rospy, os, sys, signal
 from tf import transformations, TransformBroadcaster
 from geometry_msgs.msg import Twist, Vector3
 from nav_msgs.msg import Odometry
-from std_msgs.msg import String
-from math import sin, cos
+from std_msgs.msg import String, Header
 from sensor_msgs.msg import JointState
-from std_msgs.msg import Header
+from math import sin, cos
 
 
 # Robot physical and kinematic parameters

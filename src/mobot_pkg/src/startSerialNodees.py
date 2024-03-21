@@ -1,27 +1,54 @@
 #!/usr/bin/env python2
 
 
-import rospy, signal
-from rosserial_arduino import SerialClient
-import serial
-from serial import SerialException
-from time import sleep
+'''
+Owner Information:
+Author: Shihab Uddin Ahamad
+Email: shihab.ahamad28@gmail.com
+Date: 03/20/2024
+
+Description:
+This script serves as a communication layer between a Jetson device and an Arduino, facilitating real-time control and feedback for the Omobot robot's motors. It listens for encoder feedback through serial communication, processes this data to understand the robot's movement, and publishes it to the ROS ecosystem. Simultaneously, it subscribes to velocity commands (cmd_vel_str) and forwards them to the Arduino, enabling precise motor control based on ROS messages.
+
+Key Features:
+- Real-time serial communication with Arduino for motor control and feedback.
+- Subscription to ROS topics for velocity commands and publication of encoder feedback.
+- Dynamic permission management for serial ports to ensure smooth communication.
+- Integration of signal handling for graceful shutdown and process management.
+
+Workflow:
+1. Perform initial setup by cleaning up existing ROS nodes and setting permissions for serial ports.
+2. Establish serial communication with the Arduino, dedicated to motor control and encoder feedback.
+3. Initialize ROS node and subscribers to listen for cmd_vel_str messages containing velocity commands.
+4. In a separate process, continuously read encoder feedback from the Arduino and publish it to a ROS topic.
+5. Process and send received cmd_vel_str messages to the Arduino for motor control.
+6. Implement signal handling to ensure resources are properly released upon script termination.
+'''
+
+# Import necessary libraries and modules
+import rospy, signal, time, sys, serial
 from os import system
-import time
-import sys
-from multiprocessing import Process, Queue
-from std_msgs.msg import String
-from std_msgs.msg import Float32
-from std_msgs.msg import Int16MultiArray
+from multiprocessing import Process
+from std_msgs.msg import String, Float32
 import getEncoderData
 
+
+# Initialization of constants and variables.
+refresh_rate = 40
+vlotageRatio = 12.22/740
+voltageOn = True
+currentRatio = 3.323/1023#0.62/506
+currentVoltageRatio = .1
+currentOn = True
+
+
+# System setup for serial port permissions
 try:
 	system("echo y | rosnode cleanup\n")
 	time.sleep(.5)
 except:
 	
 	pass
-
 try:
 	system("echo $PASS_ | sudo -S chmod 777 /dev/arduinoMot\n")
 	time.sleep(.5)
@@ -50,7 +77,7 @@ except:
 			pass
 
 
-
+# Serial port initialization for Arduino communication
 try:
 	arduino_mot_port = serial.Serial(
 		port="/dev/arduinoMot",
@@ -63,6 +90,8 @@ try:
 except:
 	pass
 
+
+# Signal handler for graceful shutdown
 def signal_handler(sig, frame):
 	global arduino_mot_port
 	print('You pressed Ctrl+C!')
@@ -79,15 +108,14 @@ def signal_handler(sig, frame):
 	sys.exit(0)
 
 
-
-
-
+# Callback for processing and sending velocity commands to Arduino
 def motorFeedbackCB(wheelData, arduino_mot_port):
 	datas = wheelData.data
 	print("Sending Data to Arduino : ", datas)
 	arduino_mot_port.write(datas.encode('utf-8'))
 
 
+# Main function for motor control node
 def startMotorNode():
 	global arduino_mot_port
 
@@ -127,24 +155,16 @@ def startMotorNode():
 
 
 
-refresh_rate = 40
-vlotageRatio = 12.22/740
-voltageOn = True
-currentRatio = 3.323/1023#0.62/506
-currentVoltageRatio = .1
-currentOn = True
 
 
+
+# Function for handling encoder feedback and publishing it
 def startEncoderSerialNode():
 	try:
 		system("echo  ${PASS_} | sudo -S chmod 777 /dev/ttyTHS1")
-		# system("echo  ${PASS_} | sudo -S chmod 777 /dev/arduinoEnc")
-		# port_enc = rospy.get_param('~port','/dev/arduinoEnc')
 	except Exception as e:
 		print(e)
 
-
-	# arduino_enc_port = serial.Serial(port='/dev/arduinoEnc', baudrate=115200, timeout=.05)
 	arduino_enc_port = serial.Serial(
 	port="/dev/ttyTHS1",
 	baudrate=57600,
@@ -157,8 +177,6 @@ def startEncoderSerialNode():
 	def serial_read():
 		data = arduino_enc_port.read_until('\n')
 		return str(data).strip().strip().split(",")
-	
-	
 
 	rospy.init_node("arduino_serial", anonymous=False)
 	enc_publisher = rospy.Publisher('/encoder_feedback', String, queue_size=1)
@@ -171,16 +189,8 @@ def startEncoderSerialNode():
 	voltageData = Float32()
 	currentData = Float32()
 	print("Started Encoder Feedback Serial ttyTHS1.....")
-	samples = 4
-	sampleCnt = 0
-	totalVals = [0, 0, 0, 0, 0, 0]
-	prevVals = [0, 0, 0, 0, 0, 0]
-	testOn = False
 
 	enc_publisher.publish(strData)
-
-	# encoder_odom_process = Process(target=getEncoderData.startGetEncoderScript, name="encoder_odom_process")
-	# encoder_odom_process.start()
 
 	while not rospy.is_shutdown():
 		signal.signal(signal.SIGINT, signal_handler)
@@ -226,16 +236,11 @@ def startEncoderSerialNode():
 		except:
 			pass
 		
-		# print("Serial Node : ", rospy.Time().now().to_sec(), strData.data, voltageData.data, voltageData.data)#,  voltageData.data)
-		print("Serial Node : ", strData.data, voltageData.data, currentData.data)#,  voltageData.data)
+		print("Serial Node : ", strData.data, voltageData.data, currentData.data)
 		
-
-
-		
-		# signal.signal(signal.SIGINT, signal_handler)
 		rate.sleep()
-	# signal.signal(signal.SIGINT, signal_handler)
 
+# Main function for initialization and process management for encoder feedback and motor control
 def main():
 	process_mot = Process(target=startMotorNode, name="motor_process")
 	process_mot.start()
