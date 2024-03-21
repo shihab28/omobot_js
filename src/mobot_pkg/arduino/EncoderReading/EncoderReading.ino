@@ -11,8 +11,6 @@
     - Encoders connected to digital pins 4 through 11
     - ACS712 sensor for current measurement connected to A1
     - Battery voltage measurement connected to A0
-
-    Note: This code is specifically tailored for Arduino boards and requires the ACS712 Arduino library.
 */
 
 #include "ACS712.h"  // Include library for ACS712 current sensor

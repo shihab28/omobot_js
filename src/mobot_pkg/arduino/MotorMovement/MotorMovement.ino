@@ -9,24 +9,6 @@
 
     Hardware Connections:
     - Motor controller connected to digital pins 2 through analog pin A1
-
-    Note: This code is specifically tailored for Arduino boards and requires the ACS712 Arduino library.
-*/
-
-
-/*
-    Omobot's Motor's Pulse Width Modulation Controller
-    Author: Shihab Uddin Ahamad
-    Email: shihab.ahamad28@gmail.com
-    Date: 03/20/2024
-    Description: 
-    - This code is designed for controlling the motors of the Omobot using PWM control 
-    - It receives the speed of each wheel as string data over serial communication from Jetson Nano and sends the 8-bit PWM pulses to L298N Motor driver
-
-    Hardware Connections:
-    - Motor controller connected to digital pins 2 through analog pin A1
-
-    Note: This code is specifically tailored for Arduino boards and requires the ACS712 Arduino library.
 */
 
 #include "protothreads.h"  // Include the ProtoThreads library for lightweight threading
