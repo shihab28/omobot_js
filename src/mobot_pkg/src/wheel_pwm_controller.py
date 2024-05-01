@@ -41,7 +41,10 @@ max_wheel_speed_neg = [vals*2*3.1416/60 for vals in max_wheel_rpm_neg]
 min_wheel_speed_pos = [ 1.539184, 1.468279, 1.749920, 1.591320]
 min_wheel_speed_neg = [-1.517268,-1.475203,-1.787874,-1.698331]
 incrementStep_pos = [(max_wheel_speed_pos[ind] - min_wheel_speed_pos[ind]) / 205 for ind in range(4)]
-incrementStep_nef = [(min_wheel_speed_neg[ind] - max_wheel_speed_neg[ind]) / 205 for ind in range(4)]
+incrementStep_neg = [(max_wheel_speed_neg[ind] - min_wheel_speed_neg[ind]) / 205 for ind in range(4)]
+
+print("incrementStep_neg : ", incrementStep_neg)
+print("incrementStep_neg : ", incrementStep_neg)
 
 max_wheel_pulse_pos = [ 5045,  5023,  5193,  5055]
 max_wheel_pulse_neg = [-5037, -5197, -5099, -5211]
@@ -128,16 +131,25 @@ def noControllerPwmFromAngSpeed(W_):
     for ind in range(4):
         W__ = W_[ind]
         
-        if  W__ > 0 and W__ > min_wheel_speed_pos[ind]:
-            WSpeed.append(50 + int((W_[ind]-min_wheel_speed_pos[ind])/incrementStep_pos[ind]))
-        elif W__ < 0 and W__ < min_wheel_speed_neg[ind]:
-            WSpeed.append(-50 + int((min_wheel_speed_neg[ind]-W_[ind])/incrementStep_pos[ind]))
+        if  W__ > 0:
+            pwm_ = W_[ind] * 255 // max_wheel_speed_pos[ind] # 50 + int((W_[ind]-min_wheel_speed_pos[ind])/incrementStep_pos[ind])
+            if pwm_ > 50: 
+                WSpeed.append(pwm_)
+            else:
+                WSpeed.append(0)                
+            if pwm_ > 255:
+                pwm_ = 255
+               
+        elif W__ < 0:
+            pwm_ = W_[ind] * -255 // max_wheel_speed_neg[ind] # -50 + int((W_[ind]-max_wheel_speed_neg[ind])/incrementStep_neg[ind])
+            if pwm_ < -50: 
+                WSpeed.append(pwm_)
+            else:
+                WSpeed.append(0)                
+            if pwm_ > -255:
+                pwm_ = -255
         else:
             WSpeed.append(0)
-            
-                      
-    
-    # WSpeed = [50 + int((W_[ind]-min_wheel_speed_pos[ind])/incrementStep_pos[ind]) if W_[ind] > 0 else -50 + int((min_wheel_speed_neg[ind]-W_[ind])/incrementStep_pos[ind]) ]
     print("WCalculated:", WSpeed)
     return WSpeed
     # [255*W/max_wheel_speed_pos[ind] if W > 0 else 255*W/max_wheel_speed_neg[ind] for ind, W in enumerate(W_)]
@@ -166,6 +178,7 @@ def clearOffset(vx, vy, wo):
         wo = 0.0
     
     return [vx, vy, wo]
+
 
 
 # WheelController class defines a ROS node for controlling the robot's wheels.
