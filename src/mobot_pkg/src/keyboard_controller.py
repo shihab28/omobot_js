@@ -2,7 +2,7 @@
 
 
 import rospy, signal, sys, threading
-from __future__ import print_function
+# from __future__ import print_function
 import roslib; roslib.load_manifest('teleop_twist_keyboard')
 from os import system
 from geometry_msgs.msg import Twist

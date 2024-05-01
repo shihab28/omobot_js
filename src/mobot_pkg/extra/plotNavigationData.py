@@ -3,10 +3,8 @@ import numpy as np
 
 tfTestFile = "src/mobot_pkg/data/base_footprint_points.txt"
 
-
 with open(tfTestFile, 'r') as rf:
     fileLines = rf.readlines()
-
 
 firstIndex = -1
 Datas = {
@@ -55,8 +53,6 @@ for ind, pos in enumerate(positions):
         end_tem = positions[ind+1]
         end = (end_tem[1]+map_origin_pixel[1], map_origin_pixel[0] - end_tem[0])
         print(srt, end)
-        
-        # if np.linalg.norm(np.array(srt)-np.array(end)) < 50:
 
         image = cv2.arrowedLine(image, srt, end, color, 1, tipLength=1)  
     
@@ -65,11 +61,6 @@ print(map_origin_pixel)
 print((1707183149 - 1707181398)/60)
 print(image.shape)
 cv2.imwrite("src/mobot_pkg/data/Map_Annotated_path.png", image)
-
-
-        
-        
-
 
 with open("src/mobot_pkg/data/base_footprint_points.json", 'w', encoding="utf-8") as wf:
     json.dump(Datas, wf)

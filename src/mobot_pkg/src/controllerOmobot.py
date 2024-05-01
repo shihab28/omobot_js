@@ -173,7 +173,7 @@ def joystickPublisher():
 
 		if joystick_controller.updated:
 			joystick_controller.publishCmdVel()
-			print("joy_msg : ", joystick_controller.joy_msg.linear)
+			# print("joy_msg : ", joystick_controller.joy_msg.linear)
 
 		if joystick_controller.cmd_vel == [0.0, 0.0, 0.0]:
 			joystick_controller.updated = False

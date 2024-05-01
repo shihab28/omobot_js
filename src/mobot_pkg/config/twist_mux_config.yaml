@@ -10,8 +10,8 @@ twist_mux:
       keyboard:  # Second velocity command source
         topic   : cmd_vel_key  # Velocity command topic from keyboard
         timeout : 0.5  # Time in seconds before considering this source inactive
-        priority: 50  # Higher priority than navigation, lower than joystick
+        priority: 100  # Higher priority than navigation, lower than joystick
       joystick:  # Third velocity command source
         topic   : cmd_vel_joy  # Velocity command topic from joystick
         timeout : 0.5  # Time in seconds before considering this source inactive
-        priority: 100  # Highest priority, joystick commands take precedence over others
+        priority: 50  # Highest priority, joystick commands take precedence over others

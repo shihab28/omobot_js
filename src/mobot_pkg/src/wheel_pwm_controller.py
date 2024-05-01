@@ -27,12 +27,22 @@ max_speed_y = .14
 max_speed_w = .7
 minLinVel = .02
 minANgVel = .01
+
+pwm_min = 50
+
 max_wheel_rpm_pos = [ 35.2,  34.90,  36.1,  35.2]
 max_wheel_rpm_neg = [-34.9, -36.15, -35.5, -36.1]
 
 # Convert RPM to rad/s for positive and negative directions.
+
+
 max_wheel_speed_pos = [vals*2*3.1416/60 for vals in max_wheel_rpm_pos]
 max_wheel_speed_neg = [vals*2*3.1416/60 for vals in max_wheel_rpm_neg]
+min_wheel_speed_pos = [ 1.539184, 1.468279, 1.749920, 1.591320]
+min_wheel_speed_neg = [-1.517268,-1.475203,-1.787874,-1.698331]
+incrementStep_pos = [(max_wheel_speed_pos[ind] - min_wheel_speed_pos[ind]) / 205 for ind in range(4)]
+incrementStep_nef = [(min_wheel_speed_neg[ind] - max_wheel_speed_neg[ind]) / 205 for ind in range(4)]
+
 max_wheel_pulse_pos = [ 5045,  5023,  5193,  5055]
 max_wheel_pulse_neg = [-5037, -5197, -5099, -5211]
 
@@ -100,7 +110,7 @@ def getPwmFromAngSpeed(x, mode = 1):
 
     W = [yp[ind] if vals > 0 else yn[ind] for ind, vals in enumerate(x)]
 
-    W = [int(vals) if abs(vals) > 70 else 0 for vals in  W]
+    W = [int(vals) if abs(vals) > pwm_min else 0 for vals in  W]
     W_ = []
     
     # Restrict the speed between max and minimum allowable pwm value.
@@ -110,6 +120,28 @@ def getPwmFromAngSpeed(x, mode = 1):
         W_.append(vals)
     return W_
 
+def noControllerPwmFromAngSpeed(W_):
+    
+    
+    print("W_:", W_)
+    WSpeed = []
+    for ind in range(4):
+        W__ = W_[ind]
+        
+        if  W__ > 0 and W__ > min_wheel_speed_pos[ind]:
+            WSpeed.append(50 + int((W_[ind]-min_wheel_speed_pos[ind])/incrementStep_pos[ind]))
+        elif W__ < 0 and W__ < min_wheel_speed_neg[ind]:
+            WSpeed.append(-50 + int((min_wheel_speed_neg[ind]-W_[ind])/incrementStep_pos[ind]))
+        else:
+            WSpeed.append(0)
+            
+                      
+    
+    # WSpeed = [50 + int((W_[ind]-min_wheel_speed_pos[ind])/incrementStep_pos[ind]) if W_[ind] > 0 else -50 + int((min_wheel_speed_neg[ind]-W_[ind])/incrementStep_pos[ind]) ]
+    print("WCalculated:", WSpeed)
+    return WSpeed
+    # [255*W/max_wheel_speed_pos[ind] if W > 0 else 255*W/max_wheel_speed_neg[ind] for ind, W in enumerate(W_)]
+    
 
 # Converts the linear and angular velocity command velocity [Vx, Vy, W0] into wheel's anhular speeds W in rads^-1.
 def Vxy2Angular(Vx, Vy, W0):
@@ -147,6 +179,7 @@ class WheelController():
         self.wheel_msg_str = String()
         self.rate = rospy.Rate(publishing_frequency)
         self.vel_sub = rospy.Subscriber('/cmd_vel_out', Twist, self.pwmCB, queue_size=5)
+        self.controllerOn = True
     
     
     # Callback function for the cmd_vel subscriber. Calculates and publishes PWM values.
@@ -154,7 +187,11 @@ class WheelController():
         self.wheel_msg.data = [0, 0, 0, 0]
         Vx, Vy, W0 = cmdVelMsg.linear.x, cmdVelMsg.linear.y, cmdVelMsg.angular.z
         W_ = Vxy2Angular(Vx, Vy, W0)    # Calculates the wheel's rotational velocity
-        W_PWM = getPwmFromAngSpeed(W_)  # Calculates PWM values for corrosponding wheel's rotational velocity
+        if self.controllerOn:
+            W_PWM = getPwmFromAngSpeed(W_)  # Calculates PWM values for corrosponding wheel's rotational velocity
+        else:
+            W_PWM = noControllerPwmFromAngSpeed(W_)
+        
         self.wheel_msg.data = W_PWM
         if W_PWM != [0, 0, 0, 0]:
             print("Joystick Node : ", rospy.Time().now().to_sec(), W_PWM)

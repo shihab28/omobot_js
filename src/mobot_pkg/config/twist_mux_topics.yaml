@@ -15,10 +15,10 @@ topics:
   name    : keyboard
   topic   : cmd_vel_key
   timeout : 0.05
-  priority: 50
+  priority: 100
 -
   name    : joystick
   topic   : cmd_vel_joy
   timeout : 0.05
-  priority: 100
+  priority: 50
 

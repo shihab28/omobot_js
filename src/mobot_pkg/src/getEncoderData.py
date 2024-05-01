@@ -29,7 +29,7 @@ Workflow:
 # Import necessary Python and ROS libraries
 import rospy, os, sys, signal
 from tf import transformations, TransformBroadcaster
-from geometry_msgs.msg import Twist, Vector3
+from geometry_msgs.msg import Twist, Vector3, PoseStamped
 from nav_msgs.msg import Odometry
 from std_msgs.msg import String, Header
 from sensor_msgs.msg import JointState
@@ -93,10 +93,12 @@ class OdomentryPublisher():
         self.odom_pub		= rospy.Publisher('/odom', Odometry, queue_size=10)
         self.vel_feed_pub 	= rospy.Publisher('/velocity_feedback', String, queue_size=10)
         self.joint_pub 		= rospy.Publisher('/joint_states', JointState, queue_size=10)
+        self.robot_pose_pub = rospy.Publisher('/omobot_pose', PoseStamped, queue_size=10)
         self.enc_sub        =rospy.Subscriber("/encoder_feedback", String, self.encoderFeedbackCB, queue_size=10)
         self.rate = rospy.Rate(refresh_rate)
         self.prevTimeWhl = rospy.Time.now().to_sec()
         self.prevTimePos = rospy.Time.now().to_sec()
+        self.robot_pose = PoseStamped()
         self.rate.sleep()
     
     # Callback for processing encoder feedback and updating robot velocities and real-time position.
@@ -155,6 +157,8 @@ class OdomentryPublisher():
         odom.twist.twist = Twist(Vector3(Vx, Vy, 0), Vector3(0, 0, W0))
         self.odom_pub.publish(odom)
         self.vel_feed_pub.publish(str("{},{},{}".format(Vx, Vy, W0)))
+        
+        
     
     # Publish joint state data for visualization and further control
     def publishJointData(self):
@@ -166,6 +170,16 @@ class OdomentryPublisher():
         joint_msg.velocity = []
         joint_msg.effort = []
         self.joint_pub.publish(joint_msg)
+        
+        pose = PoseStamped()
+        pose.header.frame_id = "base_footprint"
+        pose.header.stamp = joint_msg.header.stamp
+        pose.pose.position.x = self.cur_robot_position[0]
+        pose.pose.position.y = self.cur_robot_position[1]
+        pose.pose.orientation.w = 1.0  # assuming no orientation change
+        self.robot_pose_pub.publish(pose)
+        
+        
 
 
 # Main function to start the odometry publisher node
