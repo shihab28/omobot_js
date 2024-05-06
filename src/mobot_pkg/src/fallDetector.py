@@ -206,6 +206,10 @@ def Yolo8FallDetection(frame=None, ImSubs=None):
     #    print(e)
     with lock:
         frame = cv2.imread(mempath + "testImage0.png")
+        with open (mempath + "testScans.npy", 'rb') as rf:
+            depthArray = np.load(rf)
+            minDepth = min(depthArray)
+            maxDepth = max(depthArray)
         # np.load(data_location,mempath + "data.txt")
         print('yoloFall: Image is read.')
         if frame is None:

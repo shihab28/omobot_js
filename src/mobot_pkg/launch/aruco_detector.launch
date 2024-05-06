@@ -28,5 +28,6 @@
   </node>
   
   <node pkg="mobot_pkg" type="imageParser.py" name="image_parser"/>
+  <node pkg="mobot_pkg" type="laserScanDepth.py" name="laser_fov_depth"/>
 
 </launch>
