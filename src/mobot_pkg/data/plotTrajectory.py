@@ -3,7 +3,7 @@
 import numpy as np
 import os, cv2
 from matplotlib import pyplot as plt
-
+import tf.transformations as tft
 
 
 plotTrajectoryS = False
@@ -60,10 +60,8 @@ def findDistance(array1, array2):
     diff = array1 - array2
     diff_sq = diff**2
     dist = np.sqrt(np.sum(diff_sq, axis=1))
-    for ind in range(3000, 3100):
-        print(ind, array1[ind], array2[ind], diff[ind], diff_sq[ind], dist[ind])
-
-    
+    # for ind in range(3000, 3100):
+    #     print(ind, array1[ind], array2[ind], diff[ind], diff_sq[ind], dist[ind])    
     return dist
 
 
@@ -89,9 +87,28 @@ def plotTrajectory() :
 
     # plt.close('all')
 
+
+def convertAngles(fileName, array):
+    tempArray = []
+    for vals in array:
+        rot0 = tft.euler_from_quaternion([0.0, 0.0, vals[3], vals[4]])[2]
+        rot1 = tft.euler_from_quaternion([0.0, 0.0, vals[7], vals[8]])[2]
+        rot2 = tft.euler_from_quaternion([0.0, 0.0, vals[11], vals[12]])[2]
+        tempArray.append( [vals[0], vals[1], vals[2],  rot0, vals[5], vals[6], rot1, vals[9], vals[10], rot2] )
+    np.save(fileName, np.array(tempArray))
+    return np.array(tempArray)
+    
+
+
 def plotTfMap():
-    with open ("src/mobot_pkg/data/tfData.npy", 'rb') as rf:
+    
+    convertedFIle = "src/mobot_pkg/data/tfDataConv.npy"
+    # with open ("src/mobot_pkg/data/tfData.npy", 'rb') as rf:
+    #     tfMap = np.load(rf)
+    # convertAngles(convertedFIle, tfMap)
+    with open (convertedFIle, 'rb') as rf:
         tfMap = np.load(rf)
+          
     tfData = tfMap[1324:-500, :]
     
     
@@ -109,23 +126,43 @@ def plotTfMap():
     
     y = findDistance(tfData[:, 1:3], tfData[:, 1:3])
     
-    print(y.shape)
-    ax.plot(x, y, 'g', label='x,y cordinate of map')
+    
 
 
-    y = findDistance(tfData[:, 1:3], tfData[:, 5:7])
-    ax.plot(x, y, 'b--', label='x,y cordinate of odom' )
+    y = findDistance(tfData[:, 1:3], tfData[:, 4:6])
+    print("findDistance odom")
+    
+    arrow_length = .2
+    ax.plot(  x, y, 'b', label="Odometry's (/odom) origin" )
+    # for ind, vals in enumerate(y):
+    #     theta = tfData[ind, 6] 
+    #     dx = arrow_length * np.cos(theta)
+    #     dy = arrow_length * np.sin(theta)
+        
+        
+    #     if ind % 10 == 0:
+    #         plt.arrow(x[ind], vals, dx, dy, head_width=1, head_length=.1, fc='blue', ec='blue')
+    #         print(ind, x[ind], vals, dx, dy)
 
-    y = findDistance(tfData[:, 1:3], tfData[:, 9:11])
-    ax.plot(x, y, 'r.', label='x,y cordinate of base_footprint')
+    y = findDistance(tfData[:, 1:3], tfData[:, 7:9])
+    print("findDistance base")
+    ax.plot(  x, y, 'r', label="Robot's (/base_footprint) origin" )
+    # for ind, vals in enumerate(y):
+    #     theta = tfData[ind, 9] 
+    #     dx = arrow_length * np.cos(theta)
+    #     dy = arrow_length * np.sin(theta)
+        
+    #     if ind % 10 == 0:
+    #         plt.arrow(x[ind], vals, dx, dy, head_width=1, head_length=0.1, fc='red', ec='red')
+    #         print(ind, x[ind], vals, dx, dy)
     
     # ax.set_title('Robot Trajectory ')
-    ax.set_xlabel("Distance from Map's origin (meter)", fontsize=20)
-    ax.set_ylabel('', fontsize=20)
+    ax.set_ylabel("Distance from Map's origin in XY plane (meter)", fontsize=20)
+    ax.set_xlabel('Time Pass (seconds)', fontsize=20)
     ax.legend(loc='upper right', fontsize=20)
     ax.grid(True, color=(0.75, 0.75, 0.75), linestyle='--', linewidth=0.5)
             
-        
+
     plt.show()
 
 plotTfMap()
