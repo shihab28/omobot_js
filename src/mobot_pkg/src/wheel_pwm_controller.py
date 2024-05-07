@@ -126,7 +126,7 @@ def getPwmFromAngSpeed(x, mode = 1):
 def noControllerPwmFromAngSpeed(W_):
     
     
-    print("W_:", W_)
+    # print("W_:", W_)
     WSpeed = []
     for ind in range(4):
         W__ = W_[ind]
@@ -150,7 +150,7 @@ def noControllerPwmFromAngSpeed(W_):
                 pwm_ = -255
         else:
             WSpeed.append(0)
-    print("WCalculated:", WSpeed)
+    # print("WCalculated:", WSpeed)
     return WSpeed
     # [255*W/max_wheel_speed_pos[ind] if W > 0 else 255*W/max_wheel_speed_neg[ind] for ind, W in enumerate(W_)]
     
