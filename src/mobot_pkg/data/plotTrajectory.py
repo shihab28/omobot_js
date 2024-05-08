@@ -134,27 +134,16 @@ def plotTfMap():
     
     arrow_length = .2
     ax.plot(  x, y, 'b', label="Odometry's (/odom) origin" )
-    # for ind, vals in enumerate(y):
-    #     theta = tfData[ind, 6] 
-    #     dx = arrow_length * np.cos(theta)
-    #     dy = arrow_length * np.sin(theta)
-        
-        
-    #     if ind % 10 == 0:
-    #         plt.arrow(x[ind], vals, dx, dy, head_width=1, head_length=.1, fc='blue', ec='blue')
-    #         print(ind, x[ind], vals, dx, dy)
+    
+    
 
     y = findDistance(tfData[:, 1:3], tfData[:, 7:9])
     print("findDistance base")
     ax.plot(  x, y, 'r', label="Robot's (/base_footprint) origin" )
-    # for ind, vals in enumerate(y):
-    #     theta = tfData[ind, 9] 
-    #     dx = arrow_length * np.cos(theta)
-    #     dy = arrow_length * np.sin(theta)
-        
-    #     if ind % 10 == 0:
-    #         plt.arrow(x[ind], vals, dx, dy, head_width=1, head_length=0.1, fc='red', ec='red')
-    #         print(ind, x[ind], vals, dx, dy)
+    
+    y_cum = np.cumsum(y)/50
+    x_cum = x[:len(y_cum)]
+    ax.plot(  x_cum, y_cum, 'g', label="Total Distance Covered by the Robot" )
     
     # ax.set_title('Robot Trajectory ')
     ax.set_ylabel("Distance from Map's origin in XY plane (meter)", fontsize=20)
