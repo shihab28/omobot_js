@@ -226,7 +226,7 @@ omobot_js/
 
 ## Hardware Setup
 
-Check <a href="OmobotHardwareSetup.pdf"><strong>OmobotHardwareSetup.pdf</strong></a> for detailed hardware setup.
+Check <a href="https://drive.google.com/file/d/1JtBMt9NgnzWYW9pvx_Gdqft9YuziTzep/view?usp=sharing"><strong>OmobotHardwareSetup.pdf</strong></a> for detailed hardware setup.
 
 ### Jetson Nano Setup
 -- Install jetpack 4.6.4 following the instruction at https://developer.nvidia.com/jetpack-sdk-464 on the Jetson Nano.
