@@ -42,7 +42,9 @@
       <ul>
         <li><a href="#system-dependencies">System Dependencies</a></li>
         <li><a href="#arduino-setup">Arduino Setup</a></li>
-        <li><a href="#hardware-connections">Hardware Connections</a></li>
+        <li><a href="#hardware-setup">Hardware Setup</a></li>
+        <li><a href="#fall-detection">Fall Detection</a></li>
+        
       </ul>
     </li>
   </ol>
@@ -227,6 +229,9 @@ omobot_js/
 ## Hardware Setup
 
 Check <a href="https://drive.google.com/file/d/1JtBMt9NgnzWYW9pvx_Gdqft9YuziTzep/view?usp=sharing"><strong>OmobotHardwareSetup.pdf</strong></a> for detailed hardware setup.
+
+## Fall Detection
+Check <a href="https://github.com/Ataei67/HumanFallDetection"><strong>HumanFallDetection</strong></a> for detailed Fall Detection Resources.
 
 ### Jetson Nano Setup
 -- Install jetpack 4.6.4 following the instruction at https://developer.nvidia.com/jetpack-sdk-464 on the Jetson Nano.
